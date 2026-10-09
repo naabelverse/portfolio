@@ -71,7 +71,7 @@ export default function OpenGraphImage() {
               color: "#d0d6e0",
             }}
           >
-            {profile.role} · Flutter, Node.js, MongoDB
+            {profile.role} · Flutter, Next.js, TypeScript
           </div>
         </div>
 
@@ -86,7 +86,9 @@ export default function OpenGraphImage() {
             color: "#8a8f98",
           }}
         >
-          <div style={{ display: "flex" }}>ForgeRoom — final-year project</div>
+          <div style={{ display: "flex" }}>
+            ForgeRoom · AI Resume Analyzer
+          </div>
           <div style={{ display: "flex", color: "#2dd4bf" }}>
             github.com/naabelverse
           </div>

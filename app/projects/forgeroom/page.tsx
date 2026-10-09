@@ -29,6 +29,11 @@ export const metadata: Metadata = {
     description: forgeroom.tagline,
     url: "/projects/forgeroom",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: `${forgeroom.name} — case study`,
+    description: forgeroom.tagline,
+  },
 };
 
 /** The mockup that sits beside each module, where one applies. */

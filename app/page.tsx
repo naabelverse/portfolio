@@ -1,7 +1,7 @@
 import {
   Background,
   ContactSection,
-  FeaturedProject,
+  FeaturedProjects,
   Hero,
   OtherWork,
   ProofStrip,
@@ -13,7 +13,7 @@ export default function HomePage() {
     <>
       <Hero />
       <ProofStrip />
-      <FeaturedProject />
+      <FeaturedProjects />
       <OtherWork />
       <Skills />
       <Background />

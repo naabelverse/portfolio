@@ -3,7 +3,7 @@ import type { MetadataRoute } from "next";
 import { siteUrl } from "@/content/site";
 
 /**
- * Three public routes. /styleguide is deliberately absent — it is a build
+ * Four public routes. /styleguide is deliberately absent — it is a build
  * artefact for checking the design system, not a page anyone should land on.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -19,6 +19,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${siteUrl}/projects/forgeroom`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
+      url: `${siteUrl}/projects/ai-resume-analyzer`,
       lastModified,
       changeFrequency: "monthly",
       priority: 0.9,

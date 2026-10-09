@@ -18,7 +18,7 @@ export const profile = {
   tagline:
     "Final-year software engineering student building full-stack, AI-assisted products.",
   metaDescription:
-    "Muhammad Nabil — final-year Software Engineering student at UTHM. Flutter, Node.js and MongoDB, with AI-assisted product work. Seeking a software engineering internship.",
+    "Muhammad Nabil — final-year Software Engineering student at UTHM. Flutter, Next.js and TypeScript, Node.js and MongoDB, with AI-assisted product work. Seeking a software engineering internship.",
 } as const;
 
 export const links = {
@@ -31,6 +31,10 @@ export const links = {
   emailUser: "naabel.workspace",
   emailDomain: "gmail.com",
   forgeroomRepo: "https://github.com/naabelverse/ForgeRoom",
+  resumeAnalyzerRepo: "https://github.com/naabelverse/ai-resume-analyzer",
+  resumeAnalyzerLive: "https://ai-resume-analyzer-by-naabel.up.railway.app",
+  resumeAnalyzerDemo:
+    "https://ai-resume-analyzer-by-naabel.up.railway.app/analyze/demo",
   /**
    * TODO(nabil): drop your CV at public/resume.pdf, then change this to
    * "/resume.pdf". While it stays null, every "Download CV" button is replaced
@@ -41,8 +45,11 @@ export const links = {
 
 export const emailAddress = `${links.emailUser}@${links.emailDomain}`;
 
-/** Canonical origin. Update once the Vercel or custom domain is assigned. */
-export const siteUrl = "https://muhammad-nabil.vercel.app";
+/**
+ * Canonical origin — the single source for metadataBase, the sitemap, robots
+ * and every OG URL. Change it here if a custom domain is assigned.
+ */
+export const siteUrl = "https://portfolio-naabel.up.railway.app";
 
 export const nav = [
   { label: "Work", href: "/#work" },
@@ -58,7 +65,7 @@ export const nav = [
 export const hero = {
   // TODO(nabil): confirm the intake, or delete this badge entirely.
   availability: "Available for internship — TODO(nabil): intake",
-  headline: "I build mobile apps and the services behind them.",
+  headline: "I build mobile and web apps, and the services and AI behind them.",
   intro:
     "I'm Nabil, a final-year Software Engineering student at UTHM. My final-year project turns a photo of a room into a complete interior design plan — a Flutter app on the front, a Node.js and MongoDB API behind it, and a vision model plus an LLM doing the reasoning in between.",
   secondary:
@@ -78,7 +85,7 @@ export const hero = {
 export const proofStrip = [
   { label: "Primary stack", value: "Flutter · Node.js · MongoDB" },
   { label: "Final-year project", value: "~18K lines of Dart, 50 commits" },
-  { label: "Also builds in", value: "Java · C# · SQL" },
+  { label: "Also builds in", value: "TypeScript · Java · C# · SQL" },
   { label: "Based in", value: "Malaysia · UTHM" },
 ] as const;
 
@@ -110,6 +117,35 @@ export const featuredProject = {
   ],
   href: "/projects/forgeroom",
   repo: links.forgeroomRepo,
+} as const;
+
+export const resumeAnalyzerProject = {
+  slug: "ai-resume-analyzer",
+  name: "AI Resume Analyzer",
+  eyebrow: "Personal project · Live",
+  tagline: "Upload a resume, get a scored review with concrete rewrites.",
+  problem:
+    "Useful resume feedback is hard to get: articles are generic, advisers are slow or cost money, and AI chat tools give a different score each time and an error when they fail.",
+  approach:
+    "A Next.js app that extracts the resume in memory and has NVIDIA's Nemotron rate six weighted dimensions inside a strict JSON schema. Code then computes the score, validates the answer with Zod and retries once if it has to.",
+  outcome:
+    "Live on Railway with 538 passing tests. Every failure I could provoke — wrong file type, scanned PDF, missing key, timeout, malformed output — ends in a rule-based report, not an error page.",
+  stack: [
+    "Next.js",
+    "React",
+    "TypeScript",
+    "Tailwind CSS",
+    "shadcn/ui",
+    "NVIDIA Nemotron",
+    "Zod",
+    "unpdf",
+    "mammoth",
+    "Vitest",
+    "Railway",
+  ],
+  href: "/projects/ai-resume-analyzer",
+  repo: links.resumeAnalyzerRepo,
+  live: links.resumeAnalyzerLive,
 } as const;
 
 export const otherWork = [
@@ -149,7 +185,15 @@ export const skillGroups = [
   {
     title: "Languages",
     description: "What I write day to day, strongest first.",
-    items: ["Dart", "JavaScript", "Java", "C#", "SQL", "HTML & CSS"],
+    items: [
+      "Dart",
+      "JavaScript",
+      "TypeScript",
+      "Java",
+      "C#",
+      "SQL",
+      "HTML & CSS",
+    ],
   },
   {
     title: "Mobile",
@@ -160,6 +204,11 @@ export const skillGroups = [
       "Material Design",
       "Android SDK (API 29+)",
     ],
+  },
+  {
+    title: "Web",
+    description: "Full-stack TypeScript, from the page to the API route.",
+    items: ["Next.js (App Router)", "React", "Tailwind CSS"],
   },
   {
     title: "Backend & data",
@@ -179,6 +228,9 @@ export const skillGroups = [
     items: [
       "OpenAI GPT-4o (vision)",
       "Anthropic Claude",
+      "NVIDIA NIM (Nemotron)",
+      "Structured LLM output",
+      "Zod schema validation",
       "Prompt construction",
       "Fallback & degradation strategy",
     ],
@@ -186,7 +238,15 @@ export const skillGroups = [
   {
     title: "Tooling",
     description: "The everyday kit.",
-    items: ["Git & GitHub", "VS Code", "Android Studio", "npm", "Postman"],
+    items: [
+      "Git & GitHub",
+      "VS Code",
+      "Android Studio",
+      "npm",
+      "Postman",
+      "Vitest",
+      "Railway",
+    ],
   },
 ] as const;
 
@@ -201,6 +261,13 @@ export const timeline = [
     org: profile.university,
     description:
       "TODO(nabil): add your CGPA if you're happy to publish it, plus any notable results, awards, or leadership roles.",
+  },
+  {
+    period: "Aug 2026",
+    title: "AI Resume Analyzer",
+    org: "Personal project",
+    description:
+      "Designed, built, tested and deployed a full-stack resume reviewer on my own: a Next.js app with an NVIDIA Nemotron pipeline, scores computed in code, Zod-validated output and a rule-based fallback.",
   },
   {
     period: "TODO(nabil): year",

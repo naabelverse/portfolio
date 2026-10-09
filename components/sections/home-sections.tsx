@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import { ContactForm } from "@/components/contact-form";
 import { PhoneShowcase } from "@/components/mockups/forgeroom";
 import { Reveal } from "@/components/reveal";
@@ -13,6 +15,7 @@ import {
   StatusBadge,
   Tag,
 } from "@/components/ui/primitives";
+import { resumeAnalyzer } from "@/content/ai-resume-analyzer";
 import {
   contact,
   featuredProject,
@@ -20,6 +23,7 @@ import {
   links,
   otherWork,
   proofStrip,
+  resumeAnalyzerProject,
   skillGroups,
   timeline,
 } from "@/content/site";
@@ -93,35 +97,59 @@ export function ProofStrip() {
    Featured project
    ------------------------------------------------------------------------- */
 
-const FEATURE_BLOCKS = [
-  { label: "The problem", body: featuredProject.problem },
-  { label: "The approach", body: featuredProject.approach },
-  { label: "Where it stands", body: featuredProject.outcome },
-];
+type Feature = {
+  name: string;
+  eyebrow: string;
+  tagline: string;
+  problem: string;
+  approach: string;
+  outcome: string;
+  stack: readonly string[];
+  href: string;
+  repo: string;
+  live?: string;
+};
 
-export function FeaturedProject() {
+function FeaturedProject({
+  project,
+  visual,
+  id,
+  headingId,
+  className,
+}: {
+  project: Feature;
+  visual: React.ReactNode;
+  id?: string;
+  headingId: string;
+  className?: string;
+}) {
+  const blocks = [
+    { label: "The problem", body: project.problem },
+    { label: "The approach", body: project.approach },
+    { label: "Where it stands", body: project.outcome },
+  ];
+
   return (
-    <Section id="work" labelledBy="work-title">
+    <Section id={id} labelledBy={headingId} className={className}>
       <Reveal>
-        <Eyebrow>{featuredProject.eyebrow}</Eyebrow>
+        <Eyebrow>{project.eyebrow}</Eyebrow>
         <div className="mt-3 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">
-            <h2 id="work-title" className="text-display-md text-ink">
-              {featuredProject.name}
+            <h2 id={headingId} className="text-display-md text-ink">
+              {project.name}
             </h2>
             <p className="mt-4 text-body-lg text-ink-subtle">
-              {featuredProject.tagline}
+              {project.tagline}
             </p>
           </div>
           <div className="flex shrink-0 flex-wrap gap-3">
-            <ButtonLink href={featuredProject.href}>
-              Read the case study
-            </ButtonLink>
-            <ButtonLink
-              href={featuredProject.repo}
-              external
-              variant="secondary"
-            >
+            <ButtonLink href={project.href}>Read the case study</ButtonLink>
+            {project.live && (
+              <ButtonLink href={project.live} external variant="secondary">
+                Try it live
+              </ButtonLink>
+            )}
+            <ButtonLink href={project.repo} external variant="secondary">
               View source
             </ButtonLink>
           </div>
@@ -129,14 +157,12 @@ export function FeaturedProject() {
       </Reveal>
 
       <Reveal delay={80}>
-        <ScreenshotPanel className="mt-12">
-          <PhoneShowcase />
-        </ScreenshotPanel>
+        <ScreenshotPanel className="mt-12">{visual}</ScreenshotPanel>
       </Reveal>
 
       <Reveal delay={120}>
         <div className="mt-12 grid gap-8 md:grid-cols-3">
-          {FEATURE_BLOCKS.map((block) => (
+          {blocks.map((block) => (
             <div key={block.label}>
               <h3 className="text-caption text-ink-subtle">{block.label}</h3>
               <p className="mt-3 text-body text-ink-muted">{block.body}</p>
@@ -145,12 +171,43 @@ export function FeaturedProject() {
         </div>
 
         <div className="mt-10 flex flex-wrap gap-2">
-          {featuredProject.stack.map((item) => (
+          {project.stack.map((item) => (
             <Tag key={item}>{item}</Tag>
           ))}
         </div>
       </Reveal>
     </Section>
+  );
+}
+
+/** The two featured builds, ForgeRoom first, inside the #work anchor. */
+export function FeaturedProjects() {
+  const { cover } = resumeAnalyzer;
+
+  return (
+    <>
+      <FeaturedProject
+        id="work"
+        headingId="work-title"
+        project={featuredProject}
+        visual={<PhoneShowcase />}
+      />
+      <FeaturedProject
+        headingId="resume-analyzer-title"
+        project={resumeAnalyzerProject}
+        className="pt-0 md:pt-0"
+        visual={
+          <Image
+            src={cover.src}
+            width={cover.width}
+            height={cover.height}
+            alt={cover.alt}
+            sizes="(min-width: 1280px) 1184px, 100vw"
+            className="block h-auto w-full rounded-lg"
+          />
+        }
+      />
+    </>
   );
 }
 
@@ -166,7 +223,7 @@ export function OtherWork() {
           id="other-work-title"
           eyebrow="Also built"
           title="Other work"
-          description="Coursework and smaller builds. Less polished than ForgeRoom, but this is where the fundamentals came from."
+          description="Coursework and smaller builds. Less polished than the projects above, but this is where the fundamentals came from."
         />
       </Reveal>
 
