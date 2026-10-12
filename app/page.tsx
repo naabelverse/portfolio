@@ -1,6 +1,6 @@
 import {
-  Background,
   ContactSection,
+  Experience,
   FeaturedProjects,
   Hero,
   OtherWork,
@@ -14,7 +14,7 @@ export default function HomePage() {
       <FeaturedProjects />
       <OtherWork />
       <Skills />
-      <Background />
+      <Experience />
       <ContactSection />
     </>
   );

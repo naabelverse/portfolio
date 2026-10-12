@@ -53,18 +53,14 @@ export const emailAddress = `${links.emailUser}@${links.emailDomain}`;
  */
 export const siteUrl = "https://portfolio-naabel.up.railway.app";
 
-/**
- * Header nav. About lives in the footer only: with five links plus the CTA,
- * "What I use" wrapped and the row overflowed between 721 and 800px.
- */
+/** Header and footer nav. */
 export const nav = [
   { label: "Work", href: "/#work" },
-  { label: "What I use", href: "/#skills" },
-  { label: "Background", href: "/#background" },
+  { label: "Skills", href: "/#skills" },
+  { label: "Experience", href: "/#experience" },
+  { label: "About", href: "/about" },
   { label: "Contact", href: "/#contact" },
 ] as const;
-
-export const footerNav = [...nav, { label: "About", href: "/about" }] as const;
 
 export const navCta = { label: "Hire me for an internship", href: "/#contact" };
 
@@ -277,7 +273,7 @@ export const skillGroups = [
 ] as const;
 
 /* -------------------------------------------------------------------------
-   Background — an empty `period` or `description` renders as nothing.
+   Experience — an empty `period` or `description` renders as nothing.
    ------------------------------------------------------------------------- */
 
 type TimelineEntry = {

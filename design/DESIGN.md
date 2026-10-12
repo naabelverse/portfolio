@@ -298,6 +298,10 @@ production again.
   composition in its final state.
 - Breakpoints: 980px collapses two-column splits and the hero; 720px switches
   the nav to a menu button and makes list rows single-column.
+- The header nav is at capacity. With Work, Skills, Experience, About, Contact
+  and the "Hire me for an internship" button, the row at 721px has 15px spare
+  and every gap already at its 20px minimum. A sixth link, or a longer label,
+  overflows between 721 and 800px. Re-measure at 721px after any nav change.
 
 ---
 

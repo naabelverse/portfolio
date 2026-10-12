@@ -1,21 +1,21 @@
 import Link from "next/link";
 
 import { Container } from "@/components/ui/primitives";
-import { footerNav, links, profile } from "@/content/site";
+import { links, nav, profile } from "@/content/site";
 
 const elsewhere = [
   { label: "GitHub", href: links.github },
   { label: "LinkedIn", href: links.linkedin },
 ];
 
-/** Prototype footer, plus the site links: About is only reachable from here. */
+/** Prototype footer, plus the site links. */
 export function Footer() {
   return (
     <footer className="mt-auto border-t border-line py-9 text-[15px] text-ink-3">
       <Container className="flex flex-col gap-5">
         <nav aria-label="Footer">
           <ul className="flex flex-wrap gap-x-6 gap-y-2">
-            {footerNav.map((item) => (
+            {nav.map((item) => (
               <li key={item.href}>
                 <Link href={item.href} className="text-ink-2 hover:text-cobalt">
                   {item.label}

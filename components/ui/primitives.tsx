@@ -221,7 +221,7 @@ export function StatStrip({
    ------------------------------------------------------------------------- */
 
 /**
- * "Smaller and earlier" and "Background". `narrow` is the 150px date
+ * "Smaller and earlier" and "Experience". `narrow` is the 150px date
  * column; the default 210px fits a project title.
  */
 export function RowList({

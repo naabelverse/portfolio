@@ -60,8 +60,8 @@ export default function AboutPage() {
         </div>
       </Container>
 
-      <Section labelledBy="about-background-title" className="pt-0">
-        <SectionIntro id="about-background-title" title="Background" />
+      <Section labelledBy="about-experience-title" className="pt-0">
+        <SectionIntro id="about-experience-title" title="Experience" />
         <Timeline className="mt-11" />
       </Section>
 

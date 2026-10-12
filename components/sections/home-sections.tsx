@@ -231,7 +231,7 @@ export function OtherWork() {
 }
 
 /* -------------------------------------------------------------------------
-   What I use
+   Skills
    ------------------------------------------------------------------------- */
 
 const SKILL_TONES = ["blue", "sun", "rose"] as const;
@@ -241,7 +241,7 @@ export function Skills() {
     <Section id="skills" labelledBy="skills-title">
       <SectionIntro
         id="skills-title"
-        title="What I use"
+        title="Skills"
         lede="Everything here backs something on this page. No bars, no percentages, nothing I have only read about."
       />
       <div className="mt-11 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
@@ -268,7 +268,7 @@ export function Skills() {
 }
 
 /* -------------------------------------------------------------------------
-   Background
+   Experience
    ------------------------------------------------------------------------- */
 
 /** Shared with /about. Empty dates and descriptions render as nothing. */
@@ -306,12 +306,16 @@ export function Timeline({ className }: { className?: string }) {
   );
 }
 
-export function Background() {
+export function Experience() {
   return (
-    <Section id="background" labelledBy="background-title">
-      <SectionIntro id="background-title" title="Background" />
-      <Timeline className="mt-11" />
-    </Section>
+    <>
+      {/* The section's old id, so links already shared to #background still land here. */}
+      <div id="background" />
+      <Section id="experience" labelledBy="experience-title">
+        <SectionIntro id="experience-title" title="Experience" />
+        <Timeline className="mt-11" />
+      </Section>
+    </>
   );
 }
 
