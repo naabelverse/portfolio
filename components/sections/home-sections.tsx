@@ -77,7 +77,7 @@ function HeroComposition() {
           alt={`Portrait of ${profile.fullName}`}
           sizes="260px"
           preload
-          className="absolute top-1/2 left-1/2 box-content h-auto w-[66.25%] -translate-1/2 rounded-full border-4 border-cobalt"
+          className="absolute top-1/2 left-1/2 box-content h-auto w-[66.25%] -translate-1/2 rounded-full border-4 border-ink"
         />
       )}
     </div>
