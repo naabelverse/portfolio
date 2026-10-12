@@ -11,7 +11,7 @@ import type { Diagram } from "@/components/diagram";
 export const profile = {
   fullName: "Muhammad Nabil Bin Mohd Nizam",
   displayName: "Muhammad Nabil",
-  shortName: "Nabil",
+  shortName: "Naabel",
   role: "Software Engineering student",
   university: "Universiti Tun Hussein Onn Malaysia (UTHM)",
   universityShort: "UTHM",

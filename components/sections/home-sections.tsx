@@ -45,8 +45,8 @@ const PORTRAIT = "/portrait.webp";
 const hasPortrait = existsSync(join(process.cwd(), "public", PORTRAIT));
 
 /**
- * Ring, two arcs and the rose dot draw and pop in; the portrait sits in the
- * middle and is present from first paint (a face that pops in reads as a
+ * Ring and two arcs draw in; the portrait sits in the middle and is present
+ * from first paint (a face that pops in reads as a
  * gimmick). The motion lives in globals.css under `.hero-draw` / `.hero-pop`.
  */
 function HeroComposition() {
@@ -62,9 +62,9 @@ function HeroComposition() {
           <>
             <rect className="hero-pop [animation-delay:0.45s]" x="108" y="108" width="104" height="104" rx="16" fill="#1F43E6" />
             <circle className="hero-pop [animation-delay:0.6s]" cx="160" cy="160" r="30" fill="#FFC93D" />
+            <circle className="hero-pop [animation-delay:0.75s]" cx="265" cy="68" r="15" fill="#FF4F6E" />
           </>
         )}
-        <circle className="hero-pop [animation-delay:0.75s]" cx="265" cy="68" r="15" fill="#FF4F6E" />
       </svg>
       {hasPortrait && (
         // r=106 of the 320 viewBox (66.25% wide), centred, so the arcs (inner
