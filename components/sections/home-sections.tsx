@@ -1,3 +1,8 @@
+import { existsSync } from "node:fs";
+import { join } from "node:path";
+
+import Image from "next/image";
+
 import { ContactForm } from "@/components/contact-form";
 import { DiagramFigure } from "@/components/diagram";
 import { Button } from "@/components/ui/button";
@@ -34,22 +39,47 @@ import {
 const RING = 2 * Math.PI * 128;
 const ARC = RING / 4;
 
+// Checked at build (the page is static). Without the file the composition
+// falls back to the original block and sun dot instead of showing a hole.
+const PORTRAIT = "/portrait.webp";
+const hasPortrait = existsSync(join(process.cwd(), "public", PORTRAIT));
+
 /**
- * Ring, two arcs, a block and two dots. Strokes draw, then shapes pop in;
- * the motion itself lives in globals.css under `.hero-draw` / `.hero-pop`.
+ * Ring, two arcs and the rose dot draw and pop in; the portrait sits in the
+ * middle and is present from first paint (a face that pops in reads as a
+ * gimmick). The motion lives in globals.css under `.hero-draw` / `.hero-pop`.
  */
 function HeroComposition() {
   const len = (value: number) => ({ "--len": `${value}px` }) as React.CSSProperties;
 
   return (
-    <svg viewBox="0 0 320 320" aria-hidden="true" className="h-auto w-full">
-      <circle className="hero-draw" style={len(RING)} cx="160" cy="160" r="128" fill="none" stroke="#111318" strokeWidth="3" />
-      <path className="hero-draw" style={len(ARC)} d="M160 32 A128 128 0 0 1 288 160" fill="none" stroke="#1F43E6" strokeWidth="16" strokeLinecap="round" />
-      <path className="hero-draw" style={len(ARC)} d="M32 160 A128 128 0 0 0 160 288" fill="none" stroke="#FFC93D" strokeWidth="16" strokeLinecap="round" />
-      <rect className="hero-pop [animation-delay:0.45s]" x="108" y="108" width="104" height="104" rx="16" fill="#1F43E6" />
-      <circle className="hero-pop [animation-delay:0.6s]" cx="160" cy="160" r="30" fill="#FFC93D" />
-      <circle className="hero-pop [animation-delay:0.75s]" cx="265" cy="68" r="15" fill="#FF4F6E" />
-    </svg>
+    <div className="relative">
+      <svg viewBox="0 0 320 320" aria-hidden="true" className="h-auto w-full">
+        <circle className="hero-draw" style={len(RING)} cx="160" cy="160" r="128" fill="none" stroke="#111318" strokeWidth="3" />
+        <path className="hero-draw" style={len(ARC)} d="M160 32 A128 128 0 0 1 288 160" fill="none" stroke="#1F43E6" strokeWidth="16" strokeLinecap="round" />
+        <path className="hero-draw" style={len(ARC)} d="M32 160 A128 128 0 0 0 160 288" fill="none" stroke="#FFC93D" strokeWidth="16" strokeLinecap="round" />
+        {!hasPortrait && (
+          <>
+            <rect className="hero-pop [animation-delay:0.45s]" x="108" y="108" width="104" height="104" rx="16" fill="#1F43E6" />
+            <circle className="hero-pop [animation-delay:0.6s]" cx="160" cy="160" r="30" fill="#FFC93D" />
+          </>
+        )}
+        <circle className="hero-pop [animation-delay:0.75s]" cx="265" cy="68" r="15" fill="#FF4F6E" />
+      </svg>
+      {hasPortrait && (
+        // r=76 of the 320 viewBox (47.5% wide), centred; the 4px cobalt ring
+        // sits outside it (box-content) so the photo keeps that radius.
+        <Image
+          src={PORTRAIT}
+          width={360}
+          height={360}
+          alt={`Portrait of ${profile.fullName}`}
+          sizes="180px"
+          preload
+          className="absolute top-1/2 left-1/2 box-content h-auto w-[47.5%] -translate-1/2 rounded-full border-4 border-cobalt"
+        />
+      )}
+    </div>
   );
 }
 
