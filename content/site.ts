@@ -38,9 +38,9 @@ export const links = {
   resumeAnalyzerDemo:
     "https://ai-resume-analyzer-by-naabel.up.railway.app/analyze/demo",
   /**
-   * TODO(nabil): drop your CV at public/resume.pdf, then change this to
-   * "/resume.pdf". While it stays null, every "Download CV" button is replaced
-   * with a working alternative rather than shipping a link that 404s.
+   * The CV. Put the file at public/resume.pdf, then set this to "/resume.pdf".
+   * While it is null, the Download CV button on /about and the CV row in the
+   * contact block do not render, rather than shipping a link that 404s.
    */
   resume: null as string | null,
 } as const;
@@ -269,13 +269,32 @@ export const skillGroups = [
     note: "Nothing exotic.",
     items: ["Git", "VS Code", "Android Studio", "Postman", "Vitest", "Railway"],
   },
+  {
+    title: "Languages I speak",
+    note: "",
+    items: ["Malay (native)", "English (professional)"],
+  },
 ] as const;
 
 /* -------------------------------------------------------------------------
    Background — an empty `period` or `description` renders as nothing.
    ------------------------------------------------------------------------- */
 
-export const timeline = [
+type TimelineEntry = {
+  period: string;
+  title: string;
+  org: string;
+  description: string;
+  /** e.g. "Finalist". Optional; empty renders nothing. */
+  result?: string;
+  /** Repo or demo URL. Optional; empty renders nothing. */
+  link?: string;
+  /** Link text, when "View the project" would mislead (e.g. a teammate's repo). */
+  linkLabel?: string;
+};
+
+/** An entry with an empty `title` is skipped entirely. */
+export const timeline: readonly TimelineEntry[] = [
   {
     period: "",
     title: "Bachelor of Software Engineering",
@@ -288,6 +307,17 @@ export const timeline = [
     org: "Personal project",
     description:
       "Designed, built, tested and deployed on my own: a Next.js app with a constrained model pipeline, scoring in code, validated output, and a rule-based fallback.",
+  },
+  {
+    period: "May 2026",
+    title: "National Deep Tech Challenge 2026",
+    org: "Universiti Malaya Centre of Innovation and Enterprise (UMCIE)",
+    description:
+      "With a team of five, built NutriScan Clinical in 24 hours: nurses photograph a patient's meal tray before and after, and a vision model flags anyone who ate under half.",
+    result: "Participated",
+    // The repo belongs to a teammate, so the label says whose it is.
+    link: "https://github.com/muazramzii/nutriscan-clinical",
+    linkLabel: "View the team's repo on GitHub",
   },
   {
     period: "",
@@ -303,7 +333,7 @@ export const timeline = [
     description:
       "Object-oriented programming in Java, database systems, and web development on the .NET stack.",
   },
-] as const;
+];
 
 /* -------------------------------------------------------------------------
    About
@@ -319,10 +349,11 @@ export const about = {
   lookingFor: {
     title: "What I'm looking for",
     body: "A software engineering internship where I can work on a real product with people who review my code. I'm most useful in mobile or backend work, I'm comfortable being the least experienced person in the room, and I'd rather be told my approach is wrong early than find out late.",
-    details: [
-      "Open to on-site work in Malaysia, hybrid, or remote",
-      "Most interested in mobile development, backend APIs and applied AI",
-    ],
+    /** Internship intake, e.g. "March to August 2027". Empty drops the clause. */
+    intake: "February to July 2027",
+    // Non-breaking hyphen (U+2011) so "on-site" never splits across lines.
+    workMode: "on‑site work in Malaysia, hybrid, or remote",
+    details: ["Most interested in mobile development, backend APIs and applied AI"],
   },
 } as const;
 

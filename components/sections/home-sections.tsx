@@ -248,7 +248,11 @@ export function Skills() {
         {skillGroups.map((group, i) => (
           <Card key={group.title} tone={SKILL_TONES[i % 3]}>
             <h3>{group.title}</h3>
-            <p className="mt-1.5 mb-3.5 text-[15px] text-ink-2">{group.note}</p>
+            {group.note ? (
+              <p className="mt-1.5 mb-3.5 text-[15px] text-ink-2">{group.note}</p>
+            ) : (
+              <div className="mb-3.5" />
+            )}
             <ul className="flex flex-wrap gap-[7px]">
               {group.items.map((item) => (
                 <li key={item}>
@@ -271,7 +275,7 @@ export function Skills() {
 export function Timeline({ className }: { className?: string }) {
   return (
     <RowList narrow className={className}>
-      {timeline.map((entry) => (
+      {timeline.filter((entry) => entry.title).map((entry) => (
         <Row
           key={entry.title}
           aside={
@@ -284,6 +288,17 @@ export function Timeline({ className }: { className?: string }) {
           <p className="mt-[3px] text-[15.5px] text-ink-3">{entry.org}</p>
           {entry.description && (
             <p className="mt-2.5 max-w-measure text-[16.5px] text-ink-2">{entry.description}</p>
+          )}
+          {entry.result && <p className="mt-2 text-[15.5px] font-semibold">{entry.result}</p>}
+          {entry.link && (
+            <a
+              href={entry.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-2 inline-block text-[15.5px] font-semibold text-cobalt underline underline-offset-4 hover:text-cobalt-deep"
+            >
+              {entry.linkLabel ?? "View the project"}
+            </a>
           )}
         </Row>
       ))}
@@ -308,6 +323,7 @@ const REACH = [
   { label: emailAddress, what: "Email", href: `mailto:${emailAddress}` },
   { label: links.githubHandle, what: "GitHub", href: links.github },
   { label: profile.displayName, what: "LinkedIn", href: links.linkedin },
+  ...(links.resume ? [{ label: "Download my CV", what: "PDF", href: links.resume }] : []),
 ];
 
 /** The cobalt block. Shared with /about. */

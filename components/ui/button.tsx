@@ -20,7 +20,7 @@ type ButtonProps = { variant?: Variant; className?: string } & (
 );
 
 /**
- * One button. With `href` it renders a link: internal paths go through
+ * One button. With `href` it renders a link: internal pages go through
  * next/link, http(s) URLs open in a new tab with rel hardening.
  */
 export function Button({ variant = "primary", className, ...props }: ButtonProps) {
@@ -29,7 +29,9 @@ export function Button({ variant = "primary", className, ...props }: ButtonProps
   if (props.href === undefined) {
     return <button {...props} className={classes} />;
   }
-  if (props.href.startsWith("/")) {
+  // Internal pages go through next/link; files such as /resume.pdf are not
+  // routes, so they get a plain anchor.
+  if (props.href.startsWith("/") && !/\.\w+$/.test(props.href)) {
     return <Link {...props} href={props.href} className={classes} />;
   }
   const external = /^https?:\/\//.test(props.href);

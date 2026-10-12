@@ -16,6 +16,9 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
+  const { intake, workMode } = about.lookingFor;
+  const availability = `${intake ? `Available ${intake}. ` : ""}Open to ${workMode}`;
+
   return (
     <>
       <Container className="pt-[clamp(48px,7vw,86px)] pb-[clamp(56px,7vw,92px)]">
@@ -39,7 +42,7 @@ export default function AboutPage() {
             </h2>
             <p className="mt-3 text-ink-2">{about.lookingFor.body}</p>
             <ul className="mt-5 grid list-disc gap-2 border-t-2 border-ink/15 pt-5 pl-5 text-small marker:text-cobalt">
-              {about.lookingFor.details.map((detail) => (
+              {[availability, ...about.lookingFor.details].map((detail) => (
                 <li key={detail}>{detail}</li>
               ))}
             </ul>

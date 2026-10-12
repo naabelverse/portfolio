@@ -215,6 +215,28 @@ once, on the home page only.
 
 ---
 
+## Content still to fill in
+
+These are gaps, not bugs. Each field is empty on purpose rather than holding a
+placeholder (the build fails on any content string containing TODO), and each
+renders cleanly while empty.
+
+| Field | What it is | What renders while empty |
+| --- | --- | --- |
+| `content/site.ts` → `timeline[0].period` | Degree date range | The degree row's date column is blank |
+| `content/site.ts` → `timeline[0].description` | CGPA, if published | No description line under the degree |
+| `content/site.ts` → `timeline[3].period` | ForgeRoom year | The ForgeRoom row's date column is blank |
+| `content/forgeroom.ts` → `forgeroom.meta[2].value` | Case study timeline | The fact strip shows Role, Type and Status only |
+| `public/resume.pdf`, then `links.resume` in `content/site.ts` set to `"/resume.pdf"` | The CV | No Download CV button on /about and no CV row in the contact block |
+| Repo links for the Inventory and TinyTots rows | Public repos, once they exist | Title, context and description only, no link |
+
+Timeline indexes count from the top of the `timeline` array and shift if an
+entry is added above. The repo links are the one gap that needs code: the
+"Smaller and earlier" rows have no `repo` field or link yet, so filling them in
+means adding both.
+
+---
+
 ## Future items
 
 Measured after the redesign: First Load JS for `/` is 184 KB gzipped, of
