@@ -53,40 +53,36 @@ export const siteUrl = "https://portfolio-naabel.up.railway.app";
 
 export const nav = [
   { label: "Work", href: "/#work" },
-  { label: "Skills", href: "/#skills" },
+  { label: "What I use", href: "/#skills" },
   { label: "Background", href: "/#background" },
   { label: "About", href: "/about" },
 ] as const;
+
+export const navCta = { label: "Hire me for an internship", href: "/#contact" };
 
 /* -------------------------------------------------------------------------
    Hero
    ------------------------------------------------------------------------- */
 
 export const hero = {
-  // TODO(nabil): confirm the intake, or delete this badge entirely.
-  availability: "Available for internship — TODO(nabil): intake",
-  headline: "I build mobile and web apps, and the services and AI behind them.",
-  intro:
-    "I'm Nabil, a final-year Software Engineering student at UTHM. My final-year project turns a photo of a room into a complete interior design plan — a Flutter app on the front, a Node.js and MongoDB API behind it, and a vision model plus an LLM doing the reasoning in between.",
-  secondary:
-    "I care about software that holds up when the network is slow, the API key is missing, or the user does something unexpected.",
-  primaryCta: {
-    label: "Read the ForgeRoom case study",
-    href: "/projects/forgeroom",
+  /** `highlight` is the one sun-marked phrase on the site. */
+  headline: {
+    before: "Most demos work. I build for the ",
+    highlight: "moment they don't",
+    after: ".",
   },
-  /** Used only while `links.resume` is null. */
-  fallbackCta: { label: "See my background", href: "/#background" },
+  intro:
+    "Final-year software engineering student at UTHM. I build mobile and web apps with AI models inside them, and I spend most of my effort on what happens when the model returns nonsense or the network drops.",
+  primaryCta: { label: "See how ForgeRoom works", href: "/#work" },
+  secondaryCta: { label: "Get in touch", href: "/#contact" },
 } as const;
 
-/**
- * Four facts a recruiter can absorb in one glance. Every number here is
- * measured from the real repository, not estimated.
- */
+/** Four facts a recruiter can absorb in one glance, measured not estimated. */
 export const proofStrip = [
-  { label: "Primary stack", value: "Flutter · Node.js · MongoDB" },
-  { label: "Final-year project", value: "~18K lines of Dart, 50 commits" },
-  { label: "Also builds in", value: "TypeScript · Java · C# · SQL" },
-  { label: "Based in", value: "Malaysia · UTHM" },
+  { label: "Mainly builds with", value: "Flutter, Node, MongoDB" },
+  { label: "Final-year project", value: "18,000 lines of Dart" },
+  { label: "Tests on the live app", value: "538 passing" },
+  { label: "Looking for", value: "An internship in Malaysia" },
 ] as const;
 
 /* -------------------------------------------------------------------------

@@ -130,6 +130,39 @@
   }
 }
 
+/* ---------------------------------------------------------------------------
+   Hero composition — the only non-user-triggered motion on the site.
+   Base styles are the finished state; motion is layered on only when the
+   visitor has not asked to reduce it, so reduced motion renders complete.
+   Each stroke carries its own --len so all three finish together; the extra
+   10–20px keeps round linecaps from showing as dots before the draw starts.
+--------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-draw {
+    stroke-dasharray: var(--len) calc(var(--len) + 20px);
+    animation: hero-draw 1.4s cubic-bezier(0.2, 0.7, 0.3, 1) 0.2s backwards;
+  }
+  .hero-pop {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: hero-pop 0.55s cubic-bezier(0.2, 0.9, 0.3, 1) backwards;
+  }
+}
+
+@keyframes hero-draw {
+  from {
+    stroke-dashoffset: calc(var(--len) + 10px);
+  }
+}
+
+@keyframes hero-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.86);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

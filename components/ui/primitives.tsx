@@ -323,17 +323,6 @@ export function CtaBanner({
   return <div className={className}>{children}</div>;
 }
 
-export function StatusBadge({
-  children,
-  className,
-}: {
-  children: React.ReactNode;
-  tone?: "neutral" | "success";
-  className?: string;
-}) {
-  return <Badge className={className}>{children}</Badge>;
-}
-
 export const Tag = Chip;
 
 export function SectionHeader({

@@ -9,7 +9,7 @@ code in that step. Delete this file when every box is ticked.
 - [ ] `Eyebrow` (components/ui/primitives.tsx): step 6. Last callers: about, case studies, 404
 - [ ] `ScreenshotPanel` (components/ui/primitives.tsx): step 6. Last callers: case studies
 - [ ] `CtaBanner` (components/ui/primitives.tsx): step 6. Last callers: about, case studies
-- [ ] `StatusBadge` (components/ui/primitives.tsx): step 3. Only caller was the hero availability badge
+- [x] `StatusBadge` (components/ui/primitives.tsx): step 3. Only caller was the hero availability badge
 - [ ] `Tag` (components/ui/primitives.tsx): step 6. Last callers: case studies
 - [ ] `components/ui/browser-frame.tsx`: step 6. Last caller: AI Resume Analyzer case study
 

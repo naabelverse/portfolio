@@ -3,27 +3,17 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-import { ButtonLink } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/primitives";
-import { links, nav, profile } from "@/content/site";
+import { nav, navCta, profile } from "@/content/site";
 import { cn } from "@/lib/cn";
 
-/**
- * Brand mark. One of the four places DESIGN.md permits the accent colour —
- * the others are the primary CTA, the focus ring, and link emphasis.
- */
+/** Wordmark: the cobalt full stop is one of cobalt's named jobs. */
 export function Logo({ className }: { className?: string }) {
   return (
-    <span className={cn("flex items-center gap-2.5", className)}>
-      <span
-        aria-hidden="true"
-        className="grid size-6 place-items-center rounded-sm bg-accent text-caption font-semibold text-on-accent"
-      >
-        N
-      </span>
-      <span className="text-body-sm font-medium text-ink">
-        {profile.displayName}
-      </span>
+    <span className={cn("font-display text-[21px] font-extrabold tracking-[-0.04em]", className)}>
+      {profile.shortName}
+      <span className="text-cobalt">.</span>
     </span>
   );
 }
@@ -48,117 +38,60 @@ export function TopNav() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-hairline bg-canvas/80 backdrop-blur-md">
-      <Container>
-        <div className="flex h-14 items-center justify-between gap-6">
-          <Link
-            href="/"
-            className="rounded-sm"
-            aria-label={`${profile.displayName} — home`}
-          >
-            <Logo />
-          </Link>
+    <header className="sticky top-0 z-50 border-b border-line bg-paper/88 backdrop-blur-md">
+      <Container className="flex h-[66px] items-center justify-between gap-5">
+        <Link href="/" aria-label={`${profile.displayName}, home`}>
+          <Logo />
+        </Link>
 
-          <nav aria-label="Main" className="hidden md:block">
-            <ul className="flex items-center gap-1">
-              {nav.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className="inline-flex h-9 items-center rounded-md px-3 text-body-sm text-ink-subtle transition-colors hover:bg-surface-1 hover:text-ink"
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
+        <nav aria-label="Main" className="hidden md:block">
+          <ul className="flex gap-7 text-[16px] font-medium">
+            {nav.map((item) => (
+              <li key={item.href}>
+                <Link href={item.href} className="text-ink-2 transition-colors duration-150 hover:text-cobalt">
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
 
-          <div className="hidden items-center gap-2 md:flex">
-            <ButtonLink
-              href={links.github}
-              external
-              variant="secondary"
-              size="sm"
-            >
-              GitHub
-            </ButtonLink>
-            <ButtonLink href="/#contact" size="sm">
-              Get in touch
-            </ButtonLink>
-          </div>
-
-          <button
-            type="button"
-            onClick={() => setOpen((value) => !value)}
-            aria-expanded={open}
-            aria-controls="mobile-nav"
-            className="inline-flex size-11 items-center justify-center rounded-md text-ink-subtle transition-colors hover:bg-surface-1 hover:text-ink md:hidden"
-          >
-            <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
-            <svg
-              viewBox="0 0 20 20"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              aria-hidden="true"
-              className="size-5"
-            >
-              {open ? (
-                <>
-                  <path d="M5 5l10 10" />
-                  <path d="M15 5L5 15" />
-                </>
-              ) : (
-                <>
-                  <path d="M3 6h14" />
-                  <path d="M3 10h14" />
-                  <path d="M3 14h14" />
-                </>
-              )}
-            </svg>
-          </button>
+        {/* Hidden on a wrapper: cn() does not merge, so `hidden` on the
+            Button itself would lose to its own `inline-flex`. */}
+        <div className="hidden md:block">
+          <Button href={navCta.href}>{navCta.label}</Button>
         </div>
+
+        <button
+          type="button"
+          onClick={() => setOpen((value) => !value)}
+          aria-expanded={open}
+          aria-controls="mobile-nav"
+          className="min-h-11 cursor-pointer rounded-full border-2 border-ink px-[18px] py-[9px] text-[16px] font-semibold md:hidden"
+        >
+          {open ? "Close" : "Menu"}
+        </button>
       </Container>
 
-      {open && (
-        <div
-          id="mobile-nav"
-          className="border-t border-hairline bg-canvas md:hidden"
-        >
-          <Container>
-            <nav aria-label="Main" className="py-4">
-              <ul className="flex flex-col">
-                {nav.map((item) => (
-                  <li key={item.href}>
-                    <Link
-                      href={item.href}
-                      onClick={close}
-                      className="flex h-12 items-center rounded-md px-2 text-body text-ink-subtle transition-colors hover:bg-surface-1 hover:text-ink"
-                    >
-                      {item.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-4 flex flex-col gap-2 border-t border-hairline pt-4">
-                <ButtonLink
-                  href={links.github}
-                  external
-                  variant="secondary"
-                  onClick={close}
-                >
-                  GitHub
-                </ButtonLink>
-                <ButtonLink href="/#contact" onClick={close}>
-                  Get in touch
-                </ButtonLink>
-              </div>
-            </nav>
-          </Container>
-        </div>
-      )}
+      <nav
+        id="mobile-nav"
+        aria-label="Main"
+        hidden={!open}
+        className="absolute inset-x-0 top-full border-b border-line bg-paper px-gutter pt-1.5 pb-5 md:hidden"
+      >
+        <ul>
+          {nav.map((item) => (
+            <li key={item.href}>
+              <Link href={item.href} onClick={close} className="block py-[13px] text-[18px] font-medium text-ink-2 hover:text-cobalt">
+                {item.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <Button href={navCta.href} onClick={close} className="mt-3">
+          {navCta.label}
+        </Button>
+      </nav>
     </header>
   );
 }

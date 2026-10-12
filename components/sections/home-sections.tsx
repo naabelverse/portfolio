@@ -3,7 +3,7 @@ import Image from "next/image";
 import { ContactForm } from "@/components/contact-form";
 import { PhoneShowcase } from "@/components/mockups/forgeroom";
 import { Reveal } from "@/components/reveal";
-import { ButtonLink } from "@/components/ui/button";
+import { Button, ButtonLink } from "@/components/ui/button";
 import {
   Card,
   Container,
@@ -12,7 +12,7 @@ import {
   ScreenshotPanel,
   Section,
   SectionHeader,
-  StatusBadge,
+  StatStrip,
   Tag,
 } from "@/components/ui/primitives";
 import { resumeAnalyzer } from "@/content/ai-resume-analyzer";
@@ -29,66 +29,57 @@ import {
 } from "@/content/site";
 
 /* -------------------------------------------------------------------------
-   Hero — type only. On a #010102 canvas restraint reads as confidence, and
-   the product mockups get their own panel directly below.
+   Hero
    ------------------------------------------------------------------------- */
 
-export function Hero() {
+const RING = 2 * Math.PI * 128;
+const ARC = RING / 4;
+
+/**
+ * Ring, two arcs, a block and two dots. Strokes draw, then shapes pop in;
+ * the motion itself lives in globals.css under `.hero-draw` / `.hero-pop`.
+ */
+function HeroComposition() {
+  const len = (value: number) => ({ "--len": `${value}px` }) as React.CSSProperties;
+
   return (
-    <section className="pt-16 pb-12 md:pt-28 md:pb-20">
-      <Container>
-        <Reveal>
-          <StatusBadge tone="success">{hero.availability}</StatusBadge>
-
-          <h1 className="mt-8 max-w-4xl text-display-xl text-ink">
-            {hero.headline}
-          </h1>
-
-          <p className="mt-8 max-w-2xl text-body-lg text-ink-muted">
-            {hero.intro}
-          </p>
-
-          <p className="mt-4 max-w-2xl text-body text-ink-subtle">
-            {hero.secondary}
-          </p>
-
-          <div className="mt-10 flex flex-wrap items-center gap-3">
-            <ButtonLink href={hero.primaryCta.href} size="lg">
-              {hero.primaryCta.label}
-            </ButtonLink>
-            {/* Until a CV exists in public/, point at the timeline rather
-                than shipping a link that 404s in front of a recruiter. */}
-            <ButtonLink
-              href={links.resume ?? hero.fallbackCta.href}
-              variant="secondary"
-              size="lg"
-            >
-              {links.resume ? "Download CV" : hero.fallbackCta.label}
-            </ButtonLink>
-          </div>
-        </Reveal>
-      </Container>
-    </section>
+    <svg viewBox="0 0 320 320" aria-hidden="true" className="h-auto w-full">
+      <circle className="hero-draw" style={len(RING)} cx="160" cy="160" r="128" fill="none" stroke="#111318" strokeWidth="3" />
+      <path className="hero-draw" style={len(ARC)} d="M160 32 A128 128 0 0 1 288 160" fill="none" stroke="#1F43E6" strokeWidth="16" strokeLinecap="round" />
+      <path className="hero-draw" style={len(ARC)} d="M32 160 A128 128 0 0 0 160 288" fill="none" stroke="#FFC93D" strokeWidth="16" strokeLinecap="round" />
+      <rect className="hero-pop [animation-delay:0.45s]" x="108" y="108" width="104" height="104" rx="16" fill="#1F43E6" />
+      <circle className="hero-pop [animation-delay:0.6s]" cx="160" cy="160" r="30" fill="#FFC93D" />
+      <circle className="hero-pop [animation-delay:0.75s]" cx="265" cy="68" r="15" fill="#FF4F6E" />
+    </svg>
   );
 }
 
-/* -------------------------------------------------------------------------
-   Proof strip
-   ------------------------------------------------------------------------- */
-
-export function ProofStrip() {
+export function Hero() {
   return (
-    <Container>
-      <Reveal>
-        <dl className="grid grid-cols-1 gap-px overflow-hidden rounded-lg border border-hairline bg-hairline sm:grid-cols-2 lg:grid-cols-4">
-          {proofStrip.map((item) => (
-            <div key={item.label} className="bg-canvas px-6 py-5">
-              <dt className="text-caption text-ink-subtle">{item.label}</dt>
-              <dd className="mt-2 text-body-sm text-ink">{item.value}</dd>
-            </div>
-          ))}
-        </dl>
-      </Reveal>
+    <Container className="pt-[clamp(48px,7vw,86px)] pb-[clamp(56px,7vw,92px)]">
+      <div className="grid items-center gap-[clamp(28px,5vw,64px)] lg:grid-cols-[1.25fr_0.75fr]">
+        <div>
+          <h1 className="max-w-[13ch]">
+            {hero.headline.before}
+            <mark className="box-decoration-clone rounded-[4px] bg-sun px-[0.1em] text-ink">
+              {hero.headline.highlight}
+            </mark>
+            {hero.headline.after}
+          </h1>
+          <p className="mt-[26px] max-w-lede text-lede text-ink-2">{hero.intro}</p>
+          <div className="mt-9 flex flex-wrap gap-3.5">
+            <Button href={hero.primaryCta.href}>{hero.primaryCta.label}</Button>
+            <Button variant="ghost" href={hero.secondaryCta.href}>
+              {hero.secondaryCta.label}
+            </Button>
+          </div>
+        </div>
+        <div className="order-first max-w-[380px] lg:order-none lg:max-w-none">
+          <HeroComposition />
+        </div>
+      </div>
+
+      <StatStrip items={proofStrip} className="mt-[clamp(44px,6vw,72px)]" />
     </Container>
   );
 }
