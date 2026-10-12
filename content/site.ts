@@ -16,11 +16,9 @@ export const profile = {
   university: "Universiti Tun Hussein Onn Malaysia (UTHM)",
   universityShort: "UTHM",
   location: "Malaysia",
-  // Used for <title>, OG cards, and the JSON-LD Person schema.
-  tagline:
-    "Final-year software engineering student building full-stack, AI-assisted products.",
+  // Under 160 characters so search results show it whole.
   metaDescription:
-    "Muhammad Nabil — final-year Software Engineering student at UTHM. Flutter, Next.js and TypeScript, Node.js and MongoDB, with AI-assisted product work. Seeking a software engineering internship.",
+    "Muhammad Nabil, final-year Software Engineering student at UTHM, seeking internships. Mobile and web apps in Flutter, Next.js and Node.js, some with AI models.",
 } as const;
 
 export const links = {
@@ -78,7 +76,7 @@ export const hero = {
     after: "",
   },
   intro:
-    "The coursework is software engineering, at UTHM. I build mobile and web apps with AI models inside them, and I spend most of my effort on what happens when the model returns nonsense or the network drops.",
+    "Software engineering at UTHM. I build mobile and web apps, some with AI models inside them, and most of my effort goes into what happens when things fail: a model returns nonsense, an API goes down, the network drops.",
   primaryCta: { label: "See how ForgeRoom works", href: "/#work" },
   secondaryCta: { label: "Get in touch", href: "/#contact" },
 } as const;

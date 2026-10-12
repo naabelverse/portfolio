@@ -121,8 +121,8 @@ export default function StyleguidePage() {
           <h3>Heading three</h3>
           <p className="max-w-tagline text-tagline text-ink-2">Tagline, used once per chapter.</p>
           <p className="max-w-lede text-lede text-ink-2">
-            Lede. Final-year software engineering student at UTHM building apps
-            with models inside them.
+            Lede. Software engineering at UTHM. I build mobile and web apps,
+            some with AI models inside them.
           </p>
           <p className="max-w-measure">
             Body at 17px. Line length is capped with the measure token, not a
