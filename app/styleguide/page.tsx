@@ -25,7 +25,7 @@ const COLOURS = [
   { name: "white", hex: "#FFFFFF", className: "bg-white" },
   { name: "ink", hex: "#111318", className: "bg-ink", note: "17.8:1" },
   { name: "ink-2", hex: "#4A4F5C", className: "bg-ink-2", note: "7.8:1" },
-  { name: "ink-3", hex: "#848B9A", className: "bg-ink-3", note: "3.3:1, fails AA" },
+  { name: "ink-3", hex: "#646B7A", className: "bg-ink-3", note: "5.1:1, 4.5:1 on washes" },
   { name: "cobalt", hex: "#1F43E6", className: "bg-cobalt", note: "6.7:1" },
   { name: "cobalt-deep", hex: "#132BA6", className: "bg-cobalt-deep" },
   { name: "wash-blue", hex: "#E6EBFF", className: "bg-wash-blue" },
