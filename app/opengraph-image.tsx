@@ -45,7 +45,9 @@ export default function OpenGraphImage() {
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div style={{ display: "flex", flexWrap: "wrap", fontFamily: "Bricolage", fontSize: 92, lineHeight: 1.03, letterSpacing: "-0.03em" }}>
             <span>I build for the&nbsp;</span>
-            <span style={{ backgroundColor: "#FFC93D", padding: "0 10px", borderRadius: 6 }}>moment they don&rsquo;t</span>
+            {/* No sun highlight: the card and the hero are often seen back to
+                back, and the highlight is a once-only device. */}
+            <span>moment they don&rsquo;t</span>
             <span>.</span>
           </div>
           <div style={{ display: "flex", marginTop: 28, fontSize: 32, fontWeight: 500, color: "#4A4F5C" }}>

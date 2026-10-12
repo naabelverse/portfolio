@@ -215,6 +215,20 @@ once, on the home page only.
 
 ---
 
+## Future items
+
+Measured after the redesign: First Load JS for `/` is 184 KB gzipped, of
+which about 174 KB is the Next.js and React runtime. Two changes would save
+roughly 10 KB, judged not worth doing yet:
+
+- **Nav as a server component.** Only the Menu toggle needs client state.
+  Moving the rest to the server keeps `cn` and tailwind-merge (9.8 KB) out of
+  the client bundle.
+- **Contact form as plain HTML.** Formspree accepts a normal form post, so the
+  form can work with no JavaScript at all.
+
+---
+
 ## Remove from the current site
 
 These are template tells that the current design is full of:
