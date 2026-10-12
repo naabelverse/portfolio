@@ -62,7 +62,15 @@ afterwards — it renders every token on one page.
 npm run lint
 npx tsc --noEmit
 npm run build
+npm run test:links
 ```
+
+`npm run test:links` builds the site, then clicks every header and footer link
+from every page, at desktop width and at 390px with the menu open, and fails if
+one lands in the wrong place or behind the sticky header. Run it after adding a
+nav link, a section, or anything that changes the header's height. First time
+only: `npx playwright install chromium`, or skip the download and use Edge with
+`PW_CHANNEL=msedge npm run test:links`.
 
 ## Deploy
 
