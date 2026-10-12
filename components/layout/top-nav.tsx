@@ -38,7 +38,7 @@ export function TopNav() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-line bg-paper/88 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b-2 border-ink bg-white/90 backdrop-blur-md">
       <Container className="flex h-[66px] items-center justify-between gap-5">
         <Link href="/" aria-label={`${profile.displayName}, home`}>
           <Logo />
@@ -75,7 +75,7 @@ export function TopNav() {
         id="mobile-nav"
         aria-label="Main"
         hidden={!open}
-        className="absolute inset-x-0 top-full border-b border-line bg-paper px-gutter pt-1.5 pb-5 md:hidden"
+        className="absolute inset-x-0 top-full border-b-2 border-ink bg-white px-gutter pt-1.5 pb-5 md:hidden"
       >
         <ul>
           {nav.map((item) => (
