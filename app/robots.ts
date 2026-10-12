@@ -6,9 +6,9 @@ export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
       userAgent: "*",
+      // /styleguide is kept out by its noindex meta, not here: a disallowed
+      // page can't be crawled, so its noindex would never be seen.
       allow: "/",
-      // The styleguide is a design-system proof sheet, not content.
-      disallow: ["/styleguide"],
     },
     sitemap: `${siteUrl}/sitemap.xml`,
   };

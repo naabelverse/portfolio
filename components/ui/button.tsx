@@ -2,91 +2,60 @@ import Link from "next/link";
 
 import { cn } from "@/lib/cn";
 
-type Variant = "primary" | "secondary" | "tertiary" | "inverse";
-type Size = "sm" | "md" | "lg";
+type Variant = "primary" | "ghost" | "sun";
+
+/** Prototype `.pill`: fully rounded, 16px/600, 44px tap target, 1px lift. */
+const BASE =
+  "inline-flex min-h-11 items-center justify-center rounded-full px-[22px] py-[11px] text-[16px] font-semibold whitespace-nowrap transition-[background-color,color,transform] duration-150 hover:-translate-y-px disabled:pointer-events-none disabled:opacity-50";
+
+const VARIANTS: Record<Variant, string> = {
+  primary: "bg-cobalt text-white hover:bg-cobalt-deep",
+  ghost: "border-2 border-ink text-ink hover:bg-ink hover:text-paper",
+  sun: "bg-sun text-ink hover:bg-sun-deep",
+};
+
+type ButtonProps = { variant?: Variant; className?: string } & (
+  | ({ href: string } & Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, "href">)
+  | ({ href?: undefined } & React.ButtonHTMLAttributes<HTMLButtonElement>)
+);
 
 /**
- * DESIGN.md button spec: 8px radius (never pill), 14px/500 label, compact
- * 8px x 14px padding, grown here to a >=40px tap target per the touch rules.
+ * One button. With `href` it renders a link: internal paths go through
+ * next/link, http(s) URLs open in a new tab with rel hardening.
  */
-const VARIANTS: Record<Variant, string> = {
-  primary:
-    "bg-accent text-on-accent hover:bg-accent-hover active:bg-accent-pressed",
-  secondary:
-    "bg-surface-1 text-ink border border-hairline hover:bg-surface-2 hover:border-hairline-strong",
-  tertiary:
-    "bg-transparent text-ink-subtle border border-transparent hover:bg-surface-1 hover:text-ink",
-  inverse: "bg-inverse-canvas text-inverse-ink hover:bg-inverse-canvas/90",
-};
+export function Button({ variant = "primary", className, ...props }: ButtonProps) {
+  const classes = cn(BASE, VARIANTS[variant], className);
 
-const SIZES: Record<Size, string> = {
-  sm: "h-9 px-3",
-  md: "h-10 px-3.5",
-  lg: "h-11 px-5",
-};
-
-const BASE =
-  "inline-flex items-center justify-center gap-2 rounded-md text-button whitespace-nowrap transition-colors duration-150 disabled:pointer-events-none disabled:opacity-50";
-
-export function buttonStyles(variant: Variant = "primary", size: Size = "md") {
-  return cn(BASE, VARIANTS[variant], SIZES[size]);
-}
-
-type SharedProps = {
-  variant?: Variant;
-  size?: Size;
-  className?: string;
-  children: React.ReactNode;
-};
-
-export function Button({
-  variant,
-  size,
-  className,
-  children,
-  ...props
-}: SharedProps & React.ButtonHTMLAttributes<HTMLButtonElement>) {
-  return (
-    <button className={cn(buttonStyles(variant, size), className)} {...props}>
-      {children}
-    </button>
-  );
-}
-
-type ButtonLinkProps = SharedProps & {
-  href: string;
-  /** Opens in a new tab with the usual rel hardening. */
-  external?: boolean;
-} & Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, "href">;
-
-export function ButtonLink({
-  href,
-  external = false,
-  variant,
-  size,
-  className,
-  children,
-  ...props
-}: ButtonLinkProps) {
-  const classes = cn(buttonStyles(variant, size), className);
-
-  if (external) {
-    return (
-      <a
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={classes}
-        {...props}
-      >
-        {children}
-      </a>
-    );
+  if (props.href === undefined) {
+    return <button {...props} className={classes} />;
   }
-
+  if (props.href.startsWith("/")) {
+    return <Link {...props} href={props.href} className={classes} />;
+  }
+  const external = /^https?:\/\//.test(props.href);
   return (
-    <Link href={href} className={classes} {...props}>
-      {children}
-    </Link>
+    <a
+      {...props}
+      className={classes}
+      {...(external && { target: "_blank", rel: "noopener noreferrer" })}
+    />
   );
+}
+
+/**
+ * Legacy shim for pages not yet rebuilt (steps 3–6). Delete once no caller
+ * imports it.
+ */
+export function ButtonLink({
+  variant,
+  external: _external,
+  size: _size,
+  ...props
+}: Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, "href"> & {
+  href: string;
+  variant?: Variant | "secondary";
+  external?: boolean;
+  size?: string;
+}) {
+  return <Button {...props} variant={variant === "secondary" ? "ghost" : variant} />;
 }

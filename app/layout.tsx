@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Bricolage_Grotesque, Figtree, JetBrains_Mono } from "next/font/google";
 
 import { Footer } from "@/components/layout/footer";
 import { TopNav } from "@/components/layout/top-nav";
@@ -7,12 +7,19 @@ import { links, profile, siteUrl } from "@/content/site";
 import "./globals.css";
 
 /**
- * DESIGN.md names Inter as the closest free substitute for Linear's display
- * and text cuts, and JetBrains Mono for the mono. Both are variable fonts, so
- * the whole 400–700 range ships in one file, self-hosted by next/font.
+ * Bricolage Grotesque carries the headings; its optical-size axis is what
+ * keeps the 96px hero tight and the 20px h3 open. Figtree is everything
+ * else. JetBrains Mono only where something is literally code.
  */
-const inter = Inter({
-  variable: "--font-inter",
+const bricolage = Bricolage_Grotesque({
+  variable: "--font-bricolage",
+  subsets: ["latin"],
+  axes: ["opsz"],
+  display: "swap",
+});
+
+const figtree = Figtree({
+  variable: "--font-figtree",
   subsets: ["latin"],
   display: "swap",
 });
@@ -20,6 +27,7 @@ const inter = Inter({
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
   subsets: ["latin"],
+  weight: "400",
   display: "swap",
 });
 
@@ -62,10 +70,9 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  // Matches {colors.canvas}. The browser chrome should not be lighter than
-  // the page it frames.
-  themeColor: "#010102",
-  colorScheme: "dark",
+  // Matches --color-paper so the browser chrome reads as part of the page.
+  themeColor: "#FAFAF7",
+  colorScheme: "light",
 };
 
 /** Structured data so search results attribute the work to a person. */
@@ -90,12 +97,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       // unless this attribute is present; without it, route changes inherit
       // the smooth scrolling set for in-page anchors.
       data-scroll-behavior="smooth"
-      className={`${inter.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${bricolage.variable} ${figtree.variable} ${jetbrainsMono.variable} h-full`}
     >
-      <body className="flex min-h-full flex-col bg-canvas text-ink">
+      <body className="flex min-h-full flex-col">
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-100 focus:rounded-md focus:bg-surface-2 focus:px-4 focus:py-2 focus:text-body-sm focus:text-ink"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-100 focus:rounded-full focus:bg-cobalt focus:px-4 focus:py-2 focus:text-small focus:font-semibold focus:text-white"
         >
           Skip to content
         </a>
