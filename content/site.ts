@@ -77,8 +77,7 @@ export const hero = {
   },
   intro:
     "Software engineering at UTHM. I build mobile and web apps, some with AI models inside them, and most of my effort goes into what happens when things fail: a model returns nonsense, an API goes down, the network drops.",
-  primaryCta: { label: "See how ForgeRoom works", href: "/#work" },
-  secondaryCta: { label: "Get in touch", href: "/#contact" },
+  cta: { label: "See my work", href: "/#work" },
 } as const;
 
 /** Four facts a recruiter can absorb in one glance, measured not estimated. */

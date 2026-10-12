@@ -106,11 +106,8 @@ export function Hero() {
             {hero.headline.after}
           </h1>
           <p className="mt-[26px] max-w-lede text-lede text-ink-2">{hero.intro}</p>
-          <div className="mt-9 flex flex-wrap gap-3.5">
-            <Button href={hero.primaryCta.href}>{hero.primaryCta.label}</Button>
-            <Button variant="ghost" href={hero.secondaryCta.href}>
-              {hero.secondaryCta.label}
-            </Button>
+          <div className="mt-9 flex">
+            <Button href={hero.cta.href}>{hero.cta.label}</Button>
           </div>
         </div>
         <div className="order-first max-w-[380px] lg:order-none lg:max-w-none">
