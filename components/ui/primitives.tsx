@@ -13,12 +13,14 @@ import { cn } from "@/lib/cn";
 export function Container({
   children,
   className,
+  id,
 }: {
   children: React.ReactNode;
   className?: string;
+  id?: string;
 }) {
   return (
-    <div className={cn("mx-auto w-full max-w-wrap px-gutter", className)}>
+    <div id={id} className={cn("mx-auto w-full max-w-wrap px-gutter", className)}>
       {children}
     </div>
   );
@@ -48,7 +50,6 @@ export function Section({
 }) {
   return (
     <section
-      id={id}
       aria-labelledby={labelledBy}
       className={cn(
         "py-section",
@@ -56,7 +57,11 @@ export function Section({
         className,
       )}
     >
-      <Container>{children}</Container>
+      {/* The anchor id sits on the content, not the section, so a nav jump
+          skips the top padding and lands 24px under the header. */}
+      <Container id={id} className="scroll-mt-6">
+        {children}
+      </Container>
     </section>
   );
 }

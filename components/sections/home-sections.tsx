@@ -308,14 +308,12 @@ export function Timeline({ className }: { className?: string }) {
 
 export function Experience() {
   return (
-    <>
+    <Section id="experience" labelledBy="experience-title">
       {/* The section's old id, so links already shared to #background still land here. */}
-      <div id="background" />
-      <Section id="experience" labelledBy="experience-title">
-        <SectionIntro id="experience-title" title="Experience" />
-        <Timeline className="mt-11" />
-      </Section>
-    </>
+      <div id="background" className="scroll-mt-6" />
+      <SectionIntro id="experience-title" title="Experience" />
+      <Timeline className="mt-11" />
+    </Section>
   );
 }
 

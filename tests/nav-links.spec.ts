@@ -79,14 +79,15 @@ for (const mobile of [false, true]) {
           await settle(page);
 
           const state = await page.evaluate((id) => {
-            const section = id ? document.getElementById(id) : null;
+            const anchor = id ? document.getElementById(id) : null;
+            const section = anchor?.closest("section");
             const heading = section && document.getElementById(section.getAttribute("aria-labelledby") ?? "");
             return {
               hash: location.hash.slice(1),
               y: scrollY,
               atBottom: scrollY >= document.documentElement.scrollHeight - innerHeight - 1,
               headerBottom: document.querySelector("header")!.getBoundingClientRect().bottom,
-              sectionTop: section?.getBoundingClientRect().top,
+              contentTop: anchor?.getBoundingClientRect().top,
               heading: heading?.getBoundingClientRect().toJSON() as DOMRect | undefined,
               viewport: innerHeight,
               menuOpen: !document.getElementById("mobile-nav")!.hidden,
@@ -103,8 +104,9 @@ for (const mobile of [false, true]) {
           expect(state.heading, `#${hash} has a labelled heading`).toBeDefined();
           expect(state.heading!.top, "heading clear of the sticky header").toBeGreaterThanOrEqual(state.headerBottom);
           expect(state.heading!.bottom, "heading on screen").toBeLessThanOrEqual(state.viewport);
-          // Flush under the header, unless the page ran out of room to scroll.
-          if (!state.atBottom) expect(Math.abs(state.sectionTop! - state.headerBottom)).toBeLessThanOrEqual(1);
+          // Content starts 24px under the header (scroll-mt-6), not after the
+          // section's top padding, unless the page ran out of room to scroll.
+          if (!state.atBottom) expect(Math.abs(state.contentTop! - state.headerBottom - 24)).toBeLessThanOrEqual(1);
         });
       }
     }
