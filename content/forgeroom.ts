@@ -11,9 +11,21 @@
 
 export const forgeroom = {
   name: "ForgeRoom",
-  eyebrow: "Case study · Final-year project",
   tagline:
     "Turning a room photo, a description, and three measurements into a design plan someone can actually act on.",
+
+  /** The full stack. The home chapter keeps its own shorter list in site.ts. */
+  stack: [
+    "Flutter",
+    "Dart",
+    "Provider",
+    "Node.js",
+    "Express",
+    "MongoDB Atlas",
+    "JWT",
+    "GPT-4o vision",
+    "Claude",
+  ],
 
   meta: [
     {
@@ -21,7 +33,8 @@ export const forgeroom = {
       value: "Sole developer — product, mobile, backend, AI pipeline",
     },
     { label: "Type", value: "Projek Sarjana Muda (PSM), UTHM" },
-    { label: "Timeline", value: "TODO(nabil): month year – month year" },
+    // Empty until confirmed; empty values render as nothing.
+    { label: "Timeline", value: "" },
     { label: "Status", value: "Alpha testing" },
   ],
 
@@ -97,8 +110,8 @@ export const forgeroom = {
         name: "Express API",
         items: [
           "JWT auth middleware",
-          "/api/auth · /api/designs",
-          "/api/images · /api/announcements",
+          "/api/auth, /api/designs",
+          "/api/images, /api/announcements",
           "Mongoose models",
         ],
       },

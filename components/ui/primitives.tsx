@@ -61,6 +61,16 @@ export function Section({
   );
 }
 
+/** h2 plus an optional lede: the opening of every content section. */
+export function SectionIntro({ id, title, lede }: { id: string; title: string; lede?: string }) {
+  return (
+    <>
+      <h2 id={id}>{title}</h2>
+      {lede && <p className="mt-4 max-w-lede text-lede text-ink-2">{lede}</p>}
+    </>
+  );
+}
+
 /* -------------------------------------------------------------------------
    Labels
    ------------------------------------------------------------------------- */
@@ -164,8 +174,6 @@ export function Card({
   children: React.ReactNode;
   tone?: keyof typeof CARD_TONES;
   className?: string;
-  /** @deprecated Ignored. Legacy callers pass it until steps 4–6. */
-  level?: 1 | 2;
 }) {
   return (
     <div
@@ -180,7 +188,7 @@ export function Card({
   );
 }
 
-/** The hero facts: heavy rules top and bottom, nothing else. */
+/** Label/value facts: heavy rules top and bottom, nothing else. */
 export function StatStrip({
   items,
   className,
@@ -195,7 +203,8 @@ export function StatStrip({
         className,
       )}
     >
-      {items.map((item) => (
+      {/* Empty values are unconfirmed facts: render nothing, not a label. */}
+      {items.filter((item) => item.value).map((item) => (
         <div key={item.label}>
           <dt className="mb-1 text-[15px] text-ink-3">{item.label}</dt>
           <dd className="font-display text-[22px] font-bold tracking-[-0.02em]">
@@ -284,68 +293,6 @@ export function Field({ label, id, multiline, className, ...rest }: FieldProps) 
           className={CONTROL}
         />
       )}
-    </div>
-  );
-}
-
-/* -------------------------------------------------------------------------
-   Legacy — old dark-system pieces still imported by pages that steps 3–6
-   rebuild. Delete each as its last caller goes.
-   ------------------------------------------------------------------------- */
-
-export function Eyebrow({
-  children,
-  className,
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) {
-  return <p className={cn("text-small text-ink-3", className)}>{children}</p>;
-}
-
-export function ScreenshotPanel({
-  children,
-  className,
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) {
-  return <div className={className}>{children}</div>;
-}
-
-export function CtaBanner({
-  children,
-  className,
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) {
-  return <div className={className}>{children}</div>;
-}
-
-export const Tag = Chip;
-
-export function SectionHeader({
-  title,
-  description,
-  id,
-  action,
-  className,
-}: {
-  eyebrow?: string;
-  title: string;
-  description?: string;
-  id?: string;
-  action?: React.ReactNode;
-  className?: string;
-}) {
-  return (
-    <div className={cn("flex flex-col gap-6 md:flex-row md:items-end md:justify-between", className)}>
-      <div>
-        <h2 id={id}>{title}</h2>
-        {description && <p className="mt-4 max-w-lede text-lede text-ink-2">{description}</p>}
-      </div>
-      {action && <div className="shrink-0">{action}</div>}
     </div>
   );
 }

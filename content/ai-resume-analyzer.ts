@@ -23,7 +23,6 @@ export type Screenshot = {
 
 export const resumeAnalyzer = {
   name: "AI Resume Analyzer",
-  eyebrow: "Case study · Personal project",
   tagline: "Upload a resume, get a scored review with concrete rewrites.",
 
   seo: {
@@ -49,6 +48,21 @@ export const resumeAnalyzer = {
     alt: "Desktop browser window showing the AI Resume Analyzer results page with a score of 72, beside a phone showing the same score gauge.",
     caption: "AI Resume Analyzer on desktop and mobile.",
   } satisfies Screenshot,
+
+  /** The full stack. The home chapter keeps its own shorter list in site.ts. */
+  stack: [
+    "Next.js",
+    "React",
+    "TypeScript",
+    "Tailwind CSS",
+    "shadcn/ui",
+    "NVIDIA Nemotron",
+    "Zod",
+    "unpdf",
+    "mammoth",
+    "Vitest",
+    "Railway",
+  ],
 
   meta: [
     {
@@ -88,24 +102,24 @@ export const resumeAnalyzer = {
           "PDF or DOCX upload + job description",
           "Text preview before analysis",
           "Staged progress bar",
-          "Results UI · session history",
+          "Results UI and session history",
         ],
       },
       {
         name: "API routes",
         items: [
           "File-type check by leading bytes",
-          "In-memory extraction (unpdf · mammoth)",
+          "In-memory extraction (unpdf and mammoth)",
           "Rule-based pre-checks",
-          "/api/extract · /api/analyze",
+          "/api/extract, /api/analyze",
         ],
       },
       {
         name: "AI & validation",
         items: [
           "NVIDIA Nemotron, schema-constrained JSON",
-          "Code computes scores · match %",
-          "Zod validation · one retry",
+          "Code computes scores and match %",
+          "Zod validation, one retry",
           "Rule-based fallback report",
         ],
       },

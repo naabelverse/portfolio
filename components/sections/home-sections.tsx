@@ -1,25 +1,25 @@
 import { ContactForm } from "@/components/contact-form";
 import { DiagramFigure } from "@/components/diagram";
-import { Reveal } from "@/components/reveal";
-import { Button, ButtonLink } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
   Badge,
   Card,
   Chip,
   Container,
-  CtaBanner,
-  Eyebrow,
+  Row,
+  RowList,
   Section,
-  SectionHeader,
+  SectionIntro,
   StatStrip,
-  Tag,
 } from "@/components/ui/primitives";
 import {
   contact,
+  emailAddress,
   featuredProject,
   hero,
   links,
   otherWork,
+  profile,
   proofStrip,
   type Project,
   resumeAnalyzerProject,
@@ -152,7 +152,7 @@ function ProjectChapter({
         </div>
 
         {/* Capped when the split stacks, or the labels balloon to ~30px. */}
-        <DiagramFigure diagram={project.diagram} className="max-w-[600px] lg:max-w-none" />
+        <DiagramFigure diagram={project.diagram} className="max-w-[520px] lg:max-w-none" />
       </div>
     </Section>
   );
@@ -169,88 +169,63 @@ export function FeaturedProjects() {
 }
 
 /* -------------------------------------------------------------------------
-   Other work
+   Smaller and earlier
    ------------------------------------------------------------------------- */
 
 export function OtherWork() {
   return (
-    <Section labelledBy="other-work-title">
-      <Reveal>
-        <SectionHeader
-          id="other-work-title"
-          eyebrow="Also built"
-          title="Other work"
-          description="Coursework and smaller builds. Less polished than the projects above, but this is where the fundamentals came from."
-        />
-      </Reveal>
-
-      <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {otherWork.map((project, index) => (
-          <Reveal key={project.name} delay={index * 70}>
-            <Card className="flex h-full flex-col">
-              <p className="text-caption text-ink-subtle">{project.context}</p>
-              <h3 className="mt-2 text-card-title text-ink">{project.name}</h3>
-              <p className="mt-3 flex-1 text-body-sm text-ink-subtle">
-                {project.description}
-              </p>
-
-              <div className="mt-6 flex flex-wrap gap-2">
-                {project.stack.map((item) => (
-                  <Tag key={item}>{item}</Tag>
-                ))}
-              </div>
-
-              {project.repo && (
-                <a
-                  href={project.repo}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-6 text-body-sm text-accent underline underline-offset-4 hover:text-accent-hover"
-                >
-                  View source
-                </a>
-              )}
-            </Card>
-          </Reveal>
+    <Section id="other-work" labelledBy="other-work-title">
+      <SectionIntro
+        id="other-work-title"
+        title="Smaller and earlier"
+        lede="Coursework and first attempts. Rougher than the two above, but this is where the fundamentals came from."
+      />
+      <RowList className="mt-11">
+        {otherWork.map((project) => (
+          <Row
+            key={project.name}
+            aside={
+              <>
+                <h3>{project.name}</h3>
+                <p className="mt-1.5 text-[15px] text-ink-3">{project.context}</p>
+              </>
+            }
+          >
+            <p className="max-w-measure text-[16.5px] text-ink-2">{project.description}</p>
+          </Row>
         ))}
-      </div>
+      </RowList>
     </Section>
   );
 }
 
 /* -------------------------------------------------------------------------
-   Skills
+   What I use
    ------------------------------------------------------------------------- */
+
+const SKILL_TONES = ["blue", "sun", "rose"] as const;
 
 export function Skills() {
   return (
     <Section id="skills" labelledBy="skills-title">
-      <Reveal>
-        <SectionHeader
-          id="skills-title"
-          eyebrow="Toolkit"
-          title="What I work with"
-          description="Everything here is backed by something on this page — no bars, no percentages, no tools I've only read about."
-        />
-      </Reveal>
-
-      <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {skillGroups.map((group, index) => (
-          <Reveal key={group.title} delay={index * 60}>
-            <Card className="h-full">
-              <h3 className="text-card-title text-ink">{group.title}</h3>
-              <p className="mt-2 text-body-sm text-ink-subtle">
-                {group.description}
-              </p>
-              <ul className="mt-5 flex flex-wrap gap-2">
-                {group.items.map((item) => (
-                  <li key={item}>
-                    <Tag>{item}</Tag>
-                  </li>
-                ))}
-              </ul>
-            </Card>
-          </Reveal>
+      <SectionIntro
+        id="skills-title"
+        title="What I use"
+        lede="Everything here backs something on this page. No bars, no percentages, nothing I have only read about."
+      />
+      <div className="mt-11 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        {skillGroups.map((group, i) => (
+          <Card key={group.title} tone={SKILL_TONES[i % 3]}>
+            <h3>{group.title}</h3>
+            <p className="mt-1.5 mb-3.5 text-[15px] text-ink-2">{group.note}</p>
+            <ul className="flex flex-wrap gap-[7px]">
+              {group.items.map((item) => (
+                <li key={item}>
+                  <Chip compact>{item}</Chip>
+                </li>
+              ))}
+            </ul>
+          </Card>
         ))}
       </div>
     </Section>
@@ -261,37 +236,35 @@ export function Skills() {
    Background
    ------------------------------------------------------------------------- */
 
+/** Shared with /about. Empty dates and descriptions render as nothing. */
+export function Timeline({ className }: { className?: string }) {
+  return (
+    <RowList narrow className={className}>
+      {timeline.map((entry) => (
+        <Row
+          key={entry.title}
+          aside={
+            entry.period && (
+              <p className="font-display text-[18px] font-bold text-cobalt">{entry.period}</p>
+            )
+          }
+        >
+          <h3>{entry.title}</h3>
+          <p className="mt-[3px] text-[15.5px] text-ink-3">{entry.org}</p>
+          {entry.description && (
+            <p className="mt-2.5 max-w-measure text-[16.5px] text-ink-2">{entry.description}</p>
+          )}
+        </Row>
+      ))}
+    </RowList>
+  );
+}
+
 export function Background() {
   return (
     <Section id="background" labelledBy="background-title">
-      <Reveal>
-        <SectionHeader
-          id="background-title"
-          eyebrow="Background"
-          title="Education & experience"
-        />
-      </Reveal>
-
-      {/* Reveal sits inside the <li>, not around it: an <ol> may only contain
-          <li> children, and a wrapper would make every entry a :last-child. */}
-      <ol className="mt-12 border-l border-hairline">
-        {timeline.map((entry, index) => (
-          <li key={entry.title} className="relative pb-10 pl-8 last:pb-0">
-            <span
-              aria-hidden="true"
-              className="absolute top-2 -left-[4.5px] size-2 rounded-pill border border-hairline-strong bg-surface-3"
-            />
-            <Reveal delay={index * 60}>
-              <p className="text-caption text-ink-subtle">{entry.period}</p>
-              <h3 className="mt-2 text-card-title text-ink">{entry.title}</h3>
-              <p className="mt-1 text-body-sm text-ink-subtle">{entry.org}</p>
-              <p className="mt-3 max-w-2xl text-body text-ink-muted">
-                {entry.description}
-              </p>
-            </Reveal>
-          </li>
-        ))}
-      </ol>
+      <SectionIntro id="background-title" title="Background" />
+      <Timeline className="mt-11" />
     </Section>
   );
 }
@@ -300,38 +273,43 @@ export function Background() {
    Contact
    ------------------------------------------------------------------------- */
 
+const REACH = [
+  { label: emailAddress, what: "Email", href: `mailto:${emailAddress}` },
+  { label: links.githubHandle, what: "GitHub", href: links.github },
+  { label: profile.displayName, what: "LinkedIn", href: links.linkedin },
+];
+
+/** The cobalt block. Shared with /about. */
+export function ContactBlock({ titleId = "contact-title" }: { titleId?: string }) {
+  return (
+    <div className="grid items-start gap-[clamp(28px,5vw,56px)] rounded-block bg-cobalt p-[clamp(28px,5vw,60px)] text-white lg:grid-cols-2">
+      <div>
+        <h2 id={titleId}>{contact.title}</h2>
+        <p className="mt-4 max-w-lede text-lede text-white/85">{contact.description}</p>
+        <ul className="mt-7">
+          {REACH.map((item) => (
+            <li key={item.what} className="border-t border-white/30 last:border-b">
+              <a
+                href={item.href}
+                className="flex justify-between gap-4 py-3.5 text-[17px] font-medium hover:text-sun"
+                {...(item.href.startsWith("http") && { target: "_blank", rel: "noopener noreferrer" })}
+              >
+                <span className="break-all">{item.label}</span>
+                <span className="self-center text-[14.5px] font-normal text-white/80">{item.what}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <ContactForm />
+    </div>
+  );
+}
+
 export function ContactSection() {
   return (
     <Section id="contact" labelledBy="contact-title">
-      <Reveal>
-        <CtaBanner>
-          <div className="grid gap-12 lg:grid-cols-2">
-            <div>
-              <Eyebrow>{contact.eyebrow}</Eyebrow>
-              <h2 id="contact-title" className="mt-3 text-headline text-ink">
-                {contact.title}
-              </h2>
-              <p className="mt-4 max-w-md text-body text-ink-subtle">
-                {contact.description}
-              </p>
-              <p className="mt-2 text-body-sm text-ink-subtle">
-                {contact.formNote}
-              </p>
-
-              <div className="mt-8 flex flex-wrap gap-3">
-                <ButtonLink href={links.github} external variant="secondary">
-                  GitHub
-                </ButtonLink>
-                <ButtonLink href={links.linkedin} external variant="secondary">
-                  LinkedIn
-                </ButtonLink>
-              </div>
-            </div>
-
-            <ContactForm />
-          </div>
-        </CtaBanner>
-      </Reveal>
+      <ContactBlock />
     </Section>
   );
 }

@@ -43,7 +43,7 @@ components/
 content/
   site.ts            every fact and sentence on the site
   forgeroom.ts       the case study
-DESIGN.md            the design system and the rules that keep it coherent
+design/              the design system (DESIGN.md) and the reference prototype
 ```
 
 **All copy lives in `content/`.** To change what the site says, edit those two
@@ -53,7 +53,7 @@ files — you should never need to open a component to fix a typo.
 
 Near-black canvas (`#010102`), a four-step surface ladder, hairline borders, and
 a single cyan-teal accent used in exactly four places. Read
-[DESIGN.md](DESIGN.md) before changing anything visual, and check `/styleguide`
+[design/DESIGN.md](design/DESIGN.md) before changing anything visual, and check `/styleguide`
 afterwards — it renders every token on one page.
 
 ## Checks

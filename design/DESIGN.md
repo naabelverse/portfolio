@@ -1,18 +1,21 @@
-# Redesign brief — portfolio visual identity
+# Design system — bright identity
 
-> Put this file and `redesign-v2-bright.html` in the repo root, then tell Claude Code:
-> *"Read REDESIGN.md and apply it."*
->
-> This is a **reskin of an existing Next.js project**, not a new build. Content,
-> routing, and copy mostly stay. The visual identity changes completely.
+The canonical description of how this site looks and why. It began as the
+redesign brief that replaced the old dark system; the build-order and
+deliverable sections at the end record that history. `redesign-v2-bright.html`
+beside this file is the reference prototype.
+
+Implementation lives in `app/globals.css` (tokens), `components/ui/`
+(primitives), `components/diagram.tsx` (system diagrams) and `lib/cn.ts`
+(which must know every custom token). `/styleguide` shows all of it.
 
 ---
 
 ## Context
 
-The site currently uses a dark, restrained design system (near-black `#010102`
+The site previously used a dark, restrained design system (near-black `#010102`
 canvas, cyan-teal accent, Inter, hairline borders). It reads as gloomy and
-undifferentiated. We are replacing that identity with a bright one.
+undifferentiated. This document describes the bright identity that replaced it.
 
 The existing project already has:
 
@@ -173,7 +176,23 @@ Rules for the diagrams:
 - Each diagram gets a `figcaption` making a point about the engineering, not
   restating the picture.
 
-If you add a third project later, it gets a diagram in the same grammar.
+If you add a third project later, it gets a diagram in the same grammar: add a
+`diagram` object to its entry in `content/site.ts`. No drawing code changes.
+
+### Why diagram text changes size
+
+Text inside an SVG scales with the drawing, so diagram labels do not hold a
+fixed size the way body text does. Measured in the browser, labels render at
+roughly 14–20px across viewports (authored at 14px):
+
+- Below a 368px-wide panel the narrow 280-unit layout takes over, with labels
+  broken at `|` marks in the data, so nothing drops under 12px down to 360px.
+- When the split stacks below 980px the panel is capped at 520px, so labels
+  stay close to body size instead of ballooning.
+
+Removing the swing entirely means building the diagrams in HTML and CSS,
+where text reflows. That was judged not worth it: the variation is bounded,
+every size is legible, and the SVG keeps the drawing exact.
 
 ---
 

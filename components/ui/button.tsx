@@ -41,21 +41,3 @@ export function Button({ variant = "primary", className, ...props }: ButtonProps
     />
   );
 }
-
-/**
- * Legacy shim for pages not yet rebuilt (steps 3–6). Delete once no caller
- * imports it.
- */
-export function ButtonLink({
-  variant,
-  external: _external,
-  size: _size,
-  ...props
-}: Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, "href"> & {
-  href: string;
-  variant?: Variant | "secondary";
-  external?: boolean;
-  size?: string;
-}) {
-  return <Button {...props} variant={variant === "secondary" ? "ghost" : variant} />;
-}

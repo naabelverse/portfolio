@@ -1,17 +1,25 @@
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
+
 import { ImageResponse } from "next/og";
 
 import { profile } from "@/content/site";
 
-export const alt = `${profile.displayName} — ${profile.role}`;
+export const alt = `${profile.displayName}, ${profile.role}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
+// Static TTF instances (next/og cannot read the site's variable woff2).
+const font = (file: string) => readFile(join(process.cwd(), "assets/og", file));
+const [display, medium, semibold] = await Promise.all([
+  font("BricolageGrotesque-ExtraBold.ttf"),
+  font("Figtree-Medium.ttf"),
+  font("Figtree-SemiBold.ttf"),
+]);
+
 /**
- * The social card, drawn with the same tokens as the site.
- *
- * next/og supports a subset of CSS — flexbox only, no grid, no custom
- * properties — so the values here are the literal hex codes from DESIGN.md
- * rather than the theme variables used everywhere else.
+ * The social card in the site's palette. next/og supports flexbox only and
+ * no custom properties, so colours are the literal token values.
  */
 export default function OpenGraphImage() {
   return new ImageResponse(
@@ -23,78 +31,50 @@ export default function OpenGraphImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          backgroundColor: "#010102",
+          backgroundColor: "#FAFAF7",
+          color: "#111318",
           padding: 72,
-          fontFamily: "sans-serif",
+          fontFamily: "Figtree",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              width: 44,
-              height: 44,
-              borderRadius: 8,
-              backgroundColor: "#2dd4bf",
-              color: "#010102",
-              fontSize: 26,
-              fontWeight: 600,
-            }}
-          >
-            N
-          </div>
-          <div style={{ display: "flex", fontSize: 26, color: "#8a8f98" }}>
-            {profile.university}
-          </div>
+        <div style={{ display: "flex", fontFamily: "Bricolage", fontSize: 40, letterSpacing: "-0.04em" }}>
+          {profile.shortName}
+          <span style={{ color: "#1F43E6" }}>.</span>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <div
-            style={{
-              display: "flex",
-              fontSize: 82,
-              fontWeight: 600,
-              letterSpacing: "-0.035em",
-              color: "#f7f8f8",
-              lineHeight: 1.05,
-            }}
-          >
-            {profile.displayName}
+          <div style={{ display: "flex", flexWrap: "wrap", fontFamily: "Bricolage", fontSize: 92, lineHeight: 1.03, letterSpacing: "-0.03em" }}>
+            <span>I build for the&nbsp;</span>
+            <span style={{ backgroundColor: "#FFC93D", padding: "0 10px", borderRadius: 6 }}>moment they don&rsquo;t</span>
+            <span>.</span>
           </div>
-          <div
-            style={{
-              display: "flex",
-              marginTop: 24,
-              fontSize: 34,
-              color: "#d0d6e0",
-            }}
-          >
-            {profile.role} · Flutter, Next.js, TypeScript
+          <div style={{ display: "flex", marginTop: 28, fontSize: 32, fontWeight: 500, color: "#4A4F5C" }}>
+            {profile.displayName}, {profile.role.toLowerCase()} at {profile.universityShort}
           </div>
         </div>
 
         <div
           style={{
             display: "flex",
-            alignItems: "center",
             justifyContent: "space-between",
-            borderTop: "1px solid #23252a",
-            paddingTop: 28,
-            fontSize: 24,
-            color: "#8a8f98",
+            borderTop: "4px solid #111318",
+            paddingTop: 26,
+            fontSize: 26,
+            fontWeight: 600,
           }}
         >
-          <div style={{ display: "flex" }}>
-            ForgeRoom · AI Resume Analyzer
-          </div>
-          <div style={{ display: "flex", color: "#2dd4bf" }}>
-            github.com/naabelverse
-          </div>
+          <span>ForgeRoom and AI Resume Analyzer</span>
+          <span style={{ color: "#1F43E6" }}>github.com/naabelverse</span>
         </div>
       </div>
     ),
-    size,
+    {
+      ...size,
+      fonts: [
+        { name: "Bricolage", data: display, weight: 800, style: "normal" },
+        { name: "Figtree", data: medium, weight: 500, style: "normal" },
+        { name: "Figtree", data: semibold, weight: 600, style: "normal" },
+      ],
+    },
   );
 }

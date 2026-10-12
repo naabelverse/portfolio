@@ -2,8 +2,8 @@
  * Every fact and every sentence on this site lives here.
  *
  * Edit this file to update the site — the components read from it and never
- * hard-code copy. Anything marked `TODO(nabil)` is something only Nabil can
- * confirm; search the repo for that marker before deploying.
+ * hard-code copy. A string containing TODO fails the production build (see
+ * next.config.ts); leave an unconfirmed fact as "" and it renders as nothing.
  */
 
 import type { Diagram } from "@/components/diagram";
@@ -216,29 +216,21 @@ export const resumeAnalyzerProject = {
 export const otherWork = [
   {
     name: "Inventory Management System",
-    context: "Java · OOP coursework",
+    context: "Java, object-oriented coursework",
     description:
-      "A Java inventory system for Susur Ilham Sdn. Bhd., built to demonstrate object-oriented design: an Item base class with ElectronicItem inheriting from it, state encapsulated behind getters and setters, and an InventoryManager handling search, sorting, category reports, total inventory value, and file-based persistence.",
-    stack: ["Java", "OOP", "File I/O"],
-    // TODO(nabil): push this to GitHub and paste the URL here.
-    repo: null,
+      "An inventory system built to demonstrate inheritance and encapsulation: an Item base class with ElectronicItem extending it, state behind getters and setters, and a manager handling search, sorting, category reports, total value, and persistence to file.",
   },
   {
-    name: "TinyTots Web App",
-    context: "ASP.NET Web Forms · C#",
+    name: "TinyTots",
+    context: "C# and ASP.NET Web Forms",
     description:
-      "A child-registration system: register a child, list every registration, and edit an existing record, with the data persisted in a SQL Server database. My first end-to-end CRUD application on the .NET stack.",
-    stack: ["C#", "ASP.NET", "SQL Server"],
-    // TODO(nabil): push this to GitHub and paste the URL here.
-    repo: null,
+      "A child registration system: register, list every record, edit an existing one, all persisted in SQL Server. My first application where the form, the logic, and the database were all mine.",
   },
   {
-    name: "University coursework",
-    context: "C# · .NET · databases",
+    name: "Lab work",
+    context: ".NET 8, EF Core, MySQL",
     description:
-      "Smaller builds from lab work: ASP.NET MVC pages with Entity Framework Core, a .NET 8 Razor charting demo, and database exercises against MySQL and SQL Server. Not portfolio pieces on their own, but where most of the fundamentals came from.",
-    stack: [".NET 8", "EF Core", "MySQL"],
-    repo: null,
+      "ASP.NET MVC pages with Entity Framework Core, a Razor charting demo, and database exercises. Not portfolio pieces on their own, but most of what I know started here.",
   },
 ] as const;
 
@@ -249,111 +241,67 @@ export const otherWork = [
 export const skillGroups = [
   {
     title: "Languages",
-    description: "What I write day to day, strongest first.",
-    items: [
-      "Dart",
-      "JavaScript",
-      "TypeScript",
-      "Java",
-      "C#",
-      "SQL",
-      "HTML & CSS",
-    ],
+    note: "Strongest first.",
+    items: ["Dart", "JavaScript", "TypeScript", "Java", "C#", "SQL"],
   },
   {
     title: "Mobile",
-    description: "Where most of my recent hours have gone.",
-    items: [
-      "Flutter",
-      "Provider state management",
-      "Material Design",
-      "Android SDK (API 29+)",
-    ],
+    note: "Where most of my recent hours went.",
+    items: ["Flutter", "Provider", "Material Design", "Android SDK"],
   },
   {
     title: "Web",
-    description: "Full-stack TypeScript, from the page to the API route.",
-    items: ["Next.js (App Router)", "React", "Tailwind CSS"],
+    note: "Page through to API route.",
+    items: ["Next.js", "React", "Tailwind CSS"],
   },
   {
-    title: "Backend & data",
-    description: "APIs, auth, and the storage underneath.",
-    items: [
-      "Node.js",
-      "Express",
-      "MongoDB & Mongoose",
-      "JWT authentication",
-      "REST API design",
-      "MySQL · SQL Server",
-    ],
+    title: "Services and data",
+    note: "The part underneath.",
+    items: ["Node.js", "Express", "MongoDB", "JWT auth", "REST design", "SQL Server"],
   },
   {
-    title: "AI integration",
-    description: "Using models as components, with a plan for when they fail.",
-    items: [
-      "OpenAI GPT-4o (vision)",
-      "Anthropic Claude",
-      "NVIDIA NIM (Nemotron)",
-      "Structured LLM output",
-      "Zod schema validation",
-      "Prompt construction",
-      "Fallback & degradation strategy",
-    ],
+    title: "Models as components",
+    note: "Used with a plan for failure.",
+    items: ["GPT-4o vision", "Claude", "Nemotron", "Structured output", "Zod", "Fallbacks"],
   },
   {
-    title: "Tooling",
-    description: "The everyday kit.",
-    items: [
-      "Git & GitHub",
-      "VS Code",
-      "Android Studio",
-      "npm",
-      "Postman",
-      "Vitest",
-      "Railway",
-    ],
+    title: "Everyday kit",
+    note: "Nothing exotic.",
+    items: ["Git", "VS Code", "Android Studio", "Postman", "Vitest", "Railway"],
   },
 ] as const;
 
 /* -------------------------------------------------------------------------
-   Background
+   Background — an empty `period` or `description` renders as nothing.
    ------------------------------------------------------------------------- */
 
 export const timeline = [
   {
-    period: "TODO(nabil): year – year",
+    period: "",
     title: "Bachelor of Software Engineering",
-    org: profile.university,
-    description:
-      "TODO(nabil): add your CGPA if you're happy to publish it, plus any notable results, awards, or leadership roles.",
+    org: "Universiti Tun Hussein Onn Malaysia",
+    description: "",
   },
   {
     period: "Aug 2026",
     title: "AI Resume Analyzer",
     org: "Personal project",
     description:
-      "Designed, built, tested and deployed a full-stack resume reviewer on my own: a Next.js app with an NVIDIA Nemotron pipeline, scores computed in code, Zod-validated output and a rule-based fallback.",
+      "Designed, built, tested and deployed on my own: a Next.js app with a constrained model pipeline, scoring in code, validated output, and a rule-based fallback.",
   },
   {
-    period: "TODO(nabil): year",
-    title: "ForgeRoom — Projek Sarjana Muda (PSM)",
+    period: "",
+    title: "ForgeRoom",
     org: "Final-year project",
     description:
-      "Designed and built a multi-modal AI interior design app end to end: requirements and scope in Chapter 1, then the Flutter client, the Express API, the AI pipeline, and alpha testing.",
+      "Scope and requirements in Chapter 1, then the Flutter client, the Express API, the model pipeline, and alpha testing.",
   },
   {
-    period: "TODO(nabil): year",
+    period: "Earlier",
     title: "Coursework foundations",
     org: profile.universityShort,
     description:
-      "Object-oriented programming in Java, database systems, and web application development on the .NET stack — the Inventory Management System and TinyTots came out of this work.",
-  },
-  {
-    period: "TODO(nabil): add or delete",
-    title: "TODO(nabil): work experience, part-time roles, or clubs",
-    org: "TODO(nabil)",
-    description:
-      "Delete this entry if it doesn't apply. Anything counts — a part-time job, a committee role, a hackathon, a freelance build.",
+      "Object-oriented programming in Java, database systems, and web development on the .NET stack.",
   },
 ] as const;
 
@@ -365,17 +313,15 @@ export const about = {
   headline: "About me",
   paragraphs: [
     "I'm Muhammad Nabil, a final-year Software Engineering student at Universiti Tun Hussein Onn Malaysia. Most of what I know I learned by building something that didn't work yet and staying with it until it did.",
-    "My final-year project, ForgeRoom, is the clearest example. It started as a question — could someone renting a room get a genuinely useful design plan from a single photo? — and became a Flutter app, an Express API, a MongoDB database, and a pipeline that hands a room photo to a vision model and the analysis to an LLM. Along the way I rebuilt the codebase once, from scratch, because the first version had grown into something I could no longer reason about.",
-    "The habit I'm proudest of is designing for the unhappy path. ForgeRoom runs its full flow with no API keys at all, falling back to mock responses, because a demo that dies when a key expires isn't a demo. That instinct — assume it will fail, decide now what happens then — is what I'd bring to a team.",
+    "My final-year project, ForgeRoom, is the clearest example. It started as a question (could someone renting a room get a genuinely useful design plan from a single photo?) and became a Flutter app, an Express API, a MongoDB database, and a pipeline that hands a room photo to a vision model and the analysis to an LLM. Along the way I rebuilt the codebase once, from scratch, because the first version had grown into something I could no longer reason about.",
+    "The habit I'm proudest of is designing for the unhappy path. ForgeRoom runs its full flow with no API keys at all, falling back to mock responses, because a demo that dies when a key expires isn't a demo. That instinct, to assume it will fail and decide now what happens then, is what I'd bring to a team.",
   ],
   lookingFor: {
     title: "What I'm looking for",
     body: "A software engineering internship where I can work on a real product with people who review my code. I'm most useful in mobile or backend work, I'm comfortable being the least experienced person in the room, and I'd rather be told my approach is wrong early than find out late.",
-    // TODO(nabil): confirm all three before publishing.
     details: [
-      "Available: TODO(nabil): intake / dates",
-      "Open to: on-site in TODO(nabil): city, hybrid, or remote",
-      "Interests: mobile development, backend APIs, applied AI",
+      "Open to on-site work in Malaysia, hybrid, or remote",
+      "Most interested in mobile development, backend APIs and applied AI",
     ],
   },
 } as const;
@@ -385,9 +331,7 @@ export const about = {
    ------------------------------------------------------------------------- */
 
 export const contact = {
-  eyebrow: "Contact",
   title: "Let's talk about an internship",
   description:
-    "The fastest way to reach me is the form — it goes straight to my inbox. GitHub and LinkedIn work just as well.",
-  formNote: "I read everything and reply within a couple of days.",
+    "I'm looking for a software engineering internship in Malaysia, and I'm happy to work remotely. Send a message and I'll reply within a couple of days.",
 } as const;

@@ -1,17 +1,20 @@
 import type { Metadata } from "next";
 
+import { LayerDiagram } from "@/components/case-study";
+import { DiagramFigure } from "@/components/diagram";
+import { ContactBlock } from "@/components/sections/home-sections";
 import { Button } from "@/components/ui/button";
 import {
   Badge,
   Card,
   Chip,
   Field,
-  Panel,
   Row,
   RowList,
   Section,
   StatStrip,
 } from "@/components/ui/primitives";
+import { featuredProject, resumeAnalyzerProject } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Styleguide",
@@ -32,7 +35,8 @@ const COLOURS = [
   { name: "sun", hex: "#FFC93D", className: "bg-sun", note: "background only" },
   { name: "sun-deep", hex: "#FFBB0A", className: "bg-sun-deep" },
   { name: "wash-sun", hex: "#FFF3D4", className: "bg-wash-sun" },
-  { name: "rose", hex: "#FF4F6E", className: "bg-rose", note: "failure path only" },
+  { name: "rose", hex: "#FF4F6E", className: "bg-rose", note: "live badge fill only" },
+  { name: "rose-line", hex: "#E63655", className: "bg-rose-line", note: "failure strokes only" },
   { name: "wash-rose", hex: "#FFE7EB", className: "bg-wash-rose" },
   { name: "line", hex: "#E2E2DC", className: "bg-line" },
   { name: "line-2", hex: "#CFCFC7", className: "bg-line-2" },
@@ -51,21 +55,8 @@ function Label({ children }: { children: React.ReactNode }) {
   return <p className="mt-12 mb-4 text-small text-ink-3">{children}</p>;
 }
 
-/** Stand-in until the real diagrams land in step 4. */
-function SampleDiagram() {
-  return (
-    <svg viewBox="0 0 380 150" role="img" aria-label="Sample diagram: an input box, an arrow, a model box, and a dashed failure path.">
-      <rect x="4" y="6" width="372" height="46" rx="12" fill="#fff" stroke="#111318" strokeWidth="2.5" />
-      <text x="22" y="34" fontSize="14" fontWeight="600" fill="#111318">Input</text>
-      <path d="M190 52 L190 80 M183 73 L190 80 L197 73" stroke="#111318" strokeWidth="2.5" fill="none" />
-      <rect x="4" y="80" width="372" height="46" rx="12" fill="#FFC93D" stroke="#111318" strokeWidth="2.5" />
-      <text x="22" y="108" fontSize="14" fontWeight="600" fill="#111318">Model step</text>
-      <path d="M352 29 L368 29 L368 103 L352 103" stroke="#FF4F6E" strokeWidth="2.5" strokeDasharray="7 6" fill="none" />
-    </svg>
-  );
-}
-
 function ChapterDemo({ tone, live }: { tone: "blue" | "rose"; live?: boolean }) {
+  const project = live ? resumeAnalyzerProject : featuredProject;
   return (
     <Section tone={tone}>
       <Badge live={live}>{live ? "Live and public" : "Final-year project"}</Badge>
@@ -91,9 +82,7 @@ function ChapterDemo({ tone, live }: { tone: "blue" | "rose"; live?: boolean }) 
             <Button variant="ghost" href="https://github.com/naabelverse">View source</Button>
           </div>
         </div>
-        <Panel caption="The caption makes an engineering point rather than restating the picture.">
-          <SampleDiagram />
-        </Panel>
+        <DiagramFigure diagram={project.diagram} />
       </div>
     </Section>
   );
@@ -185,8 +174,17 @@ export default function StyleguidePage() {
           ))}
         </div>
 
-        <Label>Stat strip</Label>
-        <StatStrip items={STATS} />
+        <Label>Stat strip, with one empty value that renders as nothing</Label>
+        <StatStrip items={[...STATS, { label: "Unconfirmed", value: "" }]} />
+
+        <Label>Layer diagram (case studies)</Label>
+        <LayerDiagram
+          layers={[
+            { name: "Client", items: ["Flutter app", "Provider state"] },
+            { name: "API", items: ["Express routes", "JWT auth"] },
+            { name: "Models", items: ["Vision model", "LLM"] },
+          ]}
+        />
 
         <Label>Fields</Label>
         <form className="grid max-w-xl gap-4 rounded-panel bg-white p-[clamp(20px,3vw,28px)]">
@@ -229,7 +227,8 @@ export default function StyleguidePage() {
       <ChapterDemo tone="rose" live />
 
       <Section>
-        <p className="text-small text-ink-2">Plain paper section after the chapters.</p>
+        <p className="mb-6 text-small text-ink-3">Contact block on paper, after the chapters</p>
+        <ContactBlock titleId="sg-contact-title" />
       </Section>
     </>
   );

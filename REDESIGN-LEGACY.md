@@ -1,20 +1,19 @@
 # Legacy removal checklist
 
-Old dark-system pieces kept alive only so unrebuilt pages compile. Each line
-names the step whose rebuild removes its last caller. Tick it and delete the
-code in that step. Delete this file when every box is ticked.
+Old dark-system pieces that were kept alive only so unrebuilt pages compiled.
+Every box is ticked: this file can be deleted once the redesign branch merges.
 
-- [ ] `ButtonLink` (components/ui/button.tsx): step 6. Last callers: about, case studies, 404
-- [ ] `SectionHeader` (components/ui/primitives.tsx): step 6. Last callers: about, case studies
-- [ ] `Eyebrow` (components/ui/primitives.tsx): step 6. Last callers: about, case studies, 404
-- [ ] `ScreenshotPanel` (components/ui/primitives.tsx): step 6. Last callers: case studies
-- [ ] `CtaBanner` (components/ui/primitives.tsx): step 6. Last callers: about, case studies
-- [x] `StatusBadge` (components/ui/primitives.tsx): step 3. Only caller was the hero availability badge
-- [ ] `Tag` (components/ui/primitives.tsx): step 6. Last callers: case studies
-- [ ] `components/ui/browser-frame.tsx`: step 6. Last caller: AI Resume Analyzer case study
+- [x] `ButtonLink` (components/ui/button.tsx): removed in steps 5–6
+- [x] `SectionHeader` (components/ui/primitives.tsx): removed in steps 5–6, replaced by `SectionIntro`
+- [x] `Eyebrow` (components/ui/primitives.tsx): removed in steps 5–6; the brief bans eyebrow labels
+- [x] `ScreenshotPanel` (components/ui/primitives.tsx): removed in steps 5–6, replaced by `Screenshot` in components/case-study.tsx
+- [x] `CtaBanner` (components/ui/primitives.tsx): removed in steps 5–6, replaced by the cobalt `CaseClose` and `ContactBlock`
+- [x] `StatusBadge` (components/ui/primitives.tsx): removed in step 3; its only caller was the hero availability badge
+- [x] `Tag` (components/ui/primitives.tsx): removed in steps 5–6, replaced by `Chip`
+- [x] `components/ui/browser-frame.tsx`: deleted in steps 5–6; screenshots now sit in a plain bordered figure
 
 Not on the original list, but the same kind of leftover:
 
-- [ ] `components/reveal.tsx` (scroll reveal, banned by the brief): step 6. Last callers: about, case studies
-- [ ] `Card`'s deprecated `level` prop: step 6
-- [ ] `components/mockups/forgeroom.tsx` (phone mockup, replaced by diagrams): step 6. `PhoneShowcase` removed in step 4, where the ForgeRoom diagram replaced it on the home page. The file survives because both case studies import `ArchitectureDiagram` and ForgeRoom's imports the three screens
+- [x] `components/reveal.tsx` (scroll reveal, banned by the brief): deleted in steps 5–6
+- [x] `Card`'s deprecated `level` prop: removed in steps 5–6
+- [x] `components/mockups/forgeroom.tsx`: deleted in steps 5–6. `PhoneShowcase` was replaced by the ForgeRoom system diagram in step 4. `ArchitectureDiagram` was replaced by `LayerDiagram` in components/case-study.tsx. The three phone screens were drawn mockups in the old dark style; the module rows now carry that content as text, next to the real system diagram
