@@ -71,12 +71,14 @@ export const navCta = { label: "Hire me for an internship", href: "/#contact" };
 export const hero = {
   /** `highlight` is the one sun-marked phrase on the site. */
   headline: {
-    before: "Most demos work. I build for the ",
-    highlight: "moment they don't",
-    after: ".",
+    before: "Final-year student, currently building my way out of ",
+    // One word so the mark never wraps (it measured onto one line from 320px
+    // to 1600px), with the full stop inside it, so `after` stays empty.
+    highlight: "coursework.",
+    after: "",
   },
   intro:
-    "Final-year software engineering student at UTHM. I build mobile and web apps with AI models inside them, and I spend most of my effort on what happens when the model returns nonsense or the network drops.",
+    "The coursework is software engineering, at UTHM. I build mobile and web apps with AI models inside them, and I spend most of my effort on what happens when the model returns nonsense or the network drops.",
   primaryCta: { label: "See how ForgeRoom works", href: "/#work" },
   secondaryCta: { label: "Get in touch", href: "/#contact" },
 } as const;

@@ -44,11 +44,10 @@ export default function OpenGraphImage() {
 
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div style={{ display: "flex", flexWrap: "wrap", fontFamily: "Bricolage", fontSize: 92, lineHeight: 1.03, letterSpacing: "-0.03em" }}>
-            <span>I build for the&nbsp;</span>
             {/* No sun highlight: the card and the hero are often seen back to
-                back, and the highlight is a once-only device. */}
-            <span>moment they don&rsquo;t</span>
-            <span>.</span>
+                back, and the highlight is a once-only device. "Final-year
+                student" is dropped because the line below says student. */}
+            Currently building my way out of coursework.
           </div>
           <div style={{ display: "flex", marginTop: 28, fontSize: 32, fontWeight: 500, color: "#4A4F5C" }}>
             {profile.displayName}, {profile.role.toLowerCase()} at {profile.universityShort}

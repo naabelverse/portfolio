@@ -8,7 +8,7 @@ import "./globals.css";
 
 /**
  * Bricolage Grotesque carries the headings; its optical-size axis is what
- * keeps the 96px hero tight and the 20px h3 open. Figtree is everything
+ * keeps the 96px h1 tight and the 20px h3 open. Figtree is everything
  * else. JetBrains Mono only where something is literally code.
  */
 const bricolage = Bricolage_Grotesque({

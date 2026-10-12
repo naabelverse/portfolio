@@ -112,6 +112,7 @@ Scale, all with tight negative tracking on headings:
 | Role | Size | Weight | Tracking |
 | --- | --- | --- | --- |
 | h1 | clamp(42px, 8.2vw, 96px) | 800 | -0.03em |
+| home hero h1 | clamp(36px, 6vw, 64px) | 800 | -0.03em |
 | h2 | clamp(32px, 5vw, 58px) | 700 | -0.03em |
 | h3 | clamp(20px, 2.4vw, 27px) | 600 | -0.02em |
 | lede | clamp(18px, 2vw, 22px) | 400 | normal |
@@ -212,6 +213,16 @@ answers a click or a hover is fine; ambient movement is not.
 
 One phrase in the headline is highlighted with a `sun` background. One phrase,
 once, on the home page only.
+
+**Known issue: hero h1 too close to h2 on wide screens.** The hero h1 has its own
+`clamp(36px, 6vw, 64px)` so the headline fits on three lines at 1280px, but h2
+tops out at 58px, so on wide screens the hero is only 1.10× the section
+headings (1.2× at 980 and 720px). This predates the headline change and is left
+for separate work. Two ways of fixing it were measured and set aside: a smaller
+site-wide h2 changes every section heading unseen, and anything above 64px puts
+the hero back on four lines in its 1.4fr column. On phones the 36px floor
+against h2's 32px (1.13×) is accepted, because the two are never on screen
+together and a higher floor costs a fifth line at 360px.
 
 ---
 
