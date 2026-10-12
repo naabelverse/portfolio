@@ -83,8 +83,8 @@
   html {
     color-scheme: light;
     scroll-behavior: smooth;
-    /* Clears the 66px sticky nav when jumping to an anchor. */
-    scroll-padding-top: 66px;
+    /* Clears the sticky nav (66px plus its 2px rule) when jumping to an anchor. */
+    scroll-padding-top: 68px;
     -webkit-text-size-adjust: 100%;
   }
 

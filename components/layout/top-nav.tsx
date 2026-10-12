@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { Link } from "@/components/ui/link";
 import { Container } from "@/components/ui/primitives";
 import { nav, navCta, profile } from "@/content/site";
 import { cn } from "@/lib/cn";
@@ -40,7 +40,7 @@ export function TopNav() {
   return (
     <header className="sticky top-0 z-50 border-b-2 border-ink bg-white/90 backdrop-blur-md">
       <Container className="flex h-[66px] items-center justify-between gap-5">
-        <Link href="/" aria-label={`${profile.displayName}, home`}>
+        <Link href="/" onClick={close} aria-label={`${profile.displayName}, home`}>
           <Logo />
         </Link>
 

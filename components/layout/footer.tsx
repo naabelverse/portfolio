@@ -1,5 +1,4 @@
-import Link from "next/link";
-
+import { Link } from "@/components/ui/link";
 import { Container } from "@/components/ui/primitives";
 import { links, nav, profile } from "@/content/site";
 
