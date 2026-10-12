@@ -1,26 +1,27 @@
-type ClassValue = string | false | null | undefined | ClassValue[];
+import { extendTailwindMerge } from "tailwind-merge";
 
 /**
- * Joins class names, dropping anything falsy.
+ * Joins class names and resolves Tailwind conflicts, so a caller's class
+ * beats a component's built-in one (`hidden` over a Button's `inline-flex`).
  *
- * Deliberately does not merge conflicting Tailwind utilities: this project
- * renames the `text-*` and `rounded-*` scales to the DESIGN.md tokens, which
- * merge libraries misclassify (they read `text-body` as a colour). Components
- * therefore compose classes additively and never rely on override order.
+ * tailwind-merge only knows Tailwind's default scales. Every custom token in
+ * globals.css @theme is registered here; without that it reads `text-lede`
+ * as a colour and drops it in favour of `text-ink-2`. Add new tokens here
+ * when you add them there.
  */
-export function cn(...inputs: ClassValue[]): string {
-  const out: string[] = [];
-
-  for (const input of inputs) {
-    if (!input) continue;
-
-    if (Array.isArray(input)) {
-      const nested = cn(...input);
-      if (nested) out.push(nested);
-    } else {
-      out.push(input);
-    }
-  }
-
-  return out.join(" ");
-}
+export const cn = extendTailwindMerge({
+  extend: {
+    theme: {
+      color: [
+        "paper", "white", "ink", "ink-2", "ink-3", "cobalt", "cobalt-deep",
+        "wash-blue", "sun", "sun-deep", "wash-sun", "rose", "rose-line",
+        "wash-rose", "line", "line-2",
+      ],
+      font: ["display", "sans", "mono"],
+      text: ["tagline", "lede", "body", "small"],
+      radius: ["input", "diagram", "card", "panel", "block"],
+      spacing: ["gutter", "section"],
+      container: ["wrap", "measure", "lede", "tagline"],
+    },
+  },
+});

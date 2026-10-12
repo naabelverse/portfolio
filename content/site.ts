@@ -6,6 +6,8 @@
  * confirm; search the repo for that marker before deploying.
  */
 
+import type { Diagram } from "@/components/diagram";
+
 export const profile = {
   fullName: "Muhammad Nabil Bin Mohd Nizam",
   displayName: "Muhammad Nabil",
@@ -51,12 +53,18 @@ export const emailAddress = `${links.emailUser}@${links.emailDomain}`;
  */
 export const siteUrl = "https://portfolio-naabel.up.railway.app";
 
+/**
+ * Header nav. About lives in the footer only: with five links plus the CTA,
+ * "What I use" wrapped and the row overflowed between 721 and 800px.
+ */
 export const nav = [
   { label: "Work", href: "/#work" },
   { label: "What I use", href: "/#skills" },
   { label: "Background", href: "/#background" },
-  { label: "About", href: "/about" },
+  { label: "Contact", href: "/#contact" },
 ] as const;
+
+export const footerNav = [...nav, { label: "About", href: "/about" }] as const;
 
 export const navCta = { label: "Hire me for an internship", href: "/#contact" };
 
@@ -85,6 +93,24 @@ export const proofStrip = [
   { label: "Looking for", value: "An internship in Malaysia" },
 ] as const;
 
+/** A featured project: one chapter on the home page, with its diagram. */
+export type Project = {
+  slug: string;
+  name: string;
+  badge: string;
+  tagline: string;
+  problem: string;
+  approach: string;
+  careful: string;
+  outcome: string;
+  stack: readonly string[];
+  href: string;
+  repo: string;
+  /** A deployed URL. Its presence makes the badge `live` and adds "Try it yourself". */
+  live?: string;
+  diagram: Diagram;
+};
+
 /* -------------------------------------------------------------------------
    Work
    ------------------------------------------------------------------------- */
@@ -92,14 +118,17 @@ export const proofStrip = [
 export const featuredProject = {
   slug: "forgeroom",
   name: "ForgeRoom",
-  eyebrow: "Final-year project · PSM",
-  tagline: "Multi-modal AI-assisted interior design for Malaysian homes",
+  badge: "Final-year project",
+  tagline:
+    "Photograph a room, describe what you need, and get back a plan you can act on.",
   problem:
-    "First-time homeowners and students in rented rooms want a space that works, but design tools assume a budget, a floor plan, and vocabulary they don't have.",
+    "Students in rented rooms and first-time homeowners want a space that works. Design tools assume a budget, a floor plan, and vocabulary they don't have.",
   approach:
-    "ForgeRoom takes what someone already has — a photo, a rough description, the room's dimensions, and a style they like — and returns a plan they can act on: layout guidance, a colour palette, decoration ideas, and real furniture products with links.",
+    "A photo, a description, the room's dimensions, and a chosen style go in. A vision model reads the room, an LLM reasons about it, and back comes a layout, a colour palette, and real furniture with prices in ringgit.",
+  careful:
+    "The furniture catalogue is someone else's service, so it will fail eventually. When it does, the plan still renders and product lookup falls back to cached samples. The user sees a design, not an error page.",
   outcome:
-    "A working Android app backed by a live API, built as five modules against the objectives set in my PSM Chapter 1.",
+    "A working Android app on a live API, built as five modules against the objectives I set in Chapter 1 of my PSM.",
   stack: [
     "Flutter",
     "Dart",
@@ -113,36 +142,76 @@ export const featuredProject = {
   ],
   href: "/projects/forgeroom",
   repo: links.forgeroomRepo,
-} as const;
+  diagram: {
+    label:
+      "Diagram: photo, description and dimensions go into a vision model and an LLM, producing a layout, palette and furniture list. If the catalogue is unreachable, cached samples are used.",
+    caption:
+      "The dashed path is the one I spent longest on. It is also the only one a user is guaranteed to hit eventually.",
+    steps: [
+      { lines: ["Room photo, description,|dimensions"], note: "and a style they picked" },
+      {
+        kind: "model",
+        lines: ["Vision model reads the room", "LLM plans against|the dimensions"],
+      },
+      {
+        kind: "output",
+        lines: ["Layout notes and|colour palette", "Furniture with ringgit prices"],
+      },
+    ],
+    fallback: {
+      from: 2,
+      label: "Catalogue down? Cached samples,|and the plan still renders.",
+    },
+  },
+} as const satisfies Project;
 
 export const resumeAnalyzerProject = {
   slug: "ai-resume-analyzer",
   name: "AI Resume Analyzer",
-  eyebrow: "Personal project · Live",
-  tagline: "Upload a resume, get a scored review with concrete rewrites.",
+  badge: "Live and public",
+  tagline:
+    "Upload a resume, get a score you can argue with and rewrites you can use.",
   problem:
-    "Useful resume feedback is hard to get: articles are generic, advisers are slow or cost money, and AI chat tools give a different score each time and an error when they fail.",
+    "Resume feedback is hard to get. Articles are generic, advisers are slow or cost money, and chat tools return a different score every time you ask, then an error when they fail.",
   approach:
-    "A Next.js app that extracts the resume in memory and has NVIDIA's Nemotron rate six weighted dimensions inside a strict JSON schema. Code then computes the score, validates the answer with Zod and retries once if it has to.",
-  outcome:
-    "Live on Railway with 538 passing tests. Every failure I could provoke — wrong file type, scanned PDF, missing key, timeout, malformed output — ends in a rule-based report, not an error page.",
+    "The file is extracted in memory and never written to disk. A model rates six weighted dimensions inside a strict JSON schema. The score itself is computed in code, so the same resume always gets the same number.",
+  careful:
+    "Every failure I could provoke ends in a report rather than an error page: wrong file type, a scanned PDF with no text layer, a missing key, a timeout, malformed output. Zod validates the answer and the pipeline retries once before falling back to rules.",
+  outcome: "Deployed and running, with 538 passing tests.",
   stack: [
     "Next.js",
     "React",
     "TypeScript",
-    "Tailwind CSS",
+    "Tailwind",
     "shadcn/ui",
     "NVIDIA Nemotron",
     "Zod",
-    "unpdf",
-    "mammoth",
     "Vitest",
-    "Railway",
   ],
   href: "/projects/ai-resume-analyzer",
   repo: links.resumeAnalyzerRepo,
   live: links.resumeAnalyzerLive,
-} as const;
+  diagram: {
+    label:
+      "Diagram: a resume is extracted in memory, rated by a model against a schema, validated and scored in code. Invalid output retries once, then rules take over.",
+    caption:
+      "The model proposes. It does not decide the number, and it does not decide whether you get a page.",
+    steps: [
+      { lines: ["PDF or DOCX,|extracted in memory"] },
+      {
+        kind: "model",
+        lines: ["Model rates six|weighted dimensions"],
+        note: "inside a strict JSON schema",
+      },
+      {
+        lines: ["Zod validates,|code computes the score"],
+        note: "the model never decides|the number",
+      },
+      { kind: "output", lines: ["A report, every single time"] },
+    ],
+    fallback: { from: 2, to: 3 },
+  },
+} as const satisfies Project;
 
 export const otherWork = [
   {

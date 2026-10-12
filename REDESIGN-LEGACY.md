@@ -17,4 +17,4 @@ Not on the original list, but the same kind of leftover:
 
 - [ ] `components/reveal.tsx` (scroll reveal, banned by the brief): step 6. Last callers: about, case studies
 - [ ] `Card`'s deprecated `level` prop: step 6
-- [ ] `components/mockups/forgeroom.tsx` (phone mockup, replaced by diagrams): step 4 on home, step 6 on the ForgeRoom case study
+- [ ] `components/mockups/forgeroom.tsx` (phone mockup, replaced by diagrams): step 6. `PhoneShowcase` removed in step 4, where the ForgeRoom diagram replaced it on the home page. The file survives because both case studies import `ArchitectureDiagram` and ForgeRoom's imports the three screens

@@ -65,7 +65,8 @@ Energy
   --color-wash-sun     #FFF3D4    chapter background
 
 Alert / failure paths
-  --color-rose         #FF4F6E
+  --color-rose         #FF4F6E    fills only (the live badge)
+  --color-rose-line    #E63655    strokes only (diagram failure paths)
   --color-wash-rose    #FFE7EB    chapter background
 
 Rules
@@ -76,6 +77,10 @@ Rules
 `ink-3` was originally `#848B9A`, which is 3.27:1 on paper and fails AA for the
 15px labels it is meant for. `#646B7A` is the lightest grey of the same hue that
 clears 4.5:1 on paper (5.1:1) and on every wash.
+
+`rose-line` exists because `#FF4F6E` as a dashed stroke is 3.0:1 on paper and
+2.7:1 on wash-blue. `#E63655` is 4.0:1 on paper, 4.2:1 on white and 3.5:1 on
+wash-blue, clearing the 3:1 bar for graphics with margin.
 
 ### How the colours are used
 
@@ -161,7 +166,7 @@ Rules for the diagrams:
 
 - Boxes: white fill, 2.5px ink stroke, 12px radius. The model step uses `sun`
   fill. The output step uses `wash-blue` fill.
-- Arrows: 2.5px ink. Failure path: 2.5px rose, `stroke-dasharray: 7 6`.
+- Arrows: 2.5px ink. Failure path: 2.5px `rose-line`, `stroke-dasharray: 7 6`.
 - Label text in Figtree 14px semibold; sub-labels 12.5px in `ink-2`.
 - Every diagram carries `role="img"` and a full `aria-label` describing the flow
   in a sentence, because the diagram is content, not decoration.

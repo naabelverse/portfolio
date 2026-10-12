@@ -34,6 +34,7 @@
 
   /* Failure paths, nowhere else ------------------------------------------ */
   --color-rose: #ff4f6e;
+  --color-rose-line: #e63655; /* strokes only: 4.0:1 on paper, 3.5:1 on wash-blue */
   --color-wash-rose: #ffe7eb;
 
   /* Rules ---------------------------------------------------------------- */

@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { Logo } from "@/components/layout/top-nav";
 import { Container } from "@/components/ui/primitives";
-import { links, nav, profile } from "@/content/site";
+import { footerNav, links, profile } from "@/content/site";
 
 const elsewhere = [
   { label: "GitHub", href: links.github },
@@ -28,7 +28,7 @@ export function Footer() {
             <nav aria-label="Footer">
               <h2 className="text-caption text-ink-subtle">Site</h2>
               <ul className="mt-4 flex flex-col gap-3">
-                {nav.map((item) => (
+                {footerNav.map((item) => (
                   <li key={item.href}>
                     <Link
                       href={item.href}

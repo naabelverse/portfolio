@@ -1,21 +1,19 @@
-import Image from "next/image";
-
 import { ContactForm } from "@/components/contact-form";
-import { PhoneShowcase } from "@/components/mockups/forgeroom";
+import { DiagramFigure } from "@/components/diagram";
 import { Reveal } from "@/components/reveal";
 import { Button, ButtonLink } from "@/components/ui/button";
 import {
+  Badge,
   Card,
+  Chip,
   Container,
   CtaBanner,
   Eyebrow,
-  ScreenshotPanel,
   Section,
   SectionHeader,
   StatStrip,
   Tag,
 } from "@/components/ui/primitives";
-import { resumeAnalyzer } from "@/content/ai-resume-analyzer";
 import {
   contact,
   featuredProject,
@@ -23,6 +21,7 @@ import {
   links,
   otherWork,
   proofStrip,
+  type Project,
   resumeAnalyzerProject,
   skillGroups,
   timeline,
@@ -59,6 +58,12 @@ export function Hero() {
     <Container className="pt-[clamp(48px,7vw,86px)] pb-[clamp(56px,7vw,92px)]">
       <div className="grid items-center gap-[clamp(28px,5vw,64px)] lg:grid-cols-[1.25fr_0.75fr]">
         <div>
+          {/* The h1's 1.03 line-height is shorter than the font's content
+              area, so when the highlight wraps, its line fragments overlap by
+              a few px and the lower fragment paints over the line above. Safe
+              today: no word directly above the highlight has a descender.
+              If the headline changes, check every wrap width for a clipped
+              g, j, p, q or y. */}
           <h1 className="max-w-[13ch]">
             {hero.headline.before}
             <mark className="box-decoration-clone rounded-[4px] bg-sun px-[0.1em] text-ink">
@@ -85,119 +90,80 @@ export function Hero() {
 }
 
 /* -------------------------------------------------------------------------
-   Featured project
+   Project chapters — full-bleed washes; the sections between stay paper.
    ------------------------------------------------------------------------- */
 
-type Feature = {
-  name: string;
-  eyebrow: string;
-  tagline: string;
-  problem: string;
-  approach: string;
-  outcome: string;
-  stack: readonly string[];
-  href: string;
-  repo: string;
-  live?: string;
-};
-
-function FeaturedProject({
+function ProjectChapter({
   project,
-  visual,
+  tone,
   id,
-  headingId,
-  className,
 }: {
-  project: Feature;
-  visual: React.ReactNode;
-  id?: string;
-  headingId: string;
-  className?: string;
+  project: Project;
+  tone: "blue" | "rose";
+  id: string;
 }) {
+  const headingId = `${id}-title`;
   const blocks = [
     { label: "The problem", body: project.problem },
-    { label: "The approach", body: project.approach },
+    { label: "How it works", body: project.approach },
+    { label: "What I was careful about", body: project.careful },
     { label: "Where it stands", body: project.outcome },
   ];
 
   return (
-    <Section id={id} labelledBy={headingId} className={className}>
-      <Reveal>
-        <Eyebrow>{project.eyebrow}</Eyebrow>
-        <div className="mt-3 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <div className="max-w-2xl">
-            <h2 id={headingId} className="text-display-md text-ink">
-              {project.name}
-            </h2>
-            <p className="mt-4 text-body-lg text-ink-subtle">
-              {project.tagline}
-            </p>
-          </div>
-          <div className="flex shrink-0 flex-wrap gap-3">
-            <ButtonLink href={project.href}>Read the case study</ButtonLink>
-            {project.live && (
-              <ButtonLink href={project.live} external variant="secondary">
-                Try it live
-              </ButtonLink>
-            )}
-            <ButtonLink href={project.repo} external variant="secondary">
-              View source
-            </ButtonLink>
-          </div>
-        </div>
-      </Reveal>
+    <Section id={id} labelledBy={headingId} tone={tone}>
+      <Badge live={Boolean(project.live)}>{project.badge}</Badge>
+      <h2 id={headingId} className="mt-[18px]">
+        {project.name}
+      </h2>
+      <p className="mt-3.5 max-w-tagline text-tagline text-ink-2">{project.tagline}</p>
 
-      <Reveal delay={80}>
-        <ScreenshotPanel className="mt-12">{visual}</ScreenshotPanel>
-      </Reveal>
-
-      <Reveal delay={120}>
-        <div className="mt-12 grid gap-8 md:grid-cols-3">
-          {blocks.map((block) => (
-            <div key={block.label}>
-              <h3 className="text-caption text-ink-subtle">{block.label}</h3>
-              <p className="mt-3 text-body text-ink-muted">{block.body}</p>
+      <div className="mt-[clamp(36px,5vw,56px)] grid items-start gap-[clamp(32px,5vw,64px)] lg:grid-cols-2">
+        <div>
+          {blocks.map((block, i) => (
+            <div key={block.label} className={i > 0 ? "mt-[26px]" : undefined}>
+              {/* h3 for the outline; set at body size, as in the prototype. */}
+              <h3 className="mb-1.5 font-sans text-[17px] leading-[1.6] font-semibold tracking-normal">
+                {block.label}
+              </h3>
+              <p className="max-w-measure text-ink-2">{block.body}</p>
             </div>
           ))}
+
+          <ul className="mt-7 flex flex-wrap gap-2">
+            {project.stack.map((item) => (
+              <li key={item}>
+                <Chip>{item}</Chip>
+              </li>
+            ))}
+          </ul>
+
+          <div className="mt-7 flex flex-wrap gap-3">
+            {project.live && (
+              <Button variant="sun" href={project.live}>
+                Try it yourself
+              </Button>
+            )}
+            <Button href={project.href}>Read the case study</Button>
+            <Button variant="ghost" href={project.repo}>
+              View source
+            </Button>
+          </div>
         </div>
 
-        <div className="mt-10 flex flex-wrap gap-2">
-          {project.stack.map((item) => (
-            <Tag key={item}>{item}</Tag>
-          ))}
-        </div>
-      </Reveal>
+        {/* Capped when the split stacks, or the labels balloon to ~30px. */}
+        <DiagramFigure diagram={project.diagram} className="max-w-[600px] lg:max-w-none" />
+      </div>
     </Section>
   );
 }
 
 /** The two featured builds, ForgeRoom first, inside the #work anchor. */
 export function FeaturedProjects() {
-  const { cover } = resumeAnalyzer;
-
   return (
     <>
-      <FeaturedProject
-        id="work"
-        headingId="work-title"
-        project={featuredProject}
-        visual={<PhoneShowcase />}
-      />
-      <FeaturedProject
-        headingId="resume-analyzer-title"
-        project={resumeAnalyzerProject}
-        className="pt-0 md:pt-0"
-        visual={
-          <Image
-            src={cover.src}
-            width={cover.width}
-            height={cover.height}
-            alt={cover.alt}
-            sizes="(min-width: 1280px) 1184px, 100vw"
-            className="block h-auto w-full rounded-lg"
-          />
-        }
-      />
+      <ProjectChapter id="work" tone="blue" project={featuredProject} />
+      <ProjectChapter id="resume-analyzer" tone="rose" project={resumeAnalyzerProject} />
     </>
   );
 }

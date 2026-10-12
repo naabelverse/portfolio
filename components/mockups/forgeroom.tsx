@@ -330,27 +330,6 @@ export function ProductsScreen() {
    Showcase — the three screens as one panel
    ------------------------------------------------------------------------- */
 
-export function PhoneShowcase({ className }: { className?: string }) {
-  return (
-    <div
-      className={cn(
-        "grid grid-cols-1 justify-items-center gap-8 sm:grid-cols-2 lg:grid-cols-3",
-        className,
-      )}
-    >
-      <CaptureScreen />
-      <PlanScreen />
-      <div className="w-full sm:col-span-2 sm:max-w-[268px] sm:justify-self-center lg:col-span-1">
-        <ProductsScreen />
-      </div>
-    </div>
-  );
-}
-
-/* -------------------------------------------------------------------------
-   Architecture
-   ------------------------------------------------------------------------- */
-
 function FlowArrow() {
   return (
     <svg

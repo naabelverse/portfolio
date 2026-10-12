@@ -45,7 +45,7 @@ export function TopNav() {
         </Link>
 
         <nav aria-label="Main" className="hidden md:block">
-          <ul className="flex gap-7 text-[16px] font-medium">
+          <ul className="flex gap-5 text-[16px] font-medium whitespace-nowrap lg:gap-7">
             {nav.map((item) => (
               <li key={item.href}>
                 <Link href={item.href} className="text-ink-2 transition-colors duration-150 hover:text-cobalt">
@@ -56,11 +56,9 @@ export function TopNav() {
           </ul>
         </nav>
 
-        {/* Hidden on a wrapper: cn() does not merge, so `hidden` on the
-            Button itself would lose to its own `inline-flex`. */}
-        <div className="hidden md:block">
-          <Button href={navCta.href}>{navCta.label}</Button>
-        </div>
+        <Button href={navCta.href} className="hidden md:inline-flex">
+          {navCta.label}
+        </Button>
 
         <button
           type="button"
