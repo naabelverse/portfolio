@@ -67,16 +67,17 @@ function HeroComposition() {
         <circle className="hero-pop [animation-delay:0.75s]" cx="265" cy="68" r="15" fill="#FF4F6E" />
       </svg>
       {hasPortrait && (
-        // r=76 of the 320 viewBox (47.5% wide), centred; the 4px cobalt ring
-        // sits outside it (box-content) so the photo keeps that radius.
+        // r=106 of the 320 viewBox (66.25% wide), centred, so the arcs (inner
+        // edge r=120) frame the photo closely. The 4px cobalt ring sits
+        // outside it (box-content) so the photo keeps that radius.
         <Image
           src={PORTRAIT}
-          width={360}
-          height={360}
+          width={520}
+          height={520}
           alt={`Portrait of ${profile.fullName}`}
-          sizes="180px"
+          sizes="260px"
           preload
-          className="absolute top-1/2 left-1/2 box-content h-auto w-[47.5%] -translate-1/2 rounded-full border-4 border-cobalt"
+          className="absolute top-1/2 left-1/2 box-content h-auto w-[66.25%] -translate-1/2 rounded-full border-4 border-cobalt"
         />
       )}
     </div>
