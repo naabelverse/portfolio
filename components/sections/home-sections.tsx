@@ -329,10 +329,41 @@ const REACH = [
   ...(links.resume ? [{ label: "CV", mark: "↓", href: links.resume, aria: "Download my CV (PDF)" }] : []),
 ];
 
+/* Drawn in a fixed 280×220 box so the plane's CSS offset-path (in px) lines up with the SVG trail. */
+const FLIGHT = "M10 205C65 205 110 178 120 140C130 102 92 84 78 107C64 130 102 154 148 140C204 123 232 75 268 28";
+const CLOUD = "M10 24a10 10 0 0 1 0-20 14 14 0 0 1 26-4 12 12 0 0 1 18 8 8 8 0 0 1 0 16Z";
+/* x, y, scale, opacity, animation delay: kept clear of the flight path. */
+const CLOUDS = [
+  [8, 28, 1.3, 0.22, 0],
+  [176, 168, 1, 0.16, -3],
+  [150, 30, 0.7, 0.12, -6],
+];
+
+/** Fills the empty top-right of the contact block on wide screens: a paper plane looping out. */
+function PaperPlane() {
+  return (
+    <div aria-hidden="true" className="pointer-events-none absolute right-[clamp(28px,5vw,64px)] top-[clamp(28px,4vw,48px)] hidden h-[220px] w-[280px] xl:block">
+      <svg width="280" height="220" className="absolute inset-0 overflow-visible">
+        {CLOUDS.map(([x, y, scale, opacity, delay]) => (
+          <g key={x} transform={`translate(${x} ${y}) scale(${scale})`}>
+            <path d={CLOUD} fill="white" fillOpacity={opacity} className="plane-cloud" style={{ animationDelay: `${delay}s` }} />
+          </g>
+        ))}
+        <path d={FLIGHT} fill="none" stroke="white" strokeOpacity=".4" strokeWidth="2.5" strokeLinecap="round" strokeDasharray="1 10" className="plane-trail" />
+      </svg>
+      <svg width="34" height="34" viewBox="0 0 34 34" className="plane absolute left-0 top-0" style={{ offsetPath: `path("${FLIGHT}")` }}>
+        <path d="M32 17 2 4l7 13-7 13Z" fill="white" />
+        <path d="M9 17h23" stroke="var(--color-cobalt-deep)" strokeWidth="1.5" />
+      </svg>
+    </div>
+  );
+}
+
 /** The cobalt block: headline and links on top, the form underneath. Shared with /about. */
 export function ContactBlock({ titleId = "contact-title" }: { titleId?: string }) {
   return (
-    <div className="rounded-block bg-cobalt p-[clamp(28px,5vw,64px)] text-white">
+    <div className="relative rounded-block bg-cobalt p-[clamp(28px,5vw,64px)] text-white">
+      <PaperPlane />
       {/* Between the global h1 and h2: this is the page's closing line. */}
       <h2 id={titleId} className="max-w-[14ch] text-[length:clamp(40px,7.5vw,84px)] text-balance">
         {contact.title}

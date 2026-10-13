@@ -132,7 +132,7 @@
 }
 
 /* ---------------------------------------------------------------------------
-   Hero composition — the only non-user-triggered motion on the site.
+   Hero composition — motion that runs without user input (with PaperPlane below).
    Base styles are the finished state; motion is layered on only when the
    visitor has not asked to reduce it, so reduced motion renders complete.
    Each stroke carries its own --len so all three finish together; the extra
@@ -191,6 +191,56 @@
 
 .hero-dots[data-lit] .hero-dots-lit {
   opacity: 1;
+}
+
+/* ---------------------------------------------------------------------------
+   Contact paper plane (PaperPlane) — loops along the dotted trail and out the
+   top-right. Base state parks it at the end of the path, so reduced motion
+   still shows a finished picture.
+--------------------------------------------------------------------------- */
+
+.plane {
+  offset-distance: 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .plane {
+    animation: plane-fly 5.5s cubic-bezier(0.45, 0, 0.35, 1) 0.4s infinite backwards;
+  }
+  .plane-trail {
+    animation: plane-trail 1.2s linear infinite;
+  }
+  .plane-cloud {
+    animation: plane-cloud 9s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes plane-cloud {
+  to {
+    transform: translateX(-18px);
+  }
+}
+
+@keyframes plane-fly {
+  0% {
+    offset-distance: 0%;
+    opacity: 0;
+  }
+  8%,
+  80% {
+    opacity: 1;
+  }
+  92%,
+  100% {
+    offset-distance: 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes plane-trail {
+  to {
+    stroke-dashoffset: -11;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
