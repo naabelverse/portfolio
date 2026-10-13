@@ -19,6 +19,8 @@ const PANEL = "grid gap-4 text-white [&_:focus-visible]:outline-white [&_label]:
 
 export function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
+  // Bumped on each submit; keying the envelope on it replays the fly-off animation.
+  const [sends, setSends] = useState(0);
 
   // Without a form id there is nothing to post to. Rather than shipping a
   // button that silently does nothing, fall back to a plain mail link.
@@ -39,6 +41,7 @@ export function ContactForm() {
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    setSends((n) => n + 1);
     const form = event.currentTarget;
     const data = new FormData(form);
 
@@ -85,11 +88,28 @@ export function ContactForm() {
           title="Send message"
           className="group ml-auto size-14 bg-white px-0 text-cobalt hover:bg-wash-blue"
         >
-          {/* A sealed envelope that flies off and comes back on hover (globals.css, .mail-send). The rect shows through the V as the flap. */}
+          {/*
+            Open envelope that closes and seals on hover, then flies off on submit (globals.css, .mail-*).
+            Paint order is the layering: flap behind letter, pocket in front, seal on top.
+            Keyed on sends so each submit remounts it and replays the flight.
+          */}
           <svg aria-hidden="true" width="28" height="28" viewBox="0 3 20 20" className="overflow-visible">
-            <g className="mail-send">
-              <rect x="1" y="7" width="18" height="12" rx="1.5" fill="var(--color-sun-deep)" stroke="var(--color-ink)" strokeWidth="1.2" strokeLinejoin="round" />
-              <path d="M1 7l9 6 9-6v10.5A1.5 1.5 0 0 1 17.5 19h-15A1.5 1.5 0 0 1 1 17.5Z" fill="var(--color-sun)" stroke="var(--color-ink)" strokeWidth="1.2" strokeLinejoin="round" />
+            <g key={sends} className={sends ? "mail-fly" : undefined}>
+              <g className="mail-trail" stroke="var(--color-ink)" strokeWidth="1.2" strokeLinecap="round">
+                <path d="M-1 18l-4 3" />
+                <path d="M3 21l-4 3" />
+                <path d="M-4 14l-3 2" />
+              </g>
+              <g className="mail-env">
+                <rect x="1" y="7" width="18" height="12" rx="1.5" fill="var(--color-sun-deep)" stroke="var(--color-ink)" strokeWidth="1.2" strokeLinejoin="round" />
+                <path d="M1 7h18l-9 6Z" fill="var(--color-sun-deep)" stroke="var(--color-ink)" strokeWidth="1.2" strokeLinejoin="round" className="mail-flap" />
+                <g className="mail-letter">
+                  <rect x="4" y="13.5" width="12" height="4.5" rx="1" fill="white" stroke="var(--color-ink)" strokeWidth="1.2" />
+                  <path d="M6.5 15.5h7" stroke="var(--color-ink)" strokeWidth="1.2" strokeLinecap="round" />
+                </g>
+                <path d="M1 7l9 6 9-6v10.5A1.5 1.5 0 0 1 17.5 19h-15A1.5 1.5 0 0 1 1 17.5Z" fill="var(--color-sun)" stroke="var(--color-ink)" strokeWidth="1.2" strokeLinejoin="round" />
+                <circle cx="10" cy="13" r="2.2" fill="var(--color-cobalt)" stroke="var(--color-ink)" strokeWidth="0.8" className="mail-seal" />
+              </g>
             </g>
           </svg>
         </Button>

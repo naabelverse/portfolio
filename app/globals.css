@@ -244,31 +244,104 @@
 }
 
 /* ---------------------------------------------------------------------------
-   Send-message envelope — on hover it pulls back, flies off up and to the
-   right (the paper plane's direction) and fades, then slides back in from
-   the lower left. It ends where it started, so leaving the button is seamless.
+   Send-message envelope. At rest it is open with the letter sticking out.
+   Hover or focus seals it: the letter drops in, the flap closes, the seal
+   pops on; leaving runs that backwards. On submit ContactForm remounts it
+   with .mail-fly: sealed, it squashes, launches up and to the right (the
+   paper plane's direction) with speed streaks, and a fresh one pops back.
 --------------------------------------------------------------------------- */
 
-.mail-send {
+.mail-flap {
+  transform-box: fill-box;
+  transform-origin: top;
+  transform: scaleY(-1);
+  transition: transform 0.25s ease 0.1s;
+}
+
+.mail-letter {
+  transform: translateY(-7px);
+  transition: transform 0.25s ease 0.25s;
+}
+
+.mail-seal {
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: scale(0);
+  transition: transform 0.15s ease;
+}
+
+.group:is(:hover, :focus-visible) .mail-letter,
+.mail-fly .mail-letter {
+  transform: none;
+  transition-delay: 0s;
+}
+
+.group:is(:hover, :focus-visible) .mail-flap,
+.mail-fly .mail-flap {
+  transform: none;
+  transition-delay: 0.2s;
+}
+
+.group:is(:hover, :focus-visible) .mail-seal,
+.mail-fly .mail-seal {
+  transform: none;
+  transition: transform 0.3s cubic-bezier(0.3, 1.8, 0.5, 1) 0.45s;
+}
+
+/* Remounting skips the sealing transitions, so the flight starts sealed. */
+.mail-fly .mail-seal {
+  transition: none;
+}
+
+.mail-env {
   transform-box: fill-box;
   transform-origin: center;
 }
 
-.group:is(:hover, :focus-visible) .mail-send {
-  animation: mail-send 0.9s cubic-bezier(0.5, 0, 0.3, 1);
+.mail-trail {
+  opacity: 0;
 }
 
-@keyframes mail-send {
-  15% {
-    transform: translate(-2px, 2px);
+.mail-fly .mail-env {
+  animation: mail-fly 1.3s ease-in-out;
+}
+
+.mail-fly .mail-trail {
+  animation: mail-trail 1.3s ease-out;
+}
+
+@keyframes mail-fly {
+  12% {
+    transform: translate(-2px, 2px) scale(1.12, 0.85) rotate(6deg);
   }
-  45% {
-    transform: translate(26px, -20px) rotate(-14deg) scale(0.7);
+  28% {
+    transform: translate(8px, -6px) scale(0.92, 1.08) rotate(-16deg);
+  }
+  52% {
+    transform: translate(34px, -28px) scale(0.45) rotate(-28deg);
     opacity: 0;
   }
-  46% {
-    transform: translate(-20px, 14px) scale(0.7);
+  53% {
+    transform: translateY(6px) scale(0.2);
     opacity: 0;
+  }
+  80% {
+    transform: translateY(-1px) scale(1.12);
+    opacity: 1;
+  }
+}
+
+@keyframes mail-trail {
+  18% {
+    opacity: 0;
+    transform: none;
+  }
+  30% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 0;
+    transform: translate(12px, -9px);
   }
 }
 
