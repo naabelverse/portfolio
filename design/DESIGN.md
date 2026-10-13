@@ -204,6 +204,14 @@ Two columns: headline, lede and buttons on the left; an abstract SVG composition
 on the right. Below 980px the composition moves above the text and caps at
 380px wide.
 
+The hero is deliberately full-height: at least one screen minus the 68px
+header, with the content centred vertically, so the composition has room and
+the first chapter (ForgeRoom) starts below the fold. Its background fades from
+paper into the first chapter's blue wash. Behind it sits a faint grid of
+four-point stars (`HeroDots`); the stars near a mouse pointer turn cobalt. The
+glow is pointer-only: touch and pen never trigger it, and under reduced motion
+no listener is attached, so the grid stays at rest.
+
 The composition is a ring, two thick arcs in cobalt and sun, a rounded cobalt
 square, and two circles. On load the strokes draw themselves over about 1.4s,
 then the solid shapes pop in at 0.45s, 0.6s and 0.75s.
@@ -304,7 +312,8 @@ production again.
 - Semantic landmarks, real `<label>` on every input, `aria-expanded` and
   `aria-controls` on the menu button.
 - `prefers-reduced-motion: reduce` disables the hero animation and renders the
-  composition in its final state.
+  composition in its final state. It also turns off the star grid's cursor
+  glow entirely.
 - Breakpoints: 980px collapses two-column splits and the hero; 720px switches
   the nav to a menu button and makes list rows single-column.
 - The header nav is at capacity. With Work, Skills, Experience, About, Contact

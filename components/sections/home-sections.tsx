@@ -5,6 +5,7 @@ import Image from "next/image";
 
 import { ContactForm } from "@/components/contact-form";
 import { DiagramFigure } from "@/components/diagram";
+import { HeroDots } from "@/components/hero-dots";
 import { Button } from "@/components/ui/button";
 import {
   Badge,
@@ -84,29 +85,40 @@ function HeroComposition() {
 
 export function Hero() {
   return (
-    <Container className="pt-[clamp(48px,7vw,86px)] pb-[clamp(56px,7vw,92px)]">
-      <div className="grid items-center gap-[clamp(28px,5vw,64px)] lg:grid-cols-[1.4fr_0.6fr]">
-        <div>
-          {/* Smaller than the global 96px h1, but still above the 58px h2. */}
-          <h1 className="text-[length:clamp(36px,6vw,64px)]">{hero.headline}</h1>
-          <p className="mt-[26px] max-w-lede text-lede text-ink-2">{hero.intro}</p>
-          <div className="mt-9 flex">
-            {/* The letters hop on hover (hero-hop in globals.css). Each letter
-                is its own span, so the link carries the label for screen readers. */}
-            <Button href={hero.cta.href} aria-label={hero.cta.label} className="hero-hop">
-              {[...hero.cta.label].map((char, i) => (
-                <span key={i} aria-hidden="true" style={{ "--i": i } as React.CSSProperties}>
-                  {char === " " ? " " : char}
-                </span>
-              ))}
-            </Button>
+    // Fades from paper into the blue wash of the first chapter, so the two
+    // backgrounds meet without a seam. At least one screen tall (minus the
+    // 68px header) so the first chapter starts below the fold, not peeking in.
+    <div className="relative isolate flex min-h-[calc(100svh-68px)] flex-col justify-center overflow-hidden bg-linear-to-b from-paper from-55% to-wash-blue">
+      <HeroDots />
+    <Container className="w-full pt-[clamp(48px,7vw,86px)] pb-[clamp(56px,7vw,92px)]">
+        <div className="grid items-center gap-[clamp(28px,5vw,64px)] lg:grid-cols-[1.4fr_0.6fr]">
+          <div className="relative">
+            {/* Blurred paper patches over the star grid, here and behind the
+                portrait, so the stars fade out around the words, the button
+                and the photo instead of showing through them. */}
+            <div aria-hidden="true" className="absolute -inset-x-10 -inset-y-8 -z-10 rounded-[48px] bg-paper blur-2xl" />
+            {/* Smaller than the global 96px h1, but still above the 58px h2. */}
+            <h1 className="text-[length:clamp(36px,6vw,64px)]">{hero.headline}</h1>
+            <p className="mt-[26px] max-w-lede text-lede text-ink-2">{hero.intro}</p>
+            <div className="mt-9 flex">
+              {/* The letters hop on hover (hero-hop in globals.css). Each letter
+                  is its own span, so the link carries the label for screen readers. */}
+              <Button href={hero.cta.href} aria-label={hero.cta.label} className="hero-hop">
+                {[...hero.cta.label].map((char, i) => (
+                  <span key={i} aria-hidden="true" style={{ "--i": i } as React.CSSProperties}>
+                    {char === " " ? " " : char}
+                  </span>
+                ))}
+              </Button>
+            </div>
+          </div>
+          <div className="relative order-first max-w-[380px] lg:order-none lg:max-w-none">
+            <div aria-hidden="true" className="absolute -inset-[6%] -z-10 rounded-full bg-paper blur-xl" />
+            <HeroComposition />
           </div>
         </div>
-        <div className="order-first max-w-[380px] lg:order-none lg:max-w-none">
-          <HeroComposition />
-        </div>
-      </div>
-    </Container>
+      </Container>
+    </div>
   );
 }
 
