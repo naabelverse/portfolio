@@ -10,8 +10,8 @@ type Status = "idle" | "submitting" | "success" | "error";
 
 const FORM_ID = process.env.NEXT_PUBLIC_FORMSPREE_ID;
 
-/** The paper panel inside the cobalt contact block. */
-const PANEL = "grid gap-4 rounded-panel bg-paper p-[clamp(20px,3vw,28px)] text-ink";
+/** The deep-blue panel inside the cobalt contact block; Field labels and focus rings are recoloured to read on it. */
+const PANEL = "grid gap-4 rounded-panel bg-cobalt-deep p-[clamp(20px,3vw,28px)] text-white [&_:focus-visible]:outline-white [&_label]:text-white/85";
 
 export function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
@@ -22,11 +22,11 @@ export function ContactForm() {
     return (
       <div className={PANEL}>
         <p className="font-semibold">Email is the fastest route.</p>
-        <p className="text-small text-ink-2">
+        <p className="text-small text-white/80">
           The form switches on once <code className="font-mono">NEXT_PUBLIC_FORMSPREE_ID</code> is
           set. Until then, write to me directly.
         </p>
-        <a href={`mailto:${emailAddress}`} className="font-semibold break-all text-cobalt underline underline-offset-4 hover:text-cobalt-deep">
+        <a href={`mailto:${emailAddress}`} className="font-semibold break-all text-white underline underline-offset-4 hover:text-sun">
           {emailAddress}
         </a>
       </div>
@@ -69,12 +69,12 @@ export function ContactForm() {
       <input type="text" name="_gotcha" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
 
       <div className="flex flex-wrap-reverse items-center justify-between gap-x-6 gap-y-3 sm:col-span-2">
-        <p role="status" aria-live="polite" className="text-small text-ink-2 empty:hidden">
+        <p role="status" aria-live="polite" className="text-small text-white/85 empty:hidden">
           {status === "success" && "Thanks, that reached my inbox. I'll reply soon."}
           {status === "error" && `Something went wrong sending that. Email me at ${emailAddress} instead.`}
         </p>
         {/* Same arrow nudge as the hero button. */}
-        <Button type="submit" disabled={status === "submitting"} className="group ml-auto gap-1.5">
+        <Button type="submit" variant="sun" disabled={status === "submitting"} className="group ml-auto gap-1.5">
           {status === "submitting" ? "Sending…" : "Send message"}
           <span aria-hidden="true" className="transition-transform duration-150 group-hover:translate-x-1">
             →
