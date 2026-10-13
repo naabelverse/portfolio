@@ -73,14 +73,6 @@ export const hero = {
   cta: { label: "See my work", href: "/#work" },
 } as const;
 
-/** Four facts a recruiter can absorb in one glance, measured not estimated. */
-export const proofStrip = [
-  { label: "Mainly builds with", value: "Flutter, Node, MongoDB" },
-  { label: "Final-year project", value: "18,000 lines of Dart" },
-  { label: "Tests on the live app", value: "538 passing" },
-  { label: "Looking for", value: "An internship in Malaysia" },
-] as const;
-
 /** A featured project: one chapter on the home page, with its diagram. */
 export type Project = {
   slug: string;

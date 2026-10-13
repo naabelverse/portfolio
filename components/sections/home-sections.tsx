@@ -15,7 +15,6 @@ import {
   RowList,
   Section,
   SectionIntro,
-  StatStrip,
 } from "@/components/ui/primitives";
 import {
   contact,
@@ -25,7 +24,6 @@ import {
   links,
   otherWork,
   profile,
-  proofStrip,
   type Project,
   resumeAnalyzerProject,
   skillGroups,
@@ -108,8 +106,6 @@ export function Hero() {
           <HeroComposition />
         </div>
       </div>
-
-      <StatStrip items={proofStrip} className="mt-[clamp(44px,6vw,72px)]" />
     </Container>
   );
 }
