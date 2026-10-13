@@ -51,7 +51,7 @@ export const emailAddress = `${links.emailUser}@${links.emailDomain}`;
  */
 export const siteUrl = "https://portfolio-naabel.up.railway.app";
 
-/** Header and footer nav. */
+/** Footer nav. The header shows `headerNav` instead. */
 export const nav = [
   { label: "Work", href: "/#work" },
   { label: "Skills", href: "/#skills" },
@@ -61,6 +61,9 @@ export const nav = [
 ] as const;
 
 export const navCta = { label: "Hire me for an internship", href: "/#contact" };
+
+/** Header nav: drops any link the CTA button already goes to (Contact). */
+export const headerNav = nav.filter((item) => item.href !== navCta.href);
 
 /* -------------------------------------------------------------------------
    Hero

@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/components/ui/link";
 import { Container } from "@/components/ui/primitives";
-import { nav, navCta, profile } from "@/content/site";
+import { headerNav, navCta, profile } from "@/content/site";
 import { cn } from "@/lib/cn";
 
 /** Wordmark: the cobalt full stop is one of cobalt's named jobs. */
@@ -46,7 +46,7 @@ export function TopNav() {
 
         <nav aria-label="Main" className="hidden md:block">
           <ul className="flex gap-5 text-[16px] font-medium whitespace-nowrap lg:gap-7">
-            {nav.map((item) => (
+            {headerNav.map((item) => (
               <li key={item.href}>
                 <Link href={item.href} className="text-ink-2 transition-colors duration-150 hover:text-cobalt">
                   {item.label}
@@ -78,7 +78,7 @@ export function TopNav() {
         className="absolute inset-x-0 top-full border-b-2 border-ink bg-white px-gutter pt-1.5 pb-5 md:hidden"
       >
         <ul>
-          {nav.map((item) => (
+          {headerNav.map((item) => (
             <li key={item.href}>
               <Link href={item.href} onClick={close} className="block py-[13px] text-[18px] font-medium text-ink-2 hover:text-cobalt">
                 {item.label}

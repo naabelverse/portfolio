@@ -1,6 +1,6 @@
 import { expect, test, type Locator, type Page } from "@playwright/test";
 
-import { nav, navCta } from "@/content/site";
+import { headerNav, nav, navCta } from "@/content/site";
 
 /**
  * Clicks every header and footer link from every page, at desktop and at
@@ -14,7 +14,7 @@ type Target = { name: string; place: "header" | "footer"; label?: string; href: 
 
 const targets: Target[] = [
   { name: "header wordmark", place: "header", href: "/" },
-  ...nav.map((item) => ({ name: `header ${item.label}`, place: "header" as const, label: item.label, href: item.href })),
+  ...headerNav.map((item) => ({ name: `header ${item.label}`, place: "header" as const, label: item.label, href: item.href })),
   { name: "header CTA", place: "header", label: navCta.label, href: navCta.href },
   ...nav.map((item) => ({ name: `footer ${item.label}`, place: "footer" as const, label: item.label, href: item.href })),
 ];

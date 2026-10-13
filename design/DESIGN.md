@@ -316,10 +316,13 @@ production again.
   glow entirely.
 - Breakpoints: 980px collapses two-column splits and the hero; 720px switches
   the nav to a menu button and makes list rows single-column.
-- The header nav is at capacity. With Work, Skills, Experience, About, Contact
-  and the "Hire me for an internship" button, the row at 721px has 15px spare
-  and every gap already at its 20px minimum. A sixth link, or a longer label,
-  overflows between 721 and 800px. Re-measure at 721px after any nav change.
+- The header nav has four links: Work, Skills, Experience, About. Contact is
+  footer-only (`headerNav` in `content/site.ts`), because the "Hire me for an
+  internship" button already goes to `#contact`. At 721px the row has 54px
+  spare: content width minus logo, nav and button, minus the two 20px gaps
+  between them, with every gap at its 20px minimum. A fifth link of Contact's
+  length (about 80px with its gap) overflows up to about 750px. Re-measure at
+  721px after any nav change.
 
 ---
 
