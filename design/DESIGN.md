@@ -89,7 +89,7 @@ wash-blue, clearing the 3:1 bar for graphics with margin.
 
 - **Cobalt** carries primary buttons, links, the full-bleed contact block, and
   the dot in the wordmark. The hero's "See my work" button is the same cobalt
-  primary, with its letters hopping in turn on hover.
+  primary, with an arrow that nudges right on hover.
 - **Sun** marks the step in each diagram where a model does the work and fills
   the "Try it yourself" button.
 - **Rose** means *the failure path*, nowhere else. It is the dashed line in both

@@ -3,9 +3,13 @@ import { cn } from "@/lib/cn";
 
 type Variant = "primary" | "ghost" | "sun";
 
-/** Prototype `.pill`: fully rounded, 16px/600, 44px tap target, 1px lift. */
+/**
+ * Prototype `.pill`: fully rounded, 16px/600, 44px tap target, 1px lift. The
+ * ::after strip reaches 2px below the pill, so a pointer resting on the bottom
+ * edge stays over it after the lift instead of flickering hover on and off.
+ */
 const BASE =
-  "inline-flex min-h-11 items-center justify-center rounded-full px-[22px] py-[11px] text-[16px] font-semibold whitespace-nowrap transition-[background-color,color,transform] duration-150 hover:-translate-y-px disabled:pointer-events-none disabled:opacity-50";
+  "relative inline-flex min-h-11 items-center justify-center rounded-full px-[22px] py-[11px] text-[16px] font-semibold whitespace-nowrap transition-[background-color,color,transform] duration-150 after:absolute after:inset-x-0 after:top-0 after:-bottom-0.5 hover:-translate-y-px disabled:pointer-events-none disabled:opacity-50";
 
 const VARIANTS: Record<Variant, string> = {
   primary: "bg-cobalt text-white hover:bg-cobalt-deep",

@@ -101,14 +101,13 @@ export function Hero() {
             <h1 className="text-[length:clamp(36px,6vw,64px)]">{hero.headline}</h1>
             <p className="mt-[26px] max-w-lede text-lede text-ink-2">{hero.intro}</p>
             <div className="mt-9 flex">
-              {/* The letters hop on hover (hero-hop in globals.css). Each letter
-                  is its own span, so the link carries the label for screen readers. */}
-              <Button href={hero.cta.href} aria-label={hero.cta.label} className="hero-hop">
-                {[...hero.cta.label].map((char, i) => (
-                  <span key={i} aria-hidden="true" style={{ "--i": i } as React.CSSProperties}>
-                    {char === " " ? " " : char}
-                  </span>
-                ))}
+              {/* The arrow nudges right on hover; group-hover only fires on
+                  hover devices, so a tap does not leave it shifted. */}
+              <Button href={hero.cta.href} className="group gap-1.5">
+                {hero.cta.label}
+                <span aria-hidden="true" className="transition-transform duration-150 group-hover:translate-x-1">
+                  →
+                </span>
               </Button>
             </div>
           </div>

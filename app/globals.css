@@ -165,28 +165,6 @@
 }
 
 /* ---------------------------------------------------------------------------
-   Hero button — on hover the letters hop once, left to right, each delayed
-   by its --i. Hover devices only, so a tap does not replay it on the way to
-   #work; reduced motion skips it via the rule below.
---------------------------------------------------------------------------- */
-
-.hero-hop span {
-  display: inline-block;
-}
-
-@media (hover: hover) {
-  .hero-hop:hover span {
-    animation: hero-hop 0.45s cubic-bezier(0.2, 0.7, 0.3, 1) calc(var(--i) * 28ms) both;
-  }
-}
-
-@keyframes hero-hop {
-  45% {
-    transform: translateY(-6px);
-  }
-}
-
-/* ---------------------------------------------------------------------------
    Hero backdrop — a grid of small four-point stars (HeroDots). A second grid
    of bigger cobalt stars sits on top, masked to a circle around the mouse
    (--x, --y), so the stars there light up and swell. Both fade out before the
