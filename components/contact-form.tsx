@@ -87,13 +87,13 @@ export function ContactForm() {
         >
           {/* Envelope whose flap opens and letter rises on hover (globals.css, .mail-*). Paint order is the layering: flap behind letter, pocket in front. */}
           <svg aria-hidden="true" width="28" height="28" viewBox="0 3 20 20" className="overflow-visible">
-            <rect x="1" y="7" width="18" height="12" rx="1.5" fill="var(--color-cobalt-deep)" />
-            <path d="M1 7h18l-9 6Z" fill="var(--color-cobalt-deep)" className="mail-flap" />
+            <rect x="1" y="7" width="18" height="12" rx="1.5" fill="var(--color-sun-deep)" stroke="var(--color-ink)" strokeWidth="1.2" strokeLinejoin="round" />
+            <path d="M1 7h18l-9 6Z" fill="var(--color-sun-deep)" stroke="var(--color-ink)" strokeWidth="1.2" strokeLinejoin="round" className="mail-flap" />
             <g className="mail-letter">
-              <rect x="4" y="13.5" width="12" height="4.5" rx="1" fill="white" stroke="var(--color-cobalt)" strokeWidth="1.2" />
-              <path d="M6.5 15.5h7" stroke="var(--color-cobalt)" strokeWidth="1.2" strokeLinecap="round" />
+              <rect x="4" y="13.5" width="12" height="4.5" rx="1" fill="white" stroke="var(--color-ink)" strokeWidth="1.2" />
+              <path d="M6.5 15.5h7" stroke="var(--color-ink)" strokeWidth="1.2" strokeLinecap="round" />
             </g>
-            <path d="M1 7l9 6 9-6v10.5A1.5 1.5 0 0 1 17.5 19h-15A1.5 1.5 0 0 1 1 17.5Z" fill="var(--color-cobalt)" />
+            <path d="M1 7l9 6 9-6v10.5A1.5 1.5 0 0 1 17.5 19h-15A1.5 1.5 0 0 1 1 17.5Z" fill="var(--color-sun)" stroke="var(--color-ink)" strokeWidth="1.2" strokeLinejoin="round" />
           </svg>
         </Button>
       </div>
