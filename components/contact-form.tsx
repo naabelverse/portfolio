@@ -61,21 +61,26 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className={PANEL}>
+    <form onSubmit={onSubmit} className={`${PANEL} sm:grid-cols-2`}>
       <Field id="name" name="name" label="Your name" required autoComplete="name" />
       <Field id="email" name="email" label="Email" type="email" required autoComplete="email" />
-      <Field id="message" name="message" label="Message" multiline required rows={5} />
+      <Field id="message" name="message" label="Message" multiline required rows={5} className="sm:col-span-2" />
 
       <input type="text" name="_gotcha" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
 
-      <Button type="submit" disabled={status === "submitting"} className="justify-self-start">
-        {status === "submitting" ? "Sending…" : "Send message"}
-      </Button>
-
-      <p role="status" aria-live="polite" className="text-small text-ink-2 empty:hidden">
-        {status === "success" && "Thanks, that reached my inbox. I'll reply soon."}
-        {status === "error" && `Something went wrong sending that. Email me at ${emailAddress} instead.`}
-      </p>
+      <div className="flex flex-wrap-reverse items-center justify-between gap-x-6 gap-y-3 sm:col-span-2">
+        <p role="status" aria-live="polite" className="text-small text-ink-2 empty:hidden">
+          {status === "success" && "Thanks, that reached my inbox. I'll reply soon."}
+          {status === "error" && `Something went wrong sending that. Email me at ${emailAddress} instead.`}
+        </p>
+        {/* Same arrow nudge as the hero button. */}
+        <Button type="submit" disabled={status === "submitting"} className="group ml-auto gap-1.5">
+          {status === "submitting" ? "Sending…" : "Send message"}
+          <span aria-hidden="true" className="transition-transform duration-150 group-hover:translate-x-1">
+            →
+          </span>
+        </Button>
+      </div>
     </form>
   );
 }

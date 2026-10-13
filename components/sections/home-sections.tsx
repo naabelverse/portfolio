@@ -323,35 +323,39 @@ export function Experience() {
    ------------------------------------------------------------------------- */
 
 const REACH = [
-  { label: emailAddress, what: "Email", href: `mailto:${emailAddress}` },
-  { label: links.githubHandle, what: "GitHub", href: links.github },
-  { label: profile.displayName, what: "LinkedIn", href: links.linkedin },
-  ...(links.resume ? [{ label: "Download my CV", what: "PDF", href: links.resume }] : []),
+  { label: emailAddress, mark: "✉", href: `mailto:${emailAddress}`, aria: "Email" },
+  { label: "GitHub", mark: "↗", href: links.github, aria: `GitHub, ${links.githubHandle}` },
+  { label: "LinkedIn", mark: "↗", href: links.linkedin, aria: `LinkedIn, ${profile.displayName}` },
+  ...(links.resume ? [{ label: "CV", mark: "↓", href: links.resume, aria: "Download my CV (PDF)" }] : []),
 ];
 
-/** The cobalt block. Shared with /about. */
+/** The cobalt block: headline and links on top, the form underneath. Shared with /about. */
 export function ContactBlock({ titleId = "contact-title" }: { titleId?: string }) {
   return (
-    <div className="grid items-start gap-[clamp(28px,5vw,56px)] rounded-block bg-cobalt p-[clamp(28px,5vw,60px)] text-white lg:grid-cols-2">
-      <div>
-        <h2 id={titleId}>{contact.title}</h2>
-        <p className="mt-4 max-w-lede text-lede text-white/85">{contact.description}</p>
-        <ul className="mt-7">
-          {REACH.map((item) => (
-            <li key={item.what} className="border-t border-white/30 last:border-b">
-              <a
-                href={item.href}
-                className="flex justify-between gap-4 py-3.5 text-[17px] font-medium hover:text-sun"
-                {...(item.href.startsWith("http") && { target: "_blank", rel: "noopener noreferrer" })}
-              >
-                <span className="break-all">{item.label}</span>
-                <span className="self-center text-[14.5px] font-normal text-white/80">{item.what}</span>
-              </a>
-            </li>
-          ))}
-        </ul>
+    <div className="rounded-block bg-cobalt p-[clamp(28px,5vw,64px)] text-white">
+      {/* Between the global h1 and h2: this is the page's closing line. */}
+      <h2 id={titleId} className="max-w-[14ch] text-[length:clamp(40px,7.5vw,84px)] text-balance">
+        {contact.title}
+      </h2>
+      <p className="mt-5 max-w-lede text-lede text-white/85">{contact.description}</p>
+      <ul className="mt-8 flex flex-wrap gap-2.5">
+        {REACH.map((item) => (
+          <li key={item.href} className="min-w-0">
+            <a
+              href={item.href}
+              aria-label={item.aria}
+              className="inline-flex min-h-11 max-w-full items-center gap-2 rounded-full border-2 border-white/45 px-[18px] py-2 text-[16px] font-semibold transition-colors duration-150 hover:border-white hover:bg-white hover:text-cobalt"
+              {...(item.href.startsWith("http") && { target: "_blank", rel: "noopener noreferrer" })}
+            >
+              <span className="break-all">{item.label}</span>
+              <span aria-hidden="true">{item.mark}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+      <div className="mt-[clamp(32px,5vw,52px)]">
+        <ContactForm />
       </div>
-      <ContactForm />
     </div>
   );
 }
