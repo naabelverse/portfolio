@@ -88,7 +88,8 @@ wash-blue, clearing the 3:1 bar for graphics with margin.
 ### How the colours are used
 
 - **Cobalt** carries primary buttons, links, the full-bleed contact block, and
-  the dot in the wordmark.
+  the dot in the wordmark. The one exception is the hero's "See my work"
+  button: ink at rest, cobalt on hover, with its letters hopping in turn.
 - **Sun** marks the step in each diagram where a model does the work, highlights
   one phrase in the hero headline, and fills the "Try it yourself" button.
 - **Rose** means *the failure path*, nowhere else. It is the dashed line in both

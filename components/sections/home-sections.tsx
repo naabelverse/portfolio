@@ -107,7 +107,20 @@ export function Hero() {
           </h1>
           <p className="mt-[26px] max-w-lede text-lede text-ink-2">{hero.intro}</p>
           <div className="mt-9 flex">
-            <Button href={hero.cta.href}>{hero.cta.label}</Button>
+            {/* Ink, not cobalt, so the hero's one button stands apart; the
+                letters hop on hover (hero-hop in globals.css). Each letter is
+                its own span, so the link carries the label for screen readers. */}
+            <Button
+              href={hero.cta.href}
+              aria-label={hero.cta.label}
+              className="hero-hop bg-ink hover:bg-cobalt"
+            >
+              {[...hero.cta.label].map((char, i) => (
+                <span key={i} aria-hidden="true" style={{ "--i": i } as React.CSSProperties}>
+                  {char === " " ? " " : char}
+                </span>
+              ))}
+            </Button>
           </div>
         </div>
         <div className="order-first max-w-[380px] lg:order-none lg:max-w-none">
