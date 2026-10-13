@@ -19,7 +19,7 @@ const PANEL = "grid gap-4 text-white [&_:focus-visible]:outline-white [&_label]:
 
 export function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
-  // Bumped on each submit; keying the envelope on it replays the fly-off animation.
+  // Non-zero while the envelope is in flight; keying the envelope on it remounts it, replaying the fly-off.
   const [sends, setSends] = useState(0);
 
   // Without a form id there is nothing to post to. Rather than shipping a
@@ -44,6 +44,8 @@ export function ContactForm() {
     setSends((n) => n + 1);
     // Hold the thank-you until the envelope's 1.3s flight (globals.css, .mail-fly) has landed.
     const flight = new Promise((done) => setTimeout(done, matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 1300));
+    // Once it has landed, drop .mail-fly so the envelope rests open again and hover can re-seal it.
+    flight.then(() => setSends(0));
     const form = event.currentTarget;
     const data = new FormData(form);
 
