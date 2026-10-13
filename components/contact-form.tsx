@@ -73,8 +73,8 @@ export function ContactForm() {
 
   if (status === "success") {
     return (
-      <div className={`${PANEL} mail-done justify-items-start`}>
-        <span aria-hidden="true" className="hero-pop grid size-12 place-items-center rounded-full bg-sun text-ink">
+      <div className={`${PANEL} mail-done justify-items-center py-6 text-center`}>
+        <span aria-hidden="true" className="hero-pop grid size-12 place-items-center rounded-full bg-green-500 text-white">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
             <path d="M5 12.5l4.5 4.5L19 7.5" />
           </svg>
