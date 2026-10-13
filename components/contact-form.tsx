@@ -10,8 +10,17 @@ type Status = "idle" | "submitting" | "success" | "error";
 
 const FORM_ID = process.env.NEXT_PUBLIC_FORMSPREE_ID;
 
-/** The deep-blue panel inside the cobalt contact block; Field labels and focus rings are recoloured to read on it. */
-const PANEL = "grid gap-4 rounded-panel bg-cobalt-deep p-[clamp(20px,3vw,28px)] text-white [&_:focus-visible]:outline-white [&_label]:text-white/85";
+/**
+ * A frosted panel inside the cobalt contact block, echoing the outlined link
+ * pills above it. Field is styled for paper, so its label, controls and focus
+ * ring are recoloured here rather than in the shared component.
+ */
+const PANEL = [
+  "grid gap-4 rounded-panel border-2 border-white/20 bg-white/10 p-[clamp(20px,3vw,28px)] text-white",
+  "[&_:focus-visible]:outline-white [&_label]:text-white/85",
+  "[&_:is(input,textarea)]:border-white/30 [&_:is(input,textarea)]:bg-white/10 [&_:is(input,textarea)]:text-white",
+  "[&_:is(input,textarea):focus]:border-white",
+].join(" ");
 
 export function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
@@ -74,7 +83,7 @@ export function ContactForm() {
           {status === "error" && `Something went wrong sending that. Email me at ${emailAddress} instead.`}
         </p>
         {/* Same arrow nudge as the hero button. */}
-        <Button type="submit" variant="sun" disabled={status === "submitting"} className="group ml-auto gap-1.5">
+        <Button type="submit" disabled={status === "submitting"} className="group ml-auto gap-1.5 bg-white text-cobalt hover:bg-wash-blue">
           {status === "submitting" ? "Sending…" : "Send message"}
           <span aria-hidden="true" className="transition-transform duration-150 group-hover:translate-x-1">
             →
