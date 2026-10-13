@@ -335,7 +335,7 @@ export const about = {
     /** Internship intake, e.g. "March to August 2027". Empty drops the clause. */
     intake: "February to July 2027",
     // Non-breaking hyphen (U+2011) so "on-site" never splits across lines.
-    workMode: "on‑site work in Malaysia, hybrid, or remote",
+    workMode: "on‑site or hybrid work in Malaysia",
     details: ["Most interested in mobile development, backend APIs and applied AI"],
   },
 } as const;
@@ -347,5 +347,5 @@ export const about = {
 export const contact = {
   title: "Let's talk about an internship",
   description:
-    "I'm looking for a software engineering internship in Malaysia, and I'm happy to work remotely. Send a message and I'll reply within a couple of days.",
+    "I'm looking for a software engineering internship in Malaysia, on-site or hybrid. Send a message and I'll reply within a couple of days.",
 } as const;
