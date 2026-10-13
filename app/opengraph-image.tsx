@@ -3,7 +3,7 @@ import { join } from "node:path";
 
 import { ImageResponse } from "next/og";
 
-import { profile } from "@/content/site";
+import { hero, profile } from "@/content/site";
 
 export const alt = `${profile.displayName}, ${profile.role}`;
 export const size = { width: 1200, height: 630 };
@@ -44,13 +44,11 @@ export default function OpenGraphImage() {
 
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div style={{ display: "flex", flexWrap: "wrap", fontFamily: "Bricolage", fontSize: 92, lineHeight: 1.03, letterSpacing: "-0.03em" }}>
-            {/* No sun highlight: the card and the hero are often seen back to
-                back, and the highlight is a once-only device. "Final-year
-                student" is dropped because the line below says student. */}
-            Currently building my way out of coursework.
+            {hero.headline}
           </div>
+          {/* No role here: the headline above already says it. */}
           <div style={{ display: "flex", marginTop: 28, fontSize: 32, fontWeight: 500, color: "#4A4F5C" }}>
-            {profile.displayName}, {profile.role.toLowerCase()} at {profile.universityShort}
+            {profile.displayName}, {profile.universityShort}
           </div>
         </div>
 

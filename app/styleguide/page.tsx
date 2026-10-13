@@ -114,15 +114,13 @@ export default function StyleguidePage() {
 
         <Label>Type</Label>
         <div className="space-y-6">
-          <h1>
-            Heading one with a <mark className="rounded-[4px] bg-sun px-[0.1em] text-ink">highlight</mark>
-          </h1>
+          <h1>Heading one</h1>
           <h2>Heading two</h2>
           <h3>Heading three</h3>
           <p className="max-w-tagline text-tagline text-ink-2">Tagline, used once per chapter.</p>
           <p className="max-w-lede text-lede text-ink-2">
-            Lede. Software engineering at UTHM. I build mobile and web apps,
-            some with AI models inside them.
+            Lede. I build mobile and web apps, some with AI models inside
+            them.
           </p>
           <p className="max-w-measure">
             Body at 17px. Line length is capped with the measure token, not a

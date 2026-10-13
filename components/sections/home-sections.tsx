@@ -89,22 +89,8 @@ export function Hero() {
     <Container className="pt-[clamp(48px,7vw,86px)] pb-[clamp(56px,7vw,92px)]">
       <div className="grid items-center gap-[clamp(28px,5vw,64px)] lg:grid-cols-[1.4fr_0.6fr]">
         <div>
-          {/* The h1's 1.03 line-height is shorter than the font's content
-              area, so the mark's sun box reaches up into the line above and,
-              painted later, would cut off its descenders (the g and y of
-              "building my" sit right above it at 1280px). -z-1 inside the
-              isolated h1 paints the mark first, so those descenders sit on top
-              of the sun instead. The highlight is kept to one word so it never
-              wraps; if it changes, check that it stays on one line. */}
-          {/* Smaller than the global 96px h1: the sentence needs it to land on
-              three lines at 1280px (four at 390px) in this column. */}
-          <h1 className="isolate text-[length:clamp(36px,6vw,64px)]">
-            {hero.headline.before}
-            <mark className="relative -z-1 box-decoration-clone rounded-[4px] bg-sun px-[0.1em] text-ink">
-              {hero.headline.highlight}
-            </mark>
-            {hero.headline.after}
-          </h1>
+          {/* Smaller than the global 96px h1, but still above the 58px h2. */}
+          <h1 className="text-[length:clamp(36px,6vw,64px)]">{hero.headline}</h1>
           <p className="mt-[26px] max-w-lede text-lede text-ink-2">{hero.intro}</p>
           <div className="mt-9 flex">
             {/* Ink, not cobalt, so the hero's one button stands apart; the
