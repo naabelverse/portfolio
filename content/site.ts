@@ -69,7 +69,7 @@ export const navCta = { label: "Hire me for an internship", href: "/#contact" };
 export const hero = {
   headline: "Final-year software engineering student.",
   intro:
-    "I build mobile and web apps, some with AI models inside them, and most of my effort goes into what happens when they fail: a model returns nonsense, an API goes down, or the network drops.",
+    "I build mobile and web apps, some with AI models inside them. I'm most interested in using AI to automate work people currently do by hand, and I want an internship where I can go deeper and build more.",
   cta: { label: "See my work", href: "/#work" },
 } as const;
 
