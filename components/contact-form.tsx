@@ -11,12 +11,13 @@ type Status = "idle" | "submitting" | "success" | "error";
 const FORM_ID = process.env.NEXT_PUBLIC_FORMSPREE_ID;
 
 /**
- * A frosted panel inside the cobalt contact block, echoing the outlined link
- * pills above it. Field is styled for paper, so its label, controls and focus
- * ring are recoloured here rather than in the shared component.
+ * Sits straight on the cobalt contact block, with no panel of its own, so the
+ * block does not read as boxes inside boxes. Field is styled for paper, so its
+ * label, controls and focus ring are recoloured here rather than in the shared
+ * component.
  */
 const PANEL = [
-  "grid gap-4 rounded-panel border-2 border-white/20 bg-white/10 p-[clamp(20px,3vw,28px)] text-white",
+  "grid gap-4 text-white",
   "[&_:focus-visible]:outline-white [&_label]:text-white/85",
   "[&_:is(input,textarea)]:border-white/30 [&_:is(input,textarea)]:bg-white/10 [&_:is(input,textarea)]:text-white",
   "[&_:is(input,textarea):focus]:border-white",
