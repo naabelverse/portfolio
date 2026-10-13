@@ -77,12 +77,18 @@ export function ContactForm() {
           {status === "success" && "Thanks, that reached my inbox. I'll reply soon."}
           {status === "error" && `Something went wrong sending that. Email me at ${emailAddress} instead.`}
         </p>
-        {/* Same arrow nudge as the hero button. */}
-        <Button type="submit" disabled={status === "submitting"} className="group ml-auto gap-1.5 bg-white text-cobalt hover:bg-wash-blue">
+        <Button type="submit" disabled={status === "submitting"} className="group ml-auto gap-2 bg-white text-cobalt hover:bg-wash-blue">
           {status === "submitting" ? "Sending…" : "Send message"}
-          <span aria-hidden="true" className="transition-transform duration-150 group-hover:translate-x-1">
-            →
-          </span>
+          {/* Envelope whose flap opens and letter rises on hover (globals.css, .mail-*). Paint order is the layering: flap behind letter, pocket in front. */}
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20" className="overflow-visible">
+            <rect x="1" y="7" width="18" height="12" rx="1.5" fill="var(--color-cobalt-deep)" />
+            <path d="M1 7h18l-9 6Z" fill="var(--color-cobalt-deep)" className="mail-flap" />
+            <g className="mail-letter">
+              <rect x="4" y="13.5" width="12" height="4.5" rx="1" fill="white" stroke="var(--color-cobalt)" strokeWidth="1.2" />
+              <path d="M6.5 15.5h7" stroke="var(--color-cobalt)" strokeWidth="1.2" strokeLinecap="round" />
+            </g>
+            <path d="M1 7l9 6 9-6v10.5A1.5 1.5 0 0 1 17.5 19h-15A1.5 1.5 0 0 1 1 17.5Z" fill="var(--color-cobalt)" />
+          </svg>
         </Button>
       </div>
     </form>

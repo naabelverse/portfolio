@@ -243,6 +243,31 @@
   }
 }
 
+/* ---------------------------------------------------------------------------
+   Send-message envelope — the flap flips open, then the letter rises out of
+   it; on the way back the letter drops first, then the flap closes.
+--------------------------------------------------------------------------- */
+
+.mail-flap {
+  transform-box: fill-box;
+  transform-origin: top;
+  transition: transform 0.25s ease 0.15s;
+}
+
+.mail-letter {
+  transition: transform 0.25s ease;
+}
+
+.group:is(:hover, :focus-visible) .mail-flap {
+  transform: scaleY(-1);
+  transition-delay: 0s;
+}
+
+.group:is(:hover, :focus-visible) .mail-letter {
+  transform: translateY(-8px);
+  transition-delay: 0.15s;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
