@@ -88,10 +88,10 @@ wash-blue, clearing the 3:1 bar for graphics with margin.
 ### How the colours are used
 
 - **Cobalt** carries primary buttons, links, the full-bleed contact block, and
-  the dot in the wordmark. The one exception is the hero's "See my work"
-  button: ink at rest, cobalt on hover, with its letters hopping in turn.
-- **Sun** marks the step in each diagram where a model does the work, highlights
-  one phrase in the hero headline, and fills the "Try it yourself" button.
+  the dot in the wordmark. The hero's "See my work" button is the same cobalt
+  primary, with its letters hopping in turn on hover.
+- **Sun** marks the step in each diagram where a model does the work and fills
+  the "Try it yourself" button.
 - **Rose** means *the failure path*, nowhere else. It is the dashed line in both
   diagrams and the badge on the live project. Do not use it decoratively.
 - **Washes** are chapter backgrounds only, never card fills on white.
@@ -211,9 +211,6 @@ then the solid shapes pop in at 0.45s, 0.6s and 0.75s.
 **This is the only non-user-triggered motion on the entire site.** No
 scroll-reveal fades on sections. No hover lift on every card. Movement that
 answers a click or a hover is fine; ambient movement is not.
-
-One phrase in the headline is highlighted with a `sun` background. One phrase,
-once, on the home page only.
 
 **Known issue: hero h1 too close to h2 on wide screens.** The hero h1 has its own
 `clamp(36px, 6vw, 64px)` so the headline fits on three lines at 1280px, but h2
