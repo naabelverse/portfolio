@@ -42,11 +42,14 @@ export function ContactForm() {
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setSends((n) => n + 1);
+    // Hold the thank-you until the envelope's 1.3s flight (globals.css, .mail-fly) has landed.
+    const flight = new Promise((done) => setTimeout(done, matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 1300));
     const form = event.currentTarget;
     const data = new FormData(form);
 
     // Honeypot: a real person never sees this field, so anything in it is a bot.
     if (data.get("_gotcha")) {
+      await flight;
       setStatus("success");
       return;
     }
@@ -61,10 +64,36 @@ export function ContactForm() {
       });
       if (!response.ok) throw new Error(`Formspree responded ${response.status}`);
       form.reset();
+      await flight;
       setStatus("success");
     } catch {
       setStatus("error");
     }
+  }
+
+  if (status === "success") {
+    return (
+      <div className={`${PANEL} mail-done justify-items-start`}>
+        <span aria-hidden="true" className="hero-pop grid size-12 place-items-center rounded-full bg-sun text-ink">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M5 12.5l4.5 4.5L19 7.5" />
+          </svg>
+        </span>
+        {/* Focused on arrival so screen readers announce it; the form it replaces is gone. */}
+        <h3 ref={(el) => el?.focus()} tabIndex={-1} className="outline-none">
+          Message sent!
+        </h3>
+        <p className="max-w-lede text-lede text-white/85">
+          Thanks, it reached my inbox. I&apos;ll reply within a couple of days.
+        </p>
+        <Button
+          onClick={() => setStatus("idle")}
+          className="mt-2 border-2 border-white/45 bg-transparent text-white hover:border-white hover:bg-white hover:text-cobalt"
+        >
+          Send another
+        </Button>
+      </div>
+    );
   }
 
   return (
@@ -77,7 +106,6 @@ export function ContactForm() {
 
       <div className="flex flex-wrap-reverse items-center justify-between gap-x-6 gap-y-3 sm:col-span-2">
         <p role="status" aria-live="polite" className="text-small text-white/85 empty:hidden">
-          {status === "success" && "Thanks, that reached my inbox. I'll reply soon."}
           {status === "error" && `Something went wrong sending that. Email me at ${emailAddress} instead.`}
         </p>
         {/* Icon only: the label lives in aria-label and title. */}

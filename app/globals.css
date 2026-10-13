@@ -345,6 +345,18 @@
   }
 }
 
+/* The thank-you that replaces the form rises in; its badge uses .hero-pop. */
+.mail-done {
+  animation: mail-done 0.45s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+@keyframes mail-done {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
