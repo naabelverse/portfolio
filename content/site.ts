@@ -24,8 +24,8 @@ export const profile = {
 export const links = {
   github: "https://github.com/naabelverse",
   githubHandle: "naabelverse",
-  linkedin: "https://www.linkedin.com/in/muhammad-nabil-82b16642b",
-  linkedinHandle: "muhammad-nabil",
+  linkedin: "https://www.linkedin.com/in/naabel1910",
+  linkedinHandle: "naabel1910",
   // Split so the address is assembled in the browser rather than sitting in
   // the served HTML as a scrapeable mailto: string.
   emailUser: "naabel.workspace",
