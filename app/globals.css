@@ -357,6 +357,92 @@
   }
 }
 
+/* ---------------------------------------------------------------------------
+   Footer — FooterReveal arms the footer (lines and text hidden) when it starts
+   below the fold, then marks it shown on first sight: each .footer-line draws
+   out from its centre, each .footer-rise fades in, both after their --d.
+--------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-reveal="armed"] .footer-line {
+    transform: scaleX(0);
+  }
+  [data-reveal="armed"] .footer-rise {
+    opacity: 0;
+  }
+  [data-reveal="shown"] .footer-line {
+    animation: footer-draw 0.8s cubic-bezier(0.65, 0, 0.35, 1) var(--d, 0ms) backwards;
+  }
+  [data-reveal="shown"] .footer-rise {
+    animation: footer-fade 0.6s ease-out var(--d, 0ms) backwards;
+  }
+
+  /* Motto: words rise out of a blur, then the full stop pops in. */
+  [data-reveal="armed"] :is(.footer-word, .footer-dot) {
+    opacity: 0;
+  }
+  [data-reveal="shown"] .footer-word {
+    animation: footer-word 0.55s cubic-bezier(0.2, 0.7, 0.3, 1) var(--d, 0ms) backwards;
+  }
+  [data-reveal="shown"] .footer-dot {
+    animation: footer-pop 0.5s cubic-bezier(0.3, 1.6, 0.5, 1) var(--d, 0ms) backwards;
+  }
+  /* Draws itself round the word, holds, wipes off the same way, repeats.
+     Starts once its word has landed (--d is the word's delay). */
+  .footer-scribble path {
+    animation: footer-scribble 4.5s ease-in-out calc(var(--d, 0ms) + 700ms) infinite backwards;
+  }
+}
+
+/* Motto's last word: a hand-drawn cobalt circle round it, ends overlapping
+   like a pen loop (an SVG path with
+   pathLength=1, so the dash offsets below are fractions of its length; the
+   gap of 2 keeps the round caps hidden while it is "unwritten"). */
+.footer-scribble path {
+  stroke-dasharray: 1 2;
+  stroke-dashoffset: 0;
+}
+
+@keyframes footer-scribble {
+  0% {
+    stroke-dashoffset: 1.05;
+  }
+  35%,
+  75% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: -1.05;
+  }
+}
+
+@keyframes footer-word {
+  from {
+    opacity: 0;
+    transform: translateY(0.4em);
+    filter: blur(6px);
+  }
+}
+
+@keyframes footer-pop {
+  from {
+    opacity: 0;
+    transform: translateY(-0.8em) scale(0.3);
+  }
+}
+
+@keyframes footer-draw {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+@keyframes footer-fade {
+  from {
+    opacity: 0;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
