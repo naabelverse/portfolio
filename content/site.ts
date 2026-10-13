@@ -76,7 +76,7 @@ export const hero = {
     after: "",
   },
   intro:
-    "Software engineering at UTHM. I build mobile and web apps, some with AI models inside them, and most of my effort goes into what happens when things fail: a model returns nonsense, an API goes down, the network drops.",
+    "Software engineering at UTHM. I build mobile and web apps, some with AI models inside them, and most of my effort goes into what happens when things fail: a model returns nonsense, an API goes down, or the network drops.",
   cta: { label: "See my work", href: "/#work" },
 } as const;
 
