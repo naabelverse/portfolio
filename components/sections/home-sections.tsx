@@ -132,9 +132,31 @@ const CARD_STARS: [number, number, number, string, number][] = [
 /** Preview cards at the hero's foot, each jumping to its project chapter. */
 function HeroProjectCards() {
   // Each card wears its chapter's wash, so it previews the section it leads to.
-  const cards: { project: Project; href: string; tone: string }[] = [
-    { project: featuredProject, href: "/#work", tone: "bg-wash-blue" },
-    { project: resumeAnalyzerProject, href: "/#resume-analyzer", tone: "bg-wash-rose" },
+  // Badges read kind of project first, then whether it is live.
+  const cards: {
+    project: Project;
+    href: string;
+    tone: string;
+    badges: [React.ComponentProps<typeof Badge>["kind"], string][];
+  }[] = [
+    {
+      project: featuredProject,
+      href: "/#work",
+      tone: "bg-wash-blue",
+      badges: [
+        ["academic", featuredProject.badge],
+        ["offline", "Not live or public yet"],
+      ],
+    },
+    {
+      project: resumeAnalyzerProject,
+      href: "/#resume-analyzer",
+      tone: "bg-wash-rose",
+      badges: [
+        ["personal", "Personal project"],
+        ["live", resumeAnalyzerProject.badge],
+      ],
+    },
   ];
   return (
     <div className="relative mt-[clamp(32px,4vw,48px)]">
@@ -142,7 +164,7 @@ function HeroProjectCards() {
           out around the cards instead of crowding their edges and the gap. */}
       <div aria-hidden="true" className="absolute -inset-x-10 -inset-y-8 -z-10 rounded-[48px] bg-paper blur-2xl" />
     <ul className="grid gap-4 md:grid-cols-2">
-      {cards.map(({ project, href, tone }) => (
+      {cards.map(({ project, href, tone, badges }) => (
         <li key={project.slug} className="flex">
           <Link
             href={href}
@@ -175,7 +197,13 @@ function HeroProjectCards() {
                 </svg>
               </span>
             ))}
-            <Badge kind={project.live ? "live" : "academic"}>{project.badge}</Badge>
+            <div className="flex flex-wrap gap-2">
+              {badges.map(([kind, label]) => (
+                <Badge key={label} kind={kind}>
+                  {label}
+                </Badge>
+              ))}
+            </div>
             <p className="mt-4 flex items-center justify-between gap-4 font-display text-[26px] font-bold tracking-[-0.02em]">
               {project.name}
               {/* Bounces to the right for as long as the card is hovered or

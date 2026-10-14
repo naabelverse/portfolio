@@ -89,7 +89,9 @@ export function SectionIntro({ id, title, lede }: { id: string; title: string; l
  * both projects carry equal weight. `live` (the deployed project) gets a
  * green status dot that pulses (still under reduced motion); `academic` gets
  * a graduation cap that hops now and then (.badge-cap in globals.css), calmer
- * than the dot so "live" stays the louder of the two. Outlined padding is 2px less to absorb the border, so
+ * than the dot so "live" stays the louder of the two. `offline` is the same
+ * dot in rose, the failure colour, for a project not deployed yet. `personal` is
+ * a rocket that rumbles and lifts off now and then (.badge-rocket). Outlined padding is 2px less to absorb the border, so
  * every badge is one size.
  */
 export function Badge({
@@ -98,7 +100,7 @@ export function Badge({
   className,
 }: {
   children: React.ReactNode;
-  kind?: "live" | "academic";
+  kind?: "live" | "offline" | "academic" | "personal";
   className?: string;
 }) {
   return (
@@ -111,10 +113,15 @@ export function Badge({
         className,
       )}
     >
-      {kind === "live" && (
+      {(kind === "live" || kind === "offline") && (
         <span aria-hidden="true" className="relative flex size-2.5">
-          <span className="absolute inset-0 rounded-full bg-live opacity-60 motion-safe:animate-ping" />
-          <span className="relative size-2.5 rounded-full bg-live" />
+          <span
+            className={cn(
+              "absolute inset-0 rounded-full opacity-60 motion-safe:animate-ping",
+              kind === "live" ? "bg-live" : "bg-rose-line",
+            )}
+          />
+          <span className={cn("relative size-2.5 rounded-full", kind === "live" ? "bg-live" : "bg-rose-line")} />
         </span>
       )}
       {kind === "academic" && (
@@ -126,6 +133,18 @@ export function Badge({
           <path d="M22 10 12 5 2 10l10 5 10-5Z" />
           <path d="M6 12v5c3 2 9 2 12 0v-5" />
           <path d="M22 10v6" />
+        </svg>
+      )}
+      {kind === "personal" && (
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 24 24"
+          className="badge-rocket size-[17px] fill-none stroke-current stroke-2 [stroke-linecap:round] [stroke-linejoin:round]"
+        >
+          <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
+          <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
+          <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" />
+          <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
         </svg>
       )}
       {children}

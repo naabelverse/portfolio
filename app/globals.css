@@ -197,6 +197,40 @@
   }
 }
 
+/* Personal badge rocket (Badge kind="personal"): on the cap's 4s beat, a
+   quick rumble, a lift along its nose (up and right), and a bounce on
+   landing. Still under reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  .badge-rocket {
+    animation: badge-rocket 4s ease-in-out infinite;
+  }
+}
+
+/* Keyframes track badge-cap's (rest to 70%, peak 78%, land 86%, settle 92%)
+   so the two badges move together. */
+@keyframes badge-rocket {
+  0%,
+  70%,
+  100% {
+    transform: translate(0, 0);
+  }
+  72% {
+    transform: translate(-0.6px, 0.6px);
+  }
+  74% {
+    transform: translate(0.6px, -0.6px);
+  }
+  78% {
+    transform: translate(4px, -4px);
+  }
+  86% {
+    transform: translate(-0.5px, 0.5px);
+  }
+  92% {
+    transform: translate(0.5px, -0.5px);
+  }
+}
+
 /* Hero project card stars (CARD_STARS). At rest each star is folded into the
    big star's spot inside the card's top-right corner: shrunk, turned and
    hidden. Hover or keyboard focus
