@@ -84,26 +84,50 @@ export function SectionIntro({ id, title, lede }: { id: string; title: string; l
    ------------------------------------------------------------------------- */
 
 /**
- * Solid pill. `live` is rose and is reserved for the deployed project.
- * Ink text, not white: white on rose is 3.2:1 and fails AA at 15px.
+ * Pill label. With no `kind` it is solid ink (e.g. the 404 tag). A project
+ * badge sets `kind`: a white pill with an ink border and a leading mark, so
+ * both projects carry equal weight. `live` (the deployed project) gets a
+ * green status dot that pulses (still under reduced motion); `academic` gets
+ * a graduation cap that hops now and then (.badge-cap in globals.css), calmer
+ * than the dot so "live" stays the louder of the two. Outlined padding is 2px less to absorb the border, so
+ * every badge is one size.
  */
 export function Badge({
   children,
-  live = false,
+  kind,
   className,
 }: {
   children: React.ReactNode;
-  live?: boolean;
+  kind?: "live" | "academic";
   className?: string;
 }) {
   return (
     <span
       className={cn(
-        "inline-flex items-center rounded-full px-[14px] py-[6px] text-[15px] font-semibold",
-        live ? "bg-rose text-ink" : "bg-ink text-paper",
+        "inline-flex items-center rounded-full text-[15px] font-semibold",
+        kind
+          ? "gap-2 border-2 border-ink bg-white px-[12px] py-[4px] text-ink"
+          : "bg-ink px-[14px] py-[6px] text-paper",
         className,
       )}
     >
+      {kind === "live" && (
+        <span aria-hidden="true" className="relative flex size-2.5">
+          <span className="absolute inset-0 rounded-full bg-live opacity-60 motion-safe:animate-ping" />
+          <span className="relative size-2.5 rounded-full bg-live" />
+        </span>
+      )}
+      {kind === "academic" && (
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 24 24"
+          className="badge-cap size-[17px] fill-none stroke-current stroke-2 [stroke-linecap:round] [stroke-linejoin:round]"
+        >
+          <path d="M22 10 12 5 2 10l10 5 10-5Z" />
+          <path d="M6 12v5c3 2 9 2 12 0v-5" />
+          <path d="M22 10v6" />
+        </svg>
+      )}
       {children}
     </span>
   );

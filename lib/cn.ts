@@ -15,7 +15,7 @@ export const cn = extendTailwindMerge({
       color: [
         "paper", "white", "ink", "ink-2", "ink-3", "cobalt", "cobalt-deep",
         "wash-blue", "sun", "sun-deep", "wash-sun", "rose", "rose-line",
-        "wash-rose", "line", "line-2",
+        "wash-rose", "live", "line", "line-2",
       ],
       font: ["display", "sans", "mono"],
       text: ["tagline", "lede", "body", "small"],

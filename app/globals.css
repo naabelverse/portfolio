@@ -37,6 +37,9 @@
   --color-rose-line: #e63655; /* strokes only: 4.0:1 on paper, 3.5:1 on wash-blue */
   --color-wash-rose: #ffe7eb;
 
+  /* Running right now — the live badge's dot, nowhere else ---------------- */
+  --color-live: #16a34a; /* 3.3:1 on white, clears the 3:1 bar for graphics */
+
   /* Rules ---------------------------------------------------------------- */
   --color-line: #e2e2dc;
   --color-line-2: #cfcfc7;
@@ -161,6 +164,33 @@
   from {
     opacity: 0;
     transform: scale(0.86);
+  }
+}
+
+/* Academic badge cap (Badge kind="academic"): rests, then every 4s a small
+   toss up with a tilt, a bounce on landing, and rest again. Still under
+   reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  .badge-cap {
+    transform-origin: 50% 80%;
+    animation: badge-cap 4s ease-in-out infinite;
+  }
+}
+
+@keyframes badge-cap {
+  0%,
+  70%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  78% {
+    transform: translateY(-5px) rotate(-14deg);
+  }
+  86% {
+    transform: translateY(0) rotate(6deg);
+  }
+  92% {
+    transform: translateY(-1px) rotate(-2deg);
   }
 }
 

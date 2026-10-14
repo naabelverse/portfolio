@@ -29,7 +29,7 @@ export function CaseHeader({
 }) {
   return (
     <Container className="pt-[clamp(48px,7vw,86px)] pb-[clamp(56px,7vw,92px)]">
-      <Badge live={live}>{badge}</Badge>
+      <Badge kind={live ? "live" : "academic"}>{badge}</Badge>
       <h1 className="mt-[18px]">{name}</h1>
       <p className="mt-6 max-w-lede text-lede text-ink-2">{tagline}</p>
       <div className="mt-9 flex flex-wrap gap-3.5">{actions}</div>

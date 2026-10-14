@@ -35,9 +35,10 @@ const COLOURS = [
   { name: "sun", hex: "#FFC93D", className: "bg-sun", note: "background only" },
   { name: "sun-deep", hex: "#FFBB0A", className: "bg-sun-deep" },
   { name: "wash-sun", hex: "#FFF3D4", className: "bg-wash-sun" },
-  { name: "rose", hex: "#FF4F6E", className: "bg-rose", note: "live badge fill only" },
+  { name: "rose", hex: "#FF4F6E", className: "bg-rose", note: "fills only" },
   { name: "rose-line", hex: "#E63655", className: "bg-rose-line", note: "failure strokes only" },
   { name: "wash-rose", hex: "#FFE7EB", className: "bg-wash-rose" },
+  { name: "live", hex: "#16A34A", className: "bg-live", note: "live badge dot only" },
   { name: "line", hex: "#E2E2DC", className: "bg-line" },
   { name: "line-2", hex: "#CFCFC7", className: "bg-line-2" },
 ];
@@ -59,7 +60,7 @@ function ChapterDemo({ tone, live }: { tone: "blue" | "rose"; live?: boolean }) 
   const project = live ? resumeAnalyzerProject : featuredProject;
   return (
     <Section tone={tone}>
-      <Badge live={live}>{live ? "Live and public" : "Final-year project"}</Badge>
+      <Badge kind={live ? "live" : "academic"}>{live ? "Live and public" : "Final-year project"}</Badge>
       <h2 className="mt-[18px]">Chapter on wash-{tone}</h2>
       <p className="mt-3.5 max-w-tagline text-tagline text-ink-2">
         A tagline at the chapter size, sitting under the heading.
@@ -144,8 +145,8 @@ export default function StyleguidePage() {
 
         <Label>Badges</Label>
         <div className="flex flex-wrap gap-3">
-          <Badge>Final-year project</Badge>
-          <Badge live>Live and public</Badge>
+          <Badge kind="academic">Final-year project</Badge>
+          <Badge kind="live">Live and public</Badge>
         </div>
 
         <Label>Chips on paper</Label>

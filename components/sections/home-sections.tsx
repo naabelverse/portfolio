@@ -136,7 +136,7 @@ function HeroProjectCards() {
             href={href}
             className={`group w-full rounded-card border-2 border-ink p-6 transition-transform duration-150 hover:-translate-y-1 ${tone}`}
           >
-            <Badge live={Boolean(project.live)}>{project.badge}</Badge>
+            <Badge kind={project.live ? "live" : "academic"}>{project.badge}</Badge>
             <p className="mt-4 flex items-center justify-between gap-4 font-display text-[26px] font-bold tracking-[-0.02em]">
               {project.name}
               <span aria-hidden="true" className="transition-transform duration-150 group-hover:translate-x-1">
@@ -236,7 +236,7 @@ function ProjectChapter({
   return (
     <Section id={id} labelledBy={headingId} tone={tone} className={cn("relative", className)} style={blend}>
       {blendFrom && <GapStars />}
-      <Badge live={Boolean(project.live)}>{project.badge}</Badge>
+      <Badge kind={project.live ? "live" : "academic"}>{project.badge}</Badge>
       <h2 id={headingId} className="mt-[18px]">
         {project.name}
       </h2>

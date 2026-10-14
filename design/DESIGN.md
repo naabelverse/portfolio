@@ -68,9 +68,12 @@ Energy
   --color-wash-sun     #FFF3D4    chapter background
 
 Alert / failure paths
-  --color-rose         #FF4F6E    fills only (the live badge)
+  --color-rose         #FF4F6E    fills only
   --color-rose-line    #E63655    strokes only (diagram failure paths)
   --color-wash-rose    #FFE7EB    chapter background
+
+Live
+  --color-live         #16A34A    the live badge's status dot only (3.3:1 on white)
 
 Rules
   --color-line         #E2E2DC    light dividers
@@ -92,8 +95,11 @@ wash-blue, clearing the 3:1 bar for graphics with margin.
   at its foot lead into the work, each with an arrow that nudges right on hover.
 - **Sun** marks the step in each diagram where a model does the work and fills
   the "Try it yourself" button.
-- **Rose** means *the failure path*, nowhere else. It is the dashed line in both
-  diagrams and the badge on the live project. Do not use it decoratively.
+- **Rose** means *the failure path*. It is the dashed line in both diagrams.
+  It used to fill the live badge, but red reads as an error, so "live" moved
+  to green.
+- **Live green** is only the pulsing dot in the live project's badge: a white
+  pill with an ink border, so the green stays small and never fights a wash.
 - **Washes** are chapter backgrounds only, never card fills on white.
 
 ---
