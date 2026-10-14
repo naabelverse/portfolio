@@ -170,6 +170,21 @@
   }
 }
 
+/* About portrait: viewfinder corners that ease out and back in, like a
+   camera finding focus. Each corner's --x/--y (±1) points it outward.
+   Still under reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  .about-corner {
+    animation: about-focus 3s ease-in-out infinite;
+  }
+}
+
+@keyframes about-focus {
+  50% {
+    translate: calc(var(--x) * 7px) calc(var(--y) * 7px);
+  }
+}
+
 /* Academic badge cap (Badge kind="academic"): rests, then every 4s a small
    toss up with a tilt, a bounce on landing, and rest again. Still under
    reduced motion. */

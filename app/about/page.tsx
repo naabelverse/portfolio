@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
 import { Card, Container } from "@/components/ui/primitives";
@@ -14,16 +15,42 @@ export const metadata: Metadata = {
   },
 };
 
+/** Camera-viewfinder corners round the portrait; --x/--y point each one outward for .about-corner. */
+const VIEWFINDER = [
+  "top-0 left-0 rounded-tl-[34px] border-t-4 border-l-4 border-cobalt [--x:-1] [--y:-1]",
+  "top-0 right-0 rounded-tr-[34px] border-t-4 border-r-4 border-sun [--x:1] [--y:-1]",
+  "bottom-0 left-0 rounded-bl-[34px] border-b-4 border-l-4 border-sun [--x:-1] [--y:1]",
+  "right-0 bottom-0 rounded-br-[34px] border-r-4 border-b-4 border-cobalt [--x:1] [--y:1]",
+];
+
 export default function AboutPage() {
   const { intake, workMode } = about.lookingFor;
   const availability = `${intake ? `Available ${intake}. ` : ""}Open to ${workMode}`;
 
   return (
     <Container className="pt-[clamp(48px,7vw,86px)] pb-[clamp(56px,7vw,92px)]">
-      <h1>{profile.fullName}</h1>
-      <p className="mt-6 max-w-lede text-lede text-ink-2">
-        {profile.role} at {profile.university}
-      </p>
+      <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
+        <div>
+          <h1>{profile.fullName}</h1>
+          <p className="mt-6 max-w-lede text-lede text-ink-2">
+            {profile.role} at {profile.university}
+          </p>
+        </div>
+        <div className="relative order-first w-[clamp(200px,24vw,300px)] shrink-0 p-3.5 md:order-none">
+          {VIEWFINDER.map((corner) => (
+            <span key={corner} aria-hidden="true" className={`about-corner absolute size-12 ${corner}`} />
+          ))}
+          <Image
+            src="/portrait.webp"
+            width={520}
+            height={520}
+            alt={`Portrait of ${profile.fullName}`}
+            sizes="300px"
+            preload
+            className="h-auto w-full rounded-[22px] border-2 border-ink"
+          />
+        </div>
+      </div>
 
       <div className="mt-[clamp(44px,6vw,72px)] grid items-start gap-[clamp(32px,5vw,64px)] lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
         <div className="grid gap-5">
