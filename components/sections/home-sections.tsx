@@ -6,12 +6,12 @@ import Image from "next/image";
 import { ContactForm } from "@/components/contact-form";
 import { DiagramFigure } from "@/components/diagram";
 import { HeroDots } from "@/components/hero-dots";
+import { RevealEach } from "@/components/reveal-each";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/components/ui/link";
 import { cn } from "@/lib/cn";
 import {
   Badge,
-  Card,
   Chip,
   Container,
   Row,
@@ -385,7 +385,8 @@ export function OtherWork() {
    Skills
    ------------------------------------------------------------------------- */
 
-const SKILL_TONES = ["blue", "sun", "rose"] as const;
+/** Typing speed of a skill card's title, per character. */
+const TYPE_MS = 40;
 
 export function Skills() {
   return (
@@ -393,27 +394,59 @@ export function Skills() {
       <SectionIntro
         id="skills-title"
         title="Skills"
-        lede="Everything here backs something on this page. No bars, no percentages, nothing I have only read about."
+        lede="Every skill here is backed by something on this page. No bars, no percentages, nothing I've only read about."
       />
-      <div className="mt-11 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-        {skillGroups.map((group, i) => (
-          <Card key={group.title} tone={SKILL_TONES[i % 3]}>
-            <h3>{group.title}</h3>
-            {group.note ? (
-              <p className="mt-1.5 mb-3.5 text-[15px] text-ink-2">{group.note}</p>
-            ) : (
-              <div className="mb-3.5" />
-            )}
-            <ul className="flex flex-wrap gap-[7px]">
-              {group.items.map((item) => (
-                <li key={item}>
-                  <Chip compact>{item}</Chip>
-                </li>
-              ))}
-            </ul>
-          </Card>
-        ))}
-      </div>
+      <RevealEach className="mt-11 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        {skillGroups.map((group) => {
+          // Each group is a terminal window: `ls` its folder, print the
+          // note as a comment and the items as the listing, end on a prompt.
+          const command = `ls ${group.title.toLowerCase().replaceAll(" ", "-")}`;
+          const typed = command.length * TYPE_MS;
+          const at = (ms: number) => ({ "--d": `${ms}ms` }) as React.CSSProperties;
+          return (
+            // Mint is reserved for these cards, so no chapter wash repeats here.
+            <div
+              key={group.title}
+              className="overflow-hidden rounded-card border-2 border-ink bg-wash-mint font-mono text-[14.5px]/[1.75]"
+            >
+              <div className="flex items-center gap-[7px] bg-ink px-4 py-2.5">
+                <span className="size-2.5 rounded-full bg-rose" />
+                <span className="size-2.5 rounded-full bg-sun" />
+                <span className="size-2.5 rounded-full bg-wash-mint" />
+                <h3 className="ml-2 truncate font-mono text-[13px] font-medium tracking-normal text-white">
+                  {group.title}
+                </h3>
+              </div>
+              <div className="px-5 pt-4 pb-5">
+                <p aria-hidden="true">
+                  <span className="text-cobalt">$ </span>
+                  {[...command].map((char, i) => (
+                    <span key={i} className="term-char" style={at(i * TYPE_MS)}>
+                      {char}
+                    </span>
+                  ))}
+                </p>
+                {group.note && (
+                  <p className="term-line text-ink-3" style={at(typed + 150)}>
+                    # {group.note}
+                  </p>
+                )}
+                <ul className="flex flex-wrap gap-x-5">
+                  {group.items.map((item, i) => (
+                    <li key={item} className="term-line" style={at(typed + 300 + i * 80)}>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                <p aria-hidden="true" className="term-line" style={at(typed + 300 + group.items.length * 80)}>
+                  <span className="text-cobalt">$ </span>
+                  <span className="term-cursor inline-block h-[1.1em] w-[0.55em] translate-y-[0.2em] bg-cobalt" />
+                </p>
+              </div>
+            </div>
+          );
+        })}
+      </RevealEach>
     </Section>
   );
 }

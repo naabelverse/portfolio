@@ -226,6 +226,15 @@ then the solid shapes pop in at 0.45s, 0.6s and 0.75s.
 scroll-reveal fades on sections. No hover lift on every card. Movement that
 answers a click or a hover is fine; ambient movement is not.
 
+Two exceptions play once on first sight and never again: the footer reveal,
+and the skill terminals. Each skill group is drawn as a terminal window (ink
+title bar, mint body, JetBrains Mono, since it is literally a shell). Its
+`ls` command types out behind a cobalt block caret, then the note (as a
+`#` comment), the items and a final prompt print in one by one (`RevealEach`,
+`.term-char` / `.term-line` / `.term-cursor`). The prompt's cursor then keeps
+blinking, the one piece of ambient motion besides the badge cap and gap stars.
+All of it is static under reduced motion.
+
 **Known issue: hero h1 too close to h2 on wide screens.** The hero h1 has its own
 `clamp(36px, 6vw, 64px)` so the headline fits on three lines at 1280px, but h2
 tops out at 58px, so on wide screens the hero is only 1.10× the section

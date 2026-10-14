@@ -37,6 +37,9 @@
   --color-rose-line: #e63655; /* strokes only: 4.0:1 on paper, 3.5:1 on wash-blue */
   --color-wash-rose: #ffe7eb;
 
+  /* Skill cards only — never use it for a chapter wash -------------------- */
+  --color-wash-mint: #e3f6ec;
+
   /* Running right now — the live badge's dot, nowhere else ---------------- */
   --color-live: #16a34a; /* 3.3:1 on white, clears the 3:1 bar for graphics */
 
@@ -289,6 +292,63 @@
 
   .card-star svg {
     animation: none !important;
+  }
+}
+
+/* Skill terminals (Skills). RevealEach arms each one that starts below the
+   fold and marks it shown on first sight. The `ls` command types out behind
+   a cobalt block caret (each .term-char wears the caret for its own beat),
+   then the comment, each listed item and the final prompt print in,
+   instantly, after their --d. The prompt's cursor keeps blinking, like a
+   real shell waiting for input. Reduced motion: static, cursor solid. */
+@media (prefers-reduced-motion: no-preference) {
+  [data-reveal="armed"] :is(.term-char, .term-line) {
+    opacity: 0;
+  }
+  [data-reveal="shown"] :is(.term-char, .term-line) {
+    animation: term-print 1ms var(--d) backwards;
+  }
+  [data-reveal="shown"] .term-char {
+    position: relative;
+  }
+  [data-reveal="shown"] .term-char::after {
+    content: "";
+    position: absolute;
+    top: 0.12em;
+    bottom: 0.08em;
+    left: 100%;
+    width: 0.45em;
+    background: var(--color-cobalt);
+    opacity: 0;
+    animation: term-caret 40ms var(--d); /* 40ms = TYPE_MS */
+  }
+  /* No per-card delay: every cursor starts with the page, so they all blink
+     in step. The prompt line's own print hides it until its turn. */
+  .term-cursor {
+    animation: term-blink 1s step-end infinite;
+  }
+}
+
+@keyframes term-print {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes term-caret {
+  0%,
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Visibility, not opacity: an opacity loop runs on the compositor, which
+   starts each cursor's clock when it is first painted, so cursors that came
+   into view at different times drift apart. Visibility stays on the main
+   thread's shared clock. */
+@keyframes term-blink {
+  50% {
+    visibility: hidden;
   }
 }
 
