@@ -3,7 +3,6 @@ import {
   Experience,
   FeaturedProjects,
   Hero,
-  OtherWork,
   Skills,
 } from "@/components/sections/home-sections";
 
@@ -12,7 +11,6 @@ export default function HomePage() {
     <>
       <Hero />
       <FeaturedProjects />
-      <OtherWork />
       <Skills />
       <Experience />
       <ContactSection />

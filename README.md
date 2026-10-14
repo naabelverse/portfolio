@@ -18,7 +18,6 @@ facts only you can supply.
 | Internship intake / availability | `content/site.ts` → `hero.availability`, `about.lookingFor.details` |
 | CGPA, dates, any work experience | `content/site.ts` → `timeline` |
 | Your CV | drop the PDF at `public/resume.pdf`, then set `links.resume = "/resume.pdf"` |
-| GitHub URLs for IMS and TinyTots | `content/site.ts` → `otherWork[].repo` |
 | ForgeRoom timeline | `content/forgeroom.ts` → `meta` |
 | Real app screenshots | `components/mockups/forgeroom.tsx` — see the note at the top |
 | Contact form | create a form at [formspree.io](https://formspree.io), then set `NEXT_PUBLIC_FORMSPREE_ID` |

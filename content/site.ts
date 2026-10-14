@@ -198,27 +198,6 @@ export const resumeAnalyzerProject = {
   },
 } as const satisfies Project;
 
-export const otherWork = [
-  {
-    name: "Inventory Management System",
-    context: "Java, object-oriented coursework",
-    description:
-      "An inventory system built to demonstrate inheritance and encapsulation: an Item base class with ElectronicItem extending it, state behind getters and setters, and a manager handling search, sorting, category reports, total value, and persistence to file.",
-  },
-  {
-    name: "TinyTots",
-    context: "C# and ASP.NET Web Forms",
-    description:
-      "A child registration system: register, list every record, edit an existing one, all persisted in SQL Server. My first application where the form, the logic, and the database were all mine.",
-  },
-  {
-    name: "Lab work",
-    context: ".NET 8, EF Core, MySQL",
-    description:
-      "ASP.NET MVC pages with Entity Framework Core, a Razor charting demo, and database exercises. Not portfolio pieces on their own, but most of what I know started here.",
-  },
-] as const;
-
 /* -------------------------------------------------------------------------
    Skills — grouped, honest, and each one backed by something on this page.
    ------------------------------------------------------------------------- */

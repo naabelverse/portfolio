@@ -25,7 +25,6 @@ import {
   featuredProject,
   hero,
   links,
-  otherWork,
   profile,
   type Project,
   resumeAnalyzerProject,
@@ -348,37 +347,6 @@ export function FeaturedProjects() {
       blendTo={i === chapters.length - 1 ? "var(--color-paper)" : undefined}
     />
   ));
-}
-
-/* -------------------------------------------------------------------------
-   Smaller and earlier
-   ------------------------------------------------------------------------- */
-
-export function OtherWork() {
-  return (
-    <Section id="other-work" labelledBy="other-work-title">
-      <SectionIntro
-        id="other-work-title"
-        title="Smaller and earlier"
-        lede="Coursework and first attempts. Rougher than the two above, but this is where the fundamentals came from."
-      />
-      <RowList className="mt-11">
-        {otherWork.map((project) => (
-          <Row
-            key={project.name}
-            aside={
-              <>
-                <h3>{project.name}</h3>
-                <p className="mt-1.5 text-[15px] text-ink-3">{project.context}</p>
-              </>
-            }
-          >
-            <p className="max-w-measure text-[16.5px] text-ink-2">{project.description}</p>
-          </Row>
-        ))}
-      </RowList>
-    </Section>
-  );
 }
 
 /* -------------------------------------------------------------------------
