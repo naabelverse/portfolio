@@ -82,7 +82,10 @@ export const hero = {
 export type Project = {
   slug: string;
   name: string;
+  /** The case-study page's single badge. */
   badge: string;
+  /** The home page's pair: what kind of project, then whether it is live. Kinds are Badge's. */
+  badges: readonly (readonly ["live" | "offline" | "academic" | "personal", string])[];
   tagline: string;
   problem: string;
   approach: string;
@@ -104,6 +107,10 @@ export const featuredProject = {
   slug: "forgeroom",
   name: "ForgeRoom",
   badge: "Final-year project",
+  badges: [
+    ["academic", "Final-year project"],
+    ["offline", "Not live or public yet"],
+  ],
   tagline:
     "Photograph a room, describe what you need, and get back a plan you can act on.",
   problem:
@@ -154,6 +161,10 @@ export const resumeAnalyzerProject = {
   slug: "ai-resume-analyzer",
   name: "AI Resume Analyzer",
   badge: "Live and public",
+  badges: [
+    ["personal", "Personal project"],
+    ["live", "Live and public"],
+  ],
   tagline:
     "Upload a resume, get a score that shows its working and rewrites you can use.",
   problem:
