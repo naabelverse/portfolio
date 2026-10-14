@@ -376,6 +376,22 @@
   }
 }
 
+/* Waves under the last chapter (Waves): each layer slides one wavelength
+   (400px, as drawn in wavePath) per loop, which lands on the same wave shape,
+   so the loop has no jump. Duration and direction are set per layer. Reduced
+   motion leaves them still. */
+@media (prefers-reduced-motion: no-preference) {
+  .wave {
+    animation: wave-slide linear infinite;
+  }
+}
+
+@keyframes wave-slide {
+  to {
+    transform: translateX(-400px);
+  }
+}
+
 /* ---------------------------------------------------------------------------
    Hero backdrop — a grid of small four-point stars (HeroDots). A second grid
    of bigger cobalt stars sits on top, masked to a circle around the mouse

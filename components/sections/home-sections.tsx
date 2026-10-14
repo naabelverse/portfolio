@@ -245,13 +245,59 @@ function GapStars() {
   );
 }
 
+/**
+ * The wave layers, faintest and deepest first: [height px, wave centre line,
+ * amplitude, opacity, loop s, runs right]. The deepest stays inside the
+ * smallest section padding (72px), so no layer reaches the next heading.
+ */
+const WAVES: [number, number, number, number, number, boolean][] = [
+  [66, 46, 18, 0.3, 16, false],
+  [50, 34, 14, 0.55, 11, true],
+  [32, 18, 12, 1, 8, false],
+];
+
+/**
+ * One wave layer's outline: filled from the top down to a sine-like edge,
+ * 400px a wave (the slide in globals.css moves exactly one) across 2400px,
+ * enough to cover a 2000px-wide window mid-slide.
+ */
+const wavePath = (mid: number, amp: number) =>
+  `M0 0V${mid}Q100 ${mid + amp} 200 ${mid}${Array.from({ length: 11 }, (_, i) => `T${400 + i * 200} ${mid}`).join("")}V0Z`;
+
+/**
+ * Waves of the chapter's wash hanging off its bottom edge into the paper
+ * section below, each layer fainter and deeper than the last and drifting at
+ * its own pace (.wave in globals.css), so the colour seems to ebb away.
+ */
+function Waves({ tone }: { tone: keyof typeof WASH }) {
+  return (
+    <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-full h-[66px] overflow-hidden">
+      {WAVES.map(([height, mid, amp, opacity, loop, right]) => (
+        <svg
+          key={height}
+          width={2400}
+          height={height}
+          className="wave absolute top-0 left-0 max-w-none"
+          style={{
+            opacity,
+            animationDuration: `${loop}s`,
+            animationDirection: right ? "reverse" : "normal",
+          }}
+        >
+          <path d={wavePath(mid, amp)} style={{ fill: WASH[tone] }} />
+        </svg>
+      ))}
+    </div>
+  );
+}
+
 function ProjectChapter({
   project,
   tone,
   id,
   className,
   blendFrom,
-  blendTo,
+  ebb,
 }: {
   project: Project;
   tone: keyof typeof WASH;
@@ -259,18 +305,15 @@ function ProjectChapter({
   className?: string;
   /** Colour of the section above; the top edge fades in from it. */
   blendFrom?: string;
-  /** Colour of the section below; the bottom edge fades out into it. */
-  blendTo?: string;
+  /** Ends in waves of its wash that ebb into the paper section below. */
+  ebb?: boolean;
 }) {
   const headingId = `${id}-title`;
   // The gradient runs to transparent over the tone's own background colour,
-  // so only the edges change and the middle stays the chapter's wash.
-  const blend =
-    blendFrom || blendTo
-      ? {
-          backgroundImage: `linear-gradient(to bottom, ${blendFrom ?? "transparent"}, transparent ${BLEND}, transparent calc(100% - ${BLEND}), ${blendTo ?? "transparent"})`,
-        }
-      : undefined;
+  // so only the top edge changes and the rest stays the chapter's wash.
+  const blend = blendFrom
+    ? { backgroundImage: `linear-gradient(to bottom, ${blendFrom}, transparent ${BLEND})` }
+    : undefined;
   const blocks = [
     { label: "The problem", body: project.problem },
     { label: "How it works", body: project.approach },
@@ -281,6 +324,7 @@ function ProjectChapter({
   return (
     <Section id={id} labelledBy={headingId} tone={tone} className={cn("relative", className)} style={blend}>
       {blendFrom && <GapStars />}
+      {ebb && <Waves tone={tone} />}
       <Badge kind={project.live ? "live" : "academic"}>{project.badge}</Badge>
       <h2 id={headingId} className="mt-[18px]">
         {project.name}
@@ -330,7 +374,7 @@ function ProjectChapter({
 /** The two featured builds, ForgeRoom first, inside the #work anchor. */
 export function FeaturedProjects() {
   // In page order. Each chapter fades in from the wash above it and the last
-  // fades out into the paper section after, so a chapter added here blends
+  // ebbs into the paper section after in waves, so a chapter added here blends
   // with its neighbours without any extra work. The first needs no fade: the
   // hero already ends in its blue wash.
   const chapters = [
@@ -344,7 +388,7 @@ export function FeaturedProjects() {
       key={chapter.id}
       {...chapter}
       blendFrom={i > 0 ? WASH[chapters[i - 1].tone] : undefined}
-      blendTo={i === chapters.length - 1 ? "var(--color-paper)" : undefined}
+      ebb={i === chapters.length - 1}
     />
   ));
 }
