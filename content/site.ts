@@ -155,7 +155,7 @@ export const resumeAnalyzerProject = {
   name: "AI Resume Analyzer",
   badge: "Live and public",
   tagline:
-    "Upload a resume, get a score you can argue with and rewrites you can use.",
+    "Upload a resume, get a score that shows its working and rewrites you can use.",
   problem:
     "Resume feedback is hard to get. Articles are generic, advisers are slow or cost money, and chat tools return a different score every time you ask, then an error when they fail.",
   approach:
