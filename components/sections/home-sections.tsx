@@ -7,6 +7,8 @@ import { ContactForm } from "@/components/contact-form";
 import { DiagramFigure } from "@/components/diagram";
 import { HeroDots } from "@/components/hero-dots";
 import { Button } from "@/components/ui/button";
+import { Link } from "@/components/ui/link";
+import { cn } from "@/lib/cn";
 import {
   Badge,
   Card,
@@ -87,10 +89,13 @@ export function Hero() {
   return (
     // Fades from paper into the blue wash of the first chapter, so the two
     // backgrounds meet without a seam. At least one screen tall (minus the
-    // 68px header) so the first chapter starts below the fold, not peeking in.
-    <div className="relative isolate flex min-h-[calc(100svh-68px)] flex-col justify-center overflow-hidden bg-linear-to-b from-paper from-55% to-wash-blue">
+    // 68px header) so the first chapter starts below the fold; the intro and
+    // the project cards are centred in that height as one group. The bottom
+    // pad must stay deep enough for the blurred paper patches to fade out
+    // before overflow-hidden clips them, or they end in a hard white edge.
+    <div className="relative isolate flex min-h-[calc(100svh-68px)] flex-col overflow-hidden bg-linear-to-b from-paper from-55% to-wash-blue">
       <HeroDots />
-    <Container className="w-full pt-[clamp(48px,7vw,86px)] pb-[clamp(56px,7vw,92px)]">
+    <Container className="flex w-full flex-1 flex-col justify-center pt-[clamp(48px,7vw,86px)] pb-[clamp(56px,7vw,92px)]">
         <div className="grid items-center gap-[clamp(28px,5vw,64px)] lg:grid-cols-[1.4fr_0.6fr]">
           <div className="relative">
             {/* Blurred paper patches over the star grid, here and behind the
@@ -100,23 +105,49 @@ export function Hero() {
             {/* Smaller than the global 96px h1, but still above the 58px h2. */}
             <h1 className="text-[length:clamp(36px,6vw,64px)]">{hero.headline}</h1>
             <p className="mt-[26px] max-w-lede text-lede text-ink-2">{hero.intro}</p>
-            <div className="mt-9 flex">
-              {/* The arrow nudges right on hover; group-hover only fires on
-                  hover devices, so a tap does not leave it shifted. */}
-              <Button href={hero.cta.href} className="group gap-1.5">
-                {hero.cta.label}
-                <span aria-hidden="true" className="transition-transform duration-150 group-hover:translate-x-1">
-                  →
-                </span>
-              </Button>
-            </div>
           </div>
           <div className="relative order-first max-w-[380px] lg:order-none lg:max-w-none">
             <div aria-hidden="true" className="absolute -inset-[6%] -z-10 rounded-full bg-paper blur-xl" />
             <HeroComposition />
           </div>
         </div>
+        <HeroProjectCards />
       </Container>
+    </div>
+  );
+}
+
+/** Preview cards at the hero's foot, each jumping to its project chapter. */
+function HeroProjectCards() {
+  // Each card wears its chapter's wash, so it previews the section it leads to.
+  const cards: { project: Project; href: string; tone: string }[] = [
+    { project: featuredProject, href: "/#work", tone: "bg-wash-blue" },
+    { project: resumeAnalyzerProject, href: "/#resume-analyzer", tone: "bg-wash-rose" },
+  ];
+  return (
+    <div className="relative mt-[clamp(32px,4vw,48px)]">
+      {/* The same blurred paper patch as behind the intro, so the stars fade
+          out around the cards instead of crowding their edges and the gap. */}
+      <div aria-hidden="true" className="absolute -inset-x-10 -inset-y-8 -z-10 rounded-[48px] bg-paper blur-2xl" />
+    <ul className="grid gap-4 md:grid-cols-2">
+      {cards.map(({ project, href, tone }) => (
+        <li key={project.slug} className="flex">
+          <Link
+            href={href}
+            className={`group w-full rounded-card border-2 border-ink p-6 transition-transform duration-150 hover:-translate-y-1 ${tone}`}
+          >
+            <Badge live={Boolean(project.live)}>{project.badge}</Badge>
+            <p className="mt-4 flex items-center justify-between gap-4 font-display text-[26px] font-bold tracking-[-0.02em]">
+              {project.name}
+              <span aria-hidden="true" className="transition-transform duration-150 group-hover:translate-x-1">
+                →
+              </span>
+            </p>
+            <p className="mt-1.5 text-[16px] text-ink-2">{project.tagline}</p>
+          </Link>
+        </li>
+      ))}
+    </ul>
     </div>
   );
 }
@@ -125,16 +156,76 @@ export function Hero() {
    Project chapters — full-bleed washes; the sections between stay paper.
    ------------------------------------------------------------------------- */
 
+/** Each chapter tone's wash colour, for fading one chapter into the next. */
+const WASH = {
+  blue: "var(--color-wash-blue)",
+  rose: "var(--color-wash-rose)",
+} as const;
+
+/** How far each edge fade reaches into a chapter. */
+const BLEND = "220px";
+
+/** The gap stars: [left %, top %, size px, colour token, twinkle delay s]. */
+const GAP_STARS: [number, number, number, string, number][] = [
+  [6, 30, 14, "cobalt", 0], [14, 62, 10, "ink", 1.2], [22, 22, 18, "sun", 0.6],
+  [31, 70, 12, "rose", 1.8], [39, 38, 16, "cobalt", 0.9], [47, 76, 10, "ink", 2.4],
+  [55, 26, 12, "rose", 1.5], [63, 58, 18, "sun", 0.3], [71, 34, 10, "ink", 2.1],
+  [79, 68, 14, "cobalt", 1.1], [87, 28, 12, "rose", 0.4], [94, 60, 16, "sun", 1.9],
+];
+
+/**
+ * Twinkling stars in the gap between two chapters: the hero's four-point star
+ * in the brand colours. Spans the previous chapter's bottom padding and this
+ * one's top padding, so it sits in the empty band where the washes blend.
+ */
+function GapStars() {
+  return (
+    <div
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-x-0 -top-section h-[calc(var(--spacing-section)*2)]"
+    >
+      {GAP_STARS.map(([left, top, size, color, delay]) => (
+        <svg
+          key={`${left}-${top}`}
+          width={size}
+          height={size}
+          viewBox="0 0 20 20"
+          className="gap-star absolute"
+          style={{ left: `${left}%`, top: `${top}%`, animationDelay: `${delay}s` }}
+        >
+          <path d="M10 0Q11.4 8.6 20 10 11.4 11.4 10 20 8.6 11.4 0 10 8.6 8.6 10 0Z" style={{ fill: `var(--color-${color})` }} />
+        </svg>
+      ))}
+    </div>
+  );
+}
+
 function ProjectChapter({
   project,
   tone,
   id,
+  className,
+  blendFrom,
+  blendTo,
 }: {
   project: Project;
-  tone: "blue" | "rose";
+  tone: keyof typeof WASH;
   id: string;
+  className?: string;
+  /** Colour of the section above; the top edge fades in from it. */
+  blendFrom?: string;
+  /** Colour of the section below; the bottom edge fades out into it. */
+  blendTo?: string;
 }) {
   const headingId = `${id}-title`;
+  // The gradient runs to transparent over the tone's own background colour,
+  // so only the edges change and the middle stays the chapter's wash.
+  const blend =
+    blendFrom || blendTo
+      ? {
+          backgroundImage: `linear-gradient(to bottom, ${blendFrom ?? "transparent"}, transparent ${BLEND}, transparent calc(100% - ${BLEND}), ${blendTo ?? "transparent"})`,
+        }
+      : undefined;
   const blocks = [
     { label: "The problem", body: project.problem },
     { label: "How it works", body: project.approach },
@@ -143,7 +234,8 @@ function ProjectChapter({
   ];
 
   return (
-    <Section id={id} labelledBy={headingId} tone={tone}>
+    <Section id={id} labelledBy={headingId} tone={tone} className={cn("relative", className)} style={blend}>
+      {blendFrom && <GapStars />}
       <Badge live={Boolean(project.live)}>{project.badge}</Badge>
       <h2 id={headingId} className="mt-[18px]">
         {project.name}
@@ -192,12 +284,24 @@ function ProjectChapter({
 
 /** The two featured builds, ForgeRoom first, inside the #work anchor. */
 export function FeaturedProjects() {
-  return (
-    <>
-      <ProjectChapter id="work" tone="blue" project={featuredProject} />
-      <ProjectChapter id="resume-analyzer" tone="rose" project={resumeAnalyzerProject} />
-    </>
-  );
+  // In page order. Each chapter fades in from the wash above it and the last
+  // fades out into the paper section after, so a chapter added here blends
+  // with its neighbours without any extra work. The first needs no fade: the
+  // hero already ends in its blue wash.
+  const chapters = [
+    // Short top pad: the hero's bottom pad already sits above it in the same wash.
+    { id: "work", tone: "blue", project: featuredProject, className: "pt-[clamp(24px,4vw,64px)]" },
+    { id: "resume-analyzer", tone: "rose", project: resumeAnalyzerProject },
+  ] as const;
+
+  return chapters.map((chapter, i) => (
+    <ProjectChapter
+      key={chapter.id}
+      {...chapter}
+      blendFrom={i > 0 ? WASH[chapters[i - 1].tone] : undefined}
+      blendTo={i === chapters.length - 1 ? "var(--color-paper)" : undefined}
+    />
+  ));
 }
 
 /* -------------------------------------------------------------------------

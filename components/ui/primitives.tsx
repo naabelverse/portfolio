@@ -41,16 +41,19 @@ export function Section({
   id,
   labelledBy,
   tone,
+  style,
 }: {
   children: React.ReactNode;
   className?: string;
   id?: string;
   labelledBy?: string;
   tone?: keyof typeof SECTION_TONES;
+  style?: React.CSSProperties;
 }) {
   return (
     <section
       aria-labelledby={labelledBy}
+      style={style}
       className={cn(
         "py-section",
         tone && [SECTION_TONES[tone], "[--chip-bg:var(--color-white)]"],

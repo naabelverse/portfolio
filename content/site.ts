@@ -76,7 +76,6 @@ export const hero = {
   headline: "Final-year software engineering student.",
   intro:
     "I build mobile and web apps, some with AI models inside them. I'm most interested in using AI to automate work people currently do by hand, and I want an internship where I can go deeper and build more.",
-  cta: { label: "See my work", href: "/#work" },
 } as const;
 
 /** A featured project: one chapter on the home page, with its diagram. */
