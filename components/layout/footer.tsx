@@ -14,7 +14,7 @@ export function Footer() {
       {/* Top rule matches the header's border-b-2; a div so it can draw in. */}
       <div aria-hidden="true" className="footer-line absolute inset-x-0 top-0 h-0.5 bg-ink" />
       <Container>
-        {/* Words rise in one by one, then the cobalt full stop drops in.
+        {/* Words rise in one by one, then the full stop drops in.
             The last word gets a hand-drawn circle that keeps redrawing itself. */}
         <p className="mx-auto max-w-[24ch] text-center font-display text-[clamp(24px,3.4vw,36px)] leading-[1.15] font-bold tracking-[-0.03em] text-balance text-ink">
           {words.map((word, i) => (
@@ -47,7 +47,7 @@ export function Footer() {
               </span>
             </span>
           ))}
-          <span className="footer-dot ml-[0.1em] inline-block text-cobalt" style={delay(400 + words.length * 130 + 80)}>
+          <span className="footer-dot ml-[0.1em] inline-block" style={delay(400 + words.length * 130 + 80)}>
             .
           </span>
         </p>

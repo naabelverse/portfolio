@@ -51,7 +51,7 @@ export const emailAddress = `${links.emailUser}@${links.emailDomain}`;
  */
 export const siteUrl = "https://portfolio-naabel.up.railway.app";
 
-/** Footer line. No full stop: the footer adds a cobalt one, like the wordmark. */
+/** Footer line. No full stop: the footer adds its own, which pops in last. */
 export const footerMotto = "Still curious. Still building";
 
 /** Every section link. The header shows `headerNav`, which drops Contact. */
