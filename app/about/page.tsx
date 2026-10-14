@@ -23,6 +23,8 @@ const VIEWFINDER = [
   "right-0 bottom-0 rounded-br-[34px] border-r-4 border-b-4 border-cobalt [--x:1] [--y:1]",
 ];
 
+const CARD_TITLE = "text-[clamp(20px,2.4vw,27px)] leading-[1.2] font-semibold tracking-[-0.02em]";
+
 export default function AboutPage() {
   const { intake, workMode } = about.lookingFor;
   const availability = `${intake ? `Available ${intake}. ` : ""}Open to ${workMode}`;
@@ -33,7 +35,7 @@ export default function AboutPage() {
         <div>
           <h1>{profile.fullName}</h1>
           <p className="mt-6 max-w-lede text-lede text-ink-2">
-            {profile.role} at {profile.university}
+            {about.tagline}
           </p>
         </div>
         <div className="relative order-first w-[clamp(200px,24vw,300px)] shrink-0 p-3.5 md:order-none">
@@ -61,27 +63,40 @@ export default function AboutPage() {
           ))}
         </div>
 
-        <Card tone="blue">
-          <h2 className="text-[clamp(20px,2.4vw,27px)] leading-[1.2] font-semibold tracking-[-0.02em]">
-            {about.lookingFor.title}
-          </h2>
-          <p className="mt-3 text-ink-2">{about.lookingFor.body}</p>
-          <ul className="mt-5 grid list-disc gap-2 border-t-2 border-ink/15 pt-5 pl-5 text-small marker:text-cobalt">
-            {[availability, ...about.lookingFor.details].map((detail) => (
-              <li key={detail}>{detail}</li>
-            ))}
-          </ul>
-          <div className="mt-6 flex flex-wrap gap-3">
-            {links.resume && (
-              <Button variant="ghost" href={links.resume}>
-                Download CV
+        <div className="grid gap-6">
+          <Card tone="blue">
+            <h2 className={CARD_TITLE}>{about.lookingFor.title}</h2>
+            <p className="mt-3 text-ink-2">{about.lookingFor.body}</p>
+            <ul className="mt-5 grid list-disc gap-2 border-t-2 border-ink/15 pt-5 pl-5 text-small marker:text-cobalt">
+              {[availability, ...about.lookingFor.details].map((detail) => (
+                <li key={detail}>{detail}</li>
+              ))}
+            </ul>
+            <div className="mt-6 flex flex-wrap gap-3">
+              {links.resume && (
+                <Button variant="ghost" href={links.resume}>
+                  Download CV
+                </Button>
+              )}
+              <Button variant="ghost" href={links.linkedin}>
+                LinkedIn
               </Button>
-            )}
-            <Button variant="ghost" href={links.linkedin}>
-              LinkedIn
-            </Button>
-          </div>
-        </Card>
+            </div>
+          </Card>
+
+          <Card tone="sun">
+            <h2 className={CARD_TITLE}>{about.committees.title}</h2>
+            <ul className="mt-4 grid gap-4">
+              {about.committees.items.map((item) => (
+                <li key={item.event} className="border-t-2 border-ink/15 pt-4 text-small">
+                  <p className="font-semibold">{item.role}</p>
+                  <p className="text-ink-2">{item.event}</p>
+                  <p className="mt-1 text-ink-3">{item.period}</p>
+                </li>
+              ))}
+            </ul>
+          </Card>
+        </div>
       </div>
     </Container>
   );

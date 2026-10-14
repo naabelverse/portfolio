@@ -35,6 +35,7 @@ export const links = {
   resumeAnalyzerLive: "https://ai-resume-analyzer-by-naabel.up.railway.app",
   resumeAnalyzerDemo:
     "https://ai-resume-analyzer-by-naabel.up.railway.app/analyze/demo",
+  internshipTrackerLive: "https://internship-tracker-by-naabel.up.railway.app/",
   /**
    * The CV. Put the file at public/resume.pdf, then set this to "/resume.pdf".
    * While it is null, the Download CV button on /about and the CV row in the
@@ -260,6 +261,8 @@ type TimelineEntry = {
   title: string;
   org: string;
   description: string;
+  /** For a project with no chapter of its own. Optional; empty renders nothing. */
+  stack?: readonly string[];
   /** e.g. "Finalist". Optional; empty renders nothing. */
   result?: string;
   /** Repo or demo URL. Optional; empty renders nothing. */
@@ -271,7 +274,7 @@ type TimelineEntry = {
 /** An entry with an empty `title` is skipped entirely. */
 export const timeline: readonly TimelineEntry[] = [
   {
-    period: "",
+    period: "March 2024 to 2027",
     title: "Bachelor of Software Engineering",
     org: "Universiti Tun Hussein Onn Malaysia",
     description: "",
@@ -282,6 +285,18 @@ export const timeline: readonly TimelineEntry[] = [
     org: "Personal project",
     description:
       "Designed, built, tested and deployed on my own: a Next.js app with a constrained model pipeline, scoring in code, validated output, and a rule-based fallback.",
+  },
+  {
+    // Date unconfirmed, so it sits beside the other personal project for now.
+    period: "",
+    title: "Internship Tracker",
+    org: "Personal project",
+    description:
+      "A web app for tracking internship applications from saved through to offer, with a Kanban board, calendar view and analytics dashboard.",
+    // Empty until confirmed.
+    stack: [],
+    link: links.internshipTrackerLive,
+    linkLabel: "Try it live",
   },
   {
     period: "May 2026",
@@ -302,11 +317,37 @@ export const timeline: readonly TimelineEntry[] = [
       "Scope and requirements in Chapter 1, then the Flutter client, the Express API, the model pipeline, and alpha testing.",
   },
   {
-    period: "Earlier",
+    period: "2024 to 2025",
     title: "Coursework foundations",
     org: profile.universityShort,
     description:
       "Object-oriented programming in Java, database systems, and web development on the .NET stack.",
+  },
+  {
+    period: "Dec 2022 to Feb 2024",
+    title: "Clinic Assistant",
+    org: "Remedic Clinic Jitra (Zip-Zip Group of Companies), Jitra, Kedah",
+    description:
+      "Patient registration, medical records, billing and stock. I also learned what the medicines we dispensed were for and how to assist with procedures.",
+  },
+  {
+    period: "Dec 2021 to Oct 2022",
+    title: "Resident Technician",
+    org: "Zpeed Solutions Sdn Bhd, Perak",
+    description:
+      "Looked after campus IT infrastructure and wireless access points, closed support tickets against SLA targets, and wrote the monthly and quarterly incident reports.",
+  },
+  {
+    period: "Aug 2021 to Nov 2021",
+    title: "IT Support Intern",
+    org: "Zpeed Solutions Sdn Bhd, Perak",
+    description: "Where I started at Zpeed, before staying on as a resident technician.",
+  },
+  {
+    period: "Jun 2018 to Feb 2022",
+    title: "Diploma in Computer Engineering",
+    org: "Universiti Malaysia Perlis (UniMAP)",
+    description: "",
   },
 ];
 
@@ -316,11 +357,29 @@ export const timeline: readonly TimelineEntry[] = [
 
 export const about = {
   headline: "About me",
+  tagline:
+    "Final-year Software Engineering student at Universiti Tun Hussein Onn Malaysia (UTHM), Parit Raja, Johor",
+  // Nabil's own account. Keep it close to verbatim; don't smooth it.
   paragraphs: [
-    "I'm Muhammad Nabil, a final-year Software Engineering student at Universiti Tun Hussein Onn Malaysia. Most of what I know I learned by building something that didn't work yet and staying with it until it did.",
-    "My final-year project, ForgeRoom, is the clearest example. It started as a question (could someone renting a room get a genuinely useful design plan from a single photo?) and became a Flutter app, an Express API, a MongoDB database, and a pipeline that hands a room photo to a vision model and the analysis to an LLM. Along the way I rebuilt the codebase once, from scratch, because the first version had grown into something I could no longer reason about.",
-    "The habit I'm proudest of is designing for the unhappy path. ForgeRoom runs its full flow with no API keys at all, falling back to mock responses, because a demo that dies when a key expires isn't a demo. That instinct, to assume it will fail and decide now what happens then, is what I'd bring to a team.",
+    "I'm from Jitra, Kedah, and I came to software the long way round.",
+    "After finishing my diploma in Computer Engineering at UniMAP in 2022, I had no intention of studying further. I wanted to work. I joined Zpeed Solutions in Perak, first as an IT support intern and then as a resident technician, looking after campus network infrastructure, troubleshooting wireless access points, and closing support tickets against SLA targets. I was there for about a year and a half. It was my first real job and it taught me what it feels like when something you're responsible for stops working and someone is waiting on you to fix it.",
+    "When I moved back to Kedah, there wasn't much computer engineering work around Jitra. What I found instead was a job as a clinic assistant, and I did it for just over a year. On paper it was registration, medical records, billing and stock. In practice I learned a lot more than that: what the medicines we dispensed were for, how to assist with the procedures that came through, and how to keep records that someone else could rely on later. I also learned how to talk to people who are worried and want a straight answer, which is harder than it sounds.",
+    "None of it was software. But it was the first time I was responsible for something where getting it wrong mattered to a real person, and that has stayed with me.",
+    "I kept thinking I could be doing more. Not that there was anything wrong with the work. It just wasn't where I wanted to end up, and the longer I stayed the wider that gap felt.",
+    "So I applied to study again. This time not computer engineering but software engineering, because the part I'd always liked was building the thing, not maintaining it. I started at UTHM in March 2024.",
+    "I'm in my final year now and it finishes soon. Most of what I know I learned by building something that didn't work yet and staying with it until it did. That's still how I work: I pick something slightly beyond what I know how to do, and I don't stop until it runs.",
   ],
+  /** Newest first. */
+  committees: {
+    title: "Committee work",
+    items: [
+      { role: "Assistant Head Committee", event: "25th UTHM Convocation Festival", period: "Dec 2025" },
+      { role: "Head Committee", event: "Sayembara Pantun Teknologi Era Baharu (SUTERA) 2025", period: "Oct 2025" },
+      { role: "Facilitator", event: "Minggu Haluan Siswa orientation week", period: "Sep 2025" },
+      { role: "Sub-Committee", event: "UTHM Inter-Faculty Sports 2024", period: "Nov 2024" },
+      { role: "Head Committee", event: "FSKTM Dean's Award Ceremony", period: "Jun 2024" },
+    ],
+  },
   lookingFor: {
     title: "What I'm looking for",
     body: "A software engineering internship where I can work on a real product with people who review my code. I'm most useful in mobile or backend work, I'm comfortable being the least experienced person in the room, and I'd rather be told my approach is wrong early than find out late.",

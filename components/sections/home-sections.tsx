@@ -498,6 +498,15 @@ export function Timeline({ className }: { className?: string }) {
           {entry.description && (
             <p className="mt-2.5 max-w-measure text-[16.5px] text-ink-2">{entry.description}</p>
           )}
+          {entry.stack && entry.stack.length > 0 && (
+            <ul className="mt-3 flex flex-wrap gap-2">
+              {entry.stack.map((item) => (
+                <li key={item}>
+                  <Chip>{item}</Chip>
+                </li>
+              ))}
+            </ul>
+          )}
           {entry.result && <p className="mt-2 text-[15.5px] font-semibold">{entry.result}</p>}
           {entry.link && (
             <a
