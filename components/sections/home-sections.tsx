@@ -117,6 +117,19 @@ export function Hero() {
   );
 }
 
+/**
+ * Sparkle trio that bursts from a card's top-right corner on hover, big to
+ * small: [px in from the right edge, px down from the top, size px, colour,
+ * delay ms]. All three stay inside the border, in the empty corner above the
+ * arrow and clear of the badge. Each has an ink outline to match the card.
+ * Rose is left out: it is the failure colour (design/DESIGN.md).
+ */
+const CARD_STARS: [number, number, number, string, number][] = [
+  [22, 18, 30, "sun", 0],
+  [62, 14, 16, "cobalt", 80],
+  [58, 42, 12, "white", 160],
+];
+
 /** Preview cards at the hero's foot, each jumping to its project chapter. */
 function HeroProjectCards() {
   // Each card wears its chapter's wash, so it previews the section it leads to.
@@ -134,14 +147,47 @@ function HeroProjectCards() {
         <li key={project.slug} className="flex">
           <Link
             href={href}
-            className={`group w-full rounded-card border-2 border-ink p-6 transition-transform duration-150 hover:-translate-y-1 ${tone}`}
+            // Hover or keyboard focus bursts stars from the corner (.card-star).
+            className={`group relative w-full rounded-card border-2 border-ink p-6 ${tone}`}
           >
+            {CARD_STARS.map(([right, top, size, color, delay]) => (
+              <span
+                key={`${right}-${top}`}
+                aria-hidden="true"
+                className="card-star"
+                style={
+                  {
+                    right,
+                    top,
+                    // Fly out from the big star's spot, so nothing crosses the border.
+                    "--fx": `${right - CARD_STARS[0][0]}px`,
+                    "--fy": `${CARD_STARS[0][1] - top}px`,
+                    "--d": `${delay}ms`,
+                  } as React.CSSProperties
+                }
+              >
+                <svg width={size} height={size} viewBox="-2 -2 24 24" className="block overflow-visible">
+                  <path
+                    d="M10 0Q11.4 8.6 20 10 11.4 11.4 10 20 8.6 11.4 0 10 8.6 8.6 10 0Z"
+                    vectorEffect="non-scaling-stroke"
+                    className="stroke-ink stroke-2 [stroke-linejoin:round]"
+                    style={{ fill: `var(--color-${color})` }}
+                  />
+                </svg>
+              </span>
+            ))}
             <Badge kind={project.live ? "live" : "academic"}>{project.badge}</Badge>
             <p className="mt-4 flex items-center justify-between gap-4 font-display text-[26px] font-bold tracking-[-0.02em]">
               {project.name}
-              <span aria-hidden="true" className="transition-transform duration-150 group-hover:translate-x-1">
-                →
-              </span>
+              {/* Bounces to the right for as long as the card is hovered or
+                  focused (.card-arrow in globals.css), urging the click. */}
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 42 20"
+                className="card-arrow h-5 w-[42px] shrink-0 overflow-visible fill-none stroke-ink stroke-[2.5] [stroke-linecap:round] [stroke-linejoin:round]"
+              >
+                <path d="M3 10h36M32 3l7 7-7 7" />
+              </svg>
             </p>
             <p className="mt-1.5 text-[16px] text-ink-2">{project.tagline}</p>
           </Link>

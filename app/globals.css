@@ -194,6 +194,104 @@
   }
 }
 
+/* Hero project card stars (CARD_STARS). At rest each star is folded into the
+   big star's spot inside the card's top-right corner: shrunk, turned and
+   hidden. Hover or keyboard focus
+   flings them out to their places one after another with a springy
+   overshoot, then they twinkle while the card stays hovered. Leaving folds
+   them all back at once, fast and with no stagger. Reduced motion: they
+   simply fade in where they belong. */
+.card-star {
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  scale: 0;
+  rotate: -120deg;
+  translate: var(--fx) var(--fy);
+  transition:
+    opacity 0.15s,
+    scale 0.15s,
+    rotate 0.15s,
+    translate 0.15s;
+}
+
+.group:focus-visible .card-star {
+  opacity: 1;
+  scale: 1;
+  rotate: 0deg;
+  translate: 0 0;
+  transition:
+    opacity 0.2s var(--d),
+    scale 0.5s cubic-bezier(0.3, 1.6, 0.5, 1) var(--d),
+    rotate 0.5s cubic-bezier(0.3, 1.6, 0.5, 1) var(--d),
+    translate 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.15) var(--d);
+}
+
+.group:focus-visible .card-star svg {
+  animation: card-twinkle 2.6s ease-in-out calc(var(--d) + 0.5s) infinite;
+}
+
+/* :hover only on devices that really hover, so a tap does not leave the
+   stars stuck out. */
+@media (hover: hover) {
+  .group:hover .card-star {
+    opacity: 1;
+    scale: 1;
+    rotate: 0deg;
+    translate: 0 0;
+    transition:
+      opacity 0.2s var(--d),
+      scale 0.5s cubic-bezier(0.3, 1.6, 0.5, 1) var(--d),
+      rotate 0.5s cubic-bezier(0.3, 1.6, 0.5, 1) var(--d),
+      translate 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.15) var(--d);
+  }
+
+  .group:hover .card-star svg {
+    animation: card-twinkle 2.6s ease-in-out calc(var(--d) + 0.5s) infinite;
+  }
+}
+
+/* The card's arrow bounces right on a loop while the card is hovered or
+   focused, and stops dead when it isn't. Still under reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  .group:focus-visible .card-arrow {
+    animation: card-arrow 0.7s ease-in-out infinite;
+  }
+
+  @media (hover: hover) {
+    .group:hover .card-arrow {
+      animation: card-arrow 0.7s ease-in-out infinite;
+    }
+  }
+}
+
+@keyframes card-arrow {
+  50% {
+    translate: 6px;
+  }
+}
+
+@keyframes card-twinkle {
+  50% {
+    scale: 0.88;
+    rotate: 18deg;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-star {
+    scale: 1;
+    rotate: 0deg;
+    translate: 0 0;
+    transition: opacity 0.2s !important;
+  }
+
+  .card-star svg {
+    animation: none !important;
+  }
+}
+
 /* Gap stars between project chapters (GapStars): each twinkles on its own
    delay. Reduced motion leaves them still, at a resting opacity. */
 .gap-star {
