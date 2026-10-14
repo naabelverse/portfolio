@@ -30,7 +30,7 @@ export const forgeroom = {
   meta: [
     {
       label: "Role",
-      value: "Sole developer — product, mobile, backend, AI pipeline",
+      value: "Sole developer across product, mobile, backend and the AI pipeline",
     },
     { label: "Type", value: "Projek Sarjana Muda (PSM), UTHM" },
     // Empty until confirmed; empty values render as nothing.
@@ -48,12 +48,12 @@ export const forgeroom = {
   problem: {
     title: "The problem",
     paragraphs: [
-      "Interior design tools are built for people who already have the vocabulary. They ask for a floor plan, a budget, and a style you can name. First-time homeowners and students renting a room in Malaysia have none of those — they have a phone, a room they're not happy with, and no idea what to search for.",
+      "Interior design tools are built for people who already have the vocabulary. They ask for a floor plan, a budget, and a style you can name. First-time homeowners and students renting a room in Malaysia have none of those. They have a phone, a room they're not happy with, and no idea what to search for.",
       "The gap isn't inspiration; Pinterest solves that. The gap is the step after inspiration: what actually goes in this room, at these dimensions, in this style, that I can buy here.",
     ],
   },
 
-  goal: "Take the inputs a person genuinely has — a photo, a sentence, three measurements, and a style they can point at — and return a specific, buyable plan.",
+  goal: "Take the inputs a person genuinely has: a photo, a sentence, three measurements, and a style they can point at. Then return a specific, buyable plan.",
 
   modules: [
     {
@@ -66,23 +66,23 @@ export const forgeroom = {
     {
       index: "02",
       name: "Multi-modal input",
-      summary: "A photo, a description, dimensions, and a style — in one pass.",
+      summary: "A photo, a description, dimensions, and a style, all in one pass.",
       detail:
-        "Four input types in a single flow: an image from the camera or gallery, free text, three numeric dimensions, and a categorical style choice from six presets — Minimalist, Scandinavian, Industrial, Tropical, Modern, and Japandi. Dimensions are normalised to metres on the way in, so the rest of the system only ever deals with one unit.",
+        "Four input types in a single flow: an image from the camera or gallery, free text, three numeric dimensions, and a categorical style choice from six presets: Minimalist, Scandinavian, Industrial, Tropical, Modern, and Japandi. Dimensions are normalised to metres on the way in, so the rest of the system only ever deals with one unit.",
     },
     {
       index: "03",
       name: "AI design engine",
       summary: "Vision model reads the room; language model writes the plan.",
       detail:
-        "GPT-4o analyses the photo and describes what is actually in the room — lighting, existing furniture, constraints. That analysis, plus the user's text, dimensions, and style, is composed into a single prompt for Claude, which returns the plan as structured data rather than prose: layout recommendations, a named colour palette with hex values, and decoration ideas.",
+        "GPT-4o analyses the photo and describes what is actually in the room, including the lighting, existing furniture and constraints. That analysis, plus the user's text, dimensions, and style, is composed into a single prompt for Claude, which returns the plan as structured data rather than prose: layout recommendations, a named colour palette with hex values, and decoration ideas.",
     },
     {
       index: "04",
       name: "Furniture recommendation",
       summary: "Real products, not generic advice.",
       detail:
-        "The plan is matched against live IKEA product data through the Zyla API Hub, so a recommendation comes with a product, a price, and a link — the difference between 'add warm lighting' and something you can put in a basket.",
+        "The plan is matched against live IKEA product data through the Zyla API Hub, so a recommendation comes with a product, a price, and a link, which is the difference between 'add warm lighting' and something you can put in a basket.",
     },
     {
       index: "05",
@@ -137,7 +137,7 @@ export const forgeroom = {
     {
       title: "A structured report, not a wall of text",
       decision:
-        "The language model returns typed fields — layout recommendations, a colour palette of name and hex pairs, decoration ideas — parsed into a DesignReport model.",
+        "The language model returns typed fields, parsed into a DesignReport model. They cover layout recommendations, a colour palette of name and hex pairs, and decoration ideas.",
       why: "Prose can't be rendered as swatches, saved to a history list, or matched against a product catalogue. Fixing the shape at the model boundary is what makes the rest of the app possible.",
     },
     {
@@ -149,7 +149,7 @@ export const forgeroom = {
     {
       title: "The client finds its own backend",
       decision:
-        "The API base URL resolves in a fixed order: a compile-time --dart-define, then .env, then a platform default — 10.0.2.2 on the Android emulator, localhost everywhere else.",
+        "The API base URL resolves in a fixed order: a compile-time --dart-define, then .env, then a platform default, which is 10.0.2.2 on the Android emulator and localhost everywhere else.",
       why: "I was switching between Chrome and an emulator constantly. Editing a config file every time was a step I would eventually forget, so I removed the step instead of trying to remember it.",
     },
     {
@@ -167,7 +167,7 @@ export const forgeroom = {
   challenges: [
     {
       title: "Getting reliable structure out of a language model",
-      body: "Early responses were well written and useless — paragraphs where the app needed fields. The fix was a prompt builder that states the exact schema, and parsing that treats every field as potentially absent, defaulting rather than throwing when the model improvises.",
+      body: "Early responses were well written and useless. The app needed fields and got paragraphs. The fix was a prompt builder that states the exact schema, and parsing that treats every field as potentially absent, defaulting rather than throwing when the model improvises.",
     },
     {
       title: "A long wait with nothing to look at",

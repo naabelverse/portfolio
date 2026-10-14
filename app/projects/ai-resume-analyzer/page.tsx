@@ -17,7 +17,7 @@ import { resumeAnalyzer } from "@/content/ai-resume-analyzer";
 import { links, profile, resumeAnalyzerProject } from "@/content/site";
 
 // The root title template doesn't reach og:title or twitter:title.
-const shareTitle = `${resumeAnalyzer.seo.title} — ${profile.displayName}`;
+const shareTitle = `${resumeAnalyzer.seo.title} | ${profile.displayName}`;
 
 // The OG image is the file-based opengraph-image.png beside this page.
 export const metadata: Metadata = {

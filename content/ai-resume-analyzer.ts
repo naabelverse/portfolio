@@ -68,7 +68,7 @@ export const resumeAnalyzer = {
     {
       label: "Role",
       value:
-        "Sole developer — product, frontend, backend, AI pipeline, testing, deployment",
+        "Sole developer across product, frontend, backend, AI pipeline, testing and deployment",
     },
     { label: "Type", value: "Personal project" },
     { label: "Timeline", value: "Aug 2026" },
@@ -85,12 +85,12 @@ export const resumeAnalyzer = {
   problem: {
     title: "The problem",
     paragraphs: [
-      "Useful resume feedback is hard to get. Advice from articles is generic — “use action verbs”, “add keywords” — and a careers adviser or recruiter's time is slow and often costs money.",
+      "Useful resume feedback is hard to get. Articles give generic advice like “use action verbs” and “add keywords”, and a careers adviser or recruiter's time is slow and often costs money.",
       "General-purpose AI chat tools will write a review, but the score shifts each time you ask, the advice rarely points at a specific line, and when the service is busy or returns something malformed you get an error and nothing else. That's a poor deal for a graduate preparing applications, or a career changer tailoring one resume to several roles.",
     ],
   },
 
-  goal: "Return feedback that quotes the candidate's own lines, with a score that is calculated rather than guessed — and if the AI fails for any reason, a rule-based report instead of an error page.",
+  goal: "Return feedback that quotes the candidate's own lines, with a score that is calculated rather than guessed. If the AI fails for any reason, return a rule-based report instead of an error page.",
 
   architecture: {
     summary:
@@ -132,7 +132,7 @@ export const resumeAnalyzer = {
       name: "Upload and extraction",
       summary: "A PDF or Word file in; the exact text the AI will read out.",
       detail:
-        "Drop in a PDF or .docx resume of up to 5 MB. The server checks what the file really is by reading its leading bytes, so a PDF renamed to .docx gets a clear message rather than a parser error. The text is extracted in memory with unpdf or mammoth and the file is never written to disk. Before anything is sent to the model, the app shows that text — it is exactly what the AI will read, so a badly parsed file shows up before you wait for a review of it.",
+        "Drop in a PDF or .docx resume of up to 5 MB. The server checks what the file really is by reading its leading bytes, so a PDF renamed to .docx gets a clear message rather than a parser error. The text is extracted in memory with unpdf or mammoth and the file is never written to disk. Before anything is sent to the model, the app shows that text. It is exactly what the AI will read, so a badly parsed file shows up before you wait for a review of it.",
       screenshots: [
         {
           src: `${SCREENSHOTS}/03-text-preview-desktop.webp`,
@@ -150,7 +150,7 @@ export const resumeAnalyzer = {
       name: "Hybrid scoring",
       summary: "The model judges; code does the arithmetic.",
       detail:
-        "Plain code first counts words, bullets and section headings and hands those counts to the model as facts, since language models are unreliable at counting. The model then rates six rubric dimensions inside a strict JSON schema. The app applies the weights — impact 30%, relevance 20%, clarity and structure 15% each, skills and ATS 10% each — to produce the score out of 100, and derives the verdict from that number, so the score and its label can never disagree.",
+        "Plain code first counts words, bullets and section headings and hands those counts to the model as facts, since language models are unreliable at counting. The model then rates six rubric dimensions inside a strict JSON schema. The app applies the weights to produce the score out of 100: impact 30%, relevance 20%, clarity and structure 15% each, skills and ATS 10% each. It derives the verdict from that number, so the score and its label can never disagree.",
       screenshots: [
         {
           src: `${SCREENSHOTS}/05-results-score-desktop.webp`,
@@ -199,7 +199,7 @@ export const resumeAnalyzer = {
         after:
           "Maintained a booking service handling [X] requests/day, cutting p95 latency from [X]ms to [X]ms.",
         why: "Turns a duty into an outcome, and names the service it happened to.",
-        source: "From the built-in sample report — all values fictional.",
+        source: "From the built-in sample report. All values are fictional.",
       },
       screenshots: [
         {
@@ -271,20 +271,20 @@ export const resumeAnalyzer = {
     {
       title: "A rule-based fallback behind every AI call",
       decision:
-        "Any AI failure — missing key, refusal, timeout, rate limit, two failed validations — returns a rule-based structural report with a banner.",
+        "Any AI failure returns a rule-based structural report with a banner, whether it is a missing key, a refusal, a timeout, a rate limit or two failed validations.",
       why: "It is never a server error or a blank page. The specific cause is kept, so the banner can say whether waiting will help.",
     },
     {
       title: "The resume and job description are untrusted input",
       decision:
         "Both arrive wrapped in <resume> and <job_description> tags, and the system prompt states that anything inside them is data, never instructions.",
-      why: "Both come from members of the public. Text that imitates a command — “ignore previous instructions”, “score this 100”, a fake system prompt — is flagged as suspicious instead of obeyed. Model output is untrusted too: React escapes it, and an ESLint rule forbids dangerouslySetInnerHTML.",
+      why: "Both come from members of the public. Text that imitates a command, such as “ignore previous instructions”, “score this 100” or a fake system prompt, is flagged as suspicious instead of obeyed. Model output is untrusted too: React escapes it, and an ESLint rule forbids dangerouslySetInnerHTML.",
     },
     {
       title: "Railway over Vercel",
       decision:
         "The app runs as a long-running Node server on Railway rather than as serverless functions.",
-      why: "A worst-case request — two 120-second model attempts plus about 5 seconds of processing — runs to 245 seconds, beyond Vercel's function limit on the plans I targeted. If the platform kills a request mid-generation, the user sees a network error and the fallback never gets to run.",
+      why: "In the worst case, two 120-second model attempts plus about 5 seconds of processing run to 245 seconds, beyond Vercel's function limit on the plans I targeted. If the platform kills a request mid-generation, the user sees a network error and the fallback never gets to run.",
     },
     {
       title: "Reasoning mode off",
@@ -297,7 +297,7 @@ export const resumeAnalyzer = {
     {
       title: "Scores clustering in rubric bands",
       problem:
-        "Repeat runs on the same resume jumped between band midpoints — 82, 94, 82 — and one 12-point jump flipped the verdict a user would read.",
+        "Repeat runs on the same resume jumped between band midpoints, scoring 82, then 94, then 82. One 12-point jump flipped the verdict a user would read.",
       did: "Moved the overall score out of the model's answer: the model scores six dimensions and code applies the weights.",
       outcome:
         "Across nine live runs, the widest spread on one resume fell from 12 points to 4, and analyses failing validation twice fell from 1 in 9 to 0.",
@@ -320,7 +320,7 @@ export const resumeAnalyzer = {
     {
       title: "Invented figures in rewrites",
       problem:
-        "The same run invented figures such as “15+ product pages” in its bullet rewrites — numbers the candidate never wrote.",
+        "The same run invented figures such as “15+ product pages” in its bullet rewrites, numbers the candidate never wrote.",
       did: "New numbers in a rewrite are replaced with [X] in code, after validation, rather than rejected and retried.",
       outcome:
         "The follow-up real run had none, and the retry stays available for problems code can't fix.",
@@ -330,13 +330,13 @@ export const resumeAnalyzer = {
       problem:
         "With the model's reasoning mode on, one resume took 129 seconds and sometimes came back empty.",
       did: "Measured both settings on the same resume, then turned reasoning off.",
-      outcome: "7 seconds against 129, with the same score — one benchmark, not an average.",
+      outcome: "7 seconds against 129, with the same score. That is one benchmark, not an average.",
     },
     {
       title: "Runaway whitespace responses",
       problem:
         "The model sometimes stopped writing JSON and emitted whitespace until its token limit: one response was 16,384 tokens, 91.9% whitespace, and took up to 187 seconds.",
-      did: "Capped output at 4,000 tokens — the largest real response was 1,645 — and made the retry quote the validator's error and the model's previous output.",
+      did: "Capped output at 4,000 tokens against a largest real response of 1,645, and made the retry quote the validator's error and the model's previous output.",
       outcome:
         "A runaway now ends in a correctly labelled fallback in about 13 seconds instead of about 150. It still happens; the cap limits the cost.",
     },
@@ -344,7 +344,7 @@ export const resumeAnalyzer = {
 
   reflection: [
     "What I'd do differently: compute every number in code from the first commit, instead of moving the score out of the model after watching it cluster.",
-    "What I'd add next: CI/CD — tests, lint and build currently run only locally — and moving the in-memory, per-instance rate limiter to a shared store such as Redis.",
+    "What I'd add next: CI/CD, because tests, lint and build currently run only locally. Then moving the in-memory, per-instance rate limiter to a shared store such as Redis.",
     "What surprised me: constrained decoding guarantees shape, not quality. And one “the model ignores this” turned out to be two contradictory instructions.",
   ],
 } as const;

@@ -34,11 +34,11 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: `${profile.displayName} — ${profile.role}`,
-    template: `%s — ${profile.displayName}`,
+    default: `${profile.displayName} | ${profile.role}`,
+    template: `%s | ${profile.displayName}`,
   },
   description: profile.metaDescription,
-  applicationName: `${profile.displayName} — portfolio`,
+  applicationName: `${profile.displayName} | portfolio`,
   authors: [{ name: profile.fullName, url: siteUrl }],
   creator: profile.fullName,
   keywords: [
@@ -58,12 +58,12 @@ export const metadata: Metadata = {
     locale: "en_MY",
     url: siteUrl,
     siteName: profile.displayName,
-    title: `${profile.displayName} — ${profile.role}`,
+    title: `${profile.displayName} | ${profile.role}`,
     description: profile.metaDescription,
   },
   twitter: {
     card: "summary_large_image",
-    title: `${profile.displayName} — ${profile.role}`,
+    title: `${profile.displayName} | ${profile.role}`,
     description: profile.metaDescription,
   },
   robots: { index: true, follow: true },
