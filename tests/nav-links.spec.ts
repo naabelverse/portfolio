@@ -1,22 +1,22 @@
 import { expect, test, type Locator, type Page } from "@playwright/test";
 
-import { headerNav, nav, navCta } from "@/content/site";
+import { headerNav, navCta } from "@/content/site";
 
 /**
- * Clicks every header and footer link from every page, at desktop and at
+ * Clicks every header link from every page, at desktop and at
  * 390px with the mobile menu open, and checks it actually lands: right URL,
  * target heading fully below the sticky header, menu closed. "Repeat" lands
  * on a hash first, scrolls away and clicks again, which is where a link to
  * the current URL once silently did nothing.
  */
 
-type Target = { name: string; place: "header" | "footer"; label?: string; href: string };
+// The footer has had no links since its redesign (b1d7956), so only the header is clicked.
+type Target = { name: string; label?: string; href: string };
 
 const targets: Target[] = [
-  { name: "header wordmark", place: "header", href: "/" },
-  ...headerNav.map((item) => ({ name: `header ${item.label}`, place: "header" as const, label: item.label, href: item.href })),
-  { name: "header CTA", place: "header", label: navCta.label, href: navCta.href },
-  ...nav.map((item) => ({ name: `footer ${item.label}`, place: "footer" as const, label: item.label, href: item.href })),
+  { name: "header wordmark", href: "/" },
+  ...headerNav.map((item) => ({ name: `header ${item.label}`, label: item.label, href: item.href })),
+  { name: "header CTA", label: navCta.label, href: navCta.href },
 ];
 
 const contexts = [
@@ -30,12 +30,12 @@ const contexts = [
 
 function link(page: Page, target: Target, mobile: boolean): Locator {
   if (!target.label) return page.locator('header a[aria-label$="home"]');
-  const scope = target.place === "footer" ? page.getByRole("navigation", { name: "Footer" }) : mobile ? page.locator("#mobile-nav") : page.locator("header");
+  const scope = mobile ? page.locator("#mobile-nav") : page.locator("header");
   return scope.getByRole("link", { name: target.label, exact: true }).first();
 }
 
 async function click(page: Page, target: Target, mobile: boolean) {
-  if (mobile && target.place === "header") await page.getByRole("button", { name: "Menu" }).click();
+  if (mobile) await page.getByRole("button", { name: "Menu" }).click();
   await link(page, target, mobile).click();
 }
 
@@ -63,7 +63,7 @@ for (const mobile of [false, true]) {
 
           if (context.repeat) {
             // Hashless targets start from /#contact so the click changes something.
-            await click(page, target.href.includes("#") ? target : targets.find((t) => t.name === "footer Contact")!, mobile);
+            await click(page, target.href.includes("#") ? target : targets.find((t) => t.name === "header CTA")!, mobile);
             await settle(page);
             if (target.href.includes("#")) await page.evaluate(() => scrollTo({ top: 0, behavior: "instant" }));
             await settle(page);
