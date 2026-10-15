@@ -277,7 +277,8 @@ export const timeline: readonly TimelineEntry[] = [
     period: "March 2024 to 2027",
     title: "Bachelor of Software Engineering",
     org: "Universiti Tun Hussein Onn Malaysia",
-    description: "",
+    description:
+      "Coursework includes machine learning, data science, software testing, and human computer interaction.",
   },
   {
     period: "Aug 2026",
