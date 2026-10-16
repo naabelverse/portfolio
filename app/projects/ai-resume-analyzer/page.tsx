@@ -42,6 +42,8 @@ const CHALLENGE_PARTS = [
   { key: "outcome", label: "Outcome" },
 ] as const;
 
+const { evaluation } = resumeAnalyzer;
+
 export default function ResumeAnalyzerCaseStudy() {
   return (
     <>
@@ -112,9 +114,14 @@ export default function ResumeAnalyzerCaseStudy() {
                 </div>
               )}
               <div className="mt-6 grid gap-6">
-                {module.screenshots.map((shot) => (
-                  <Screenshot key={shot.src} shot={shot} sizes="(min-width: 1180px) 860px, 100vw" />
-                ))}
+                {module.screenshots.map((shot) =>
+                  // A portrait phone capture at full column width would be a screen tall.
+                  shot.height > shot.width ? (
+                    <Screenshot key={shot.src} shot={shot} sizes="300px" className="max-w-[300px]" />
+                  ) : (
+                    <Screenshot key={shot.src} shot={shot} sizes="(min-width: 1180px) 860px, 100vw" />
+                  ),
+                )}
               </div>
             </ModuleRow>
           ))}
@@ -148,8 +155,67 @@ export default function ResumeAnalyzerCaseStudy() {
                   </div>
                 ))}
               </dl>
+              {"screenshots" in challenge &&
+                challenge.screenshots.map((shot) => (
+                  <Screenshot key={shot.src} shot={shot} sizes="300px" className="mt-6 max-w-[300px]" />
+                ))}
             </div>
           ))}
+        </div>
+      </Section>
+
+      <Section labelledBy="evaluation-title" className="pt-0">
+        <SectionIntro id="evaluation-title" title={evaluation.title} lede={evaluation.lede} />
+        <div className="mt-11 grid gap-8">
+          <div className="grid gap-4">
+            {evaluation.paragraphs.map((paragraph) => (
+              <p key={paragraph} className="max-w-measure text-ink-2">
+                {paragraph}
+              </p>
+            ))}
+          </div>
+          <div className="max-w-[720px]">
+            {/* Focusable so a keyboard user can scroll it if a narrow screen ever needs to. */}
+            <div
+              role="region"
+              aria-labelledby="evaluation-caption"
+              tabIndex={0}
+              className="overflow-x-auto rounded-card border-2 border-ink bg-white"
+            >
+              <table className="w-full border-collapse text-left text-small">
+                <caption id="evaluation-caption" className="px-3 pt-4 pb-2 text-left font-semibold md:px-4">
+                  {evaluation.caption}
+                </caption>
+                <thead>
+                  <tr className="border-b-2 border-ink">
+                    {["Profession", "Level", "Expected band", "Mean score", "Pass"].map((heading, i) => (
+                      <th
+                        key={heading}
+                        scope="col"
+                        className={`px-2 py-2.5 font-semibold text-ink-3 first:pl-3 last:pr-3 md:px-4 ${i > 1 ? "text-right" : ""}`}
+                      >
+                        {heading}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {evaluation.rows.map((row) => (
+                    <tr key={`${row.profession}-${row.level}`} className="border-t border-line">
+                      <th scope="row" className="px-2 py-2.5 pl-3 font-medium md:px-4">
+                        {row.profession}
+                      </th>
+                      <td className="px-2 py-2.5 text-ink-2 md:px-4">{row.level}</td>
+                      <td className="px-2 py-2.5 text-right text-ink-2 tabular-nums md:px-4">{row.band}</td>
+                      <td className="px-2 py-2.5 text-right font-semibold tabular-nums md:px-4">{row.mean}</td>
+                      <td className="px-2 py-2.5 pr-3 text-right text-ink-2 md:px-4">Yes</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p className="mt-4 max-w-measure font-medium">{evaluation.result}</p>
+          </div>
         </div>
       </Section>
 

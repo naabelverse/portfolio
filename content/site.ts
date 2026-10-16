@@ -174,7 +174,8 @@ export const resumeAnalyzerProject = {
     "The file is extracted in memory and never written to disk. A model rates six weighted dimensions inside a strict JSON schema. The score itself is computed in code, so the same resume always gets the same number.",
   careful:
     "Every failure I could provoke ends in a report rather than an error page: wrong file type, a scanned PDF with no text layer, a missing key, a timeout, malformed output. Zod validates the answer and the pipeline retries once before falling back to rules.",
-  outcome: "Deployed and running, with 538 passing tests.",
+  outcome:
+    "Deployed and running. 559 tests pass in CI on every push to main, and all 12 resumes in the eval set land in their expected score band.",
   stack: [
     "Next.js",
     "React",
@@ -182,8 +183,10 @@ export const resumeAnalyzerProject = {
     "Tailwind",
     "shadcn/ui",
     "NVIDIA Nemotron",
+    "Anthropic Claude",
     "Zod",
     "Vitest",
+    "GitHub Actions",
   ],
   href: "/projects/ai-resume-analyzer",
   repo: links.resumeAnalyzerRepo,
@@ -243,7 +246,7 @@ export const skillGroups = [
   {
     title: "Everyday kit",
     note: "Nothing exotic.",
-    items: ["Git", "VS Code", "Android Studio", "Postman", "Vitest", "Railway"],
+    items: ["Git", "GitHub Actions", "VS Code", "Android Studio", "Postman", "Vitest", "Railway"],
   },
   {
     title: "Languages I speak",
@@ -281,11 +284,11 @@ export const timeline: readonly TimelineEntry[] = [
       "Coursework includes machine learning, data science, software testing, and human computer interaction.",
   },
   {
-    period: "Aug 2026",
+    period: "Aug 2026 to Oct 2026",
     title: "AI Resume Analyzer",
     org: "Personal project",
     description:
-      "Designed, built, tested and deployed on my own: a Next.js app with a constrained model pipeline, scoring in code, validated output, and a rule-based fallback.",
+      "Designed, built, tested and deployed on my own: a Next.js app with a constrained model pipeline on NVIDIA Nemotron or Claude, scoring in code, validated output, and a rule-based fallback. 559 tests run in CI, and a twelve-resume eval set checks that the scores land where they should.",
   },
   {
     // Date unconfirmed, so it sits beside the other personal project for now.

@@ -4,9 +4,10 @@
  * Every claim here is traceable to the repository at
  * https://github.com/naabelverse/ai-resume-analyzer — its README, the rubric
  * weights in lib/schema/analysis.ts, the prompt rules in lib/ai/prompts.ts,
- * and the route handlers under app/api. The commit count is
- * `git rev-list --count HEAD`. Benchmarks are single measurements and are
- * described as such; none of them is an average.
+ * and the route handlers under app/api. Benchmarks are single measurements and are
+ * described as such; none of them is an average. The eval table is copied
+ * from eval-report.txt (gitignored; `pnpm test:eval` regenerates it), and
+ * its means are averages of three runs, as the section says.
  */
 
 const SCREENSHOTS = "/projects/ai-resume-analyzer";
@@ -28,7 +29,7 @@ export const resumeAnalyzer = {
   seo: {
     title: "AI Resume Analyzer case study",
     description:
-      "Case study: a Next.js and NVIDIA Nemotron app that scores resumes out of 100, rewrites weak bullets and matches job keywords, with validated AI output and a fallback.",
+      "Case study: a Next.js app on NVIDIA Nemotron or Claude that scores resumes out of 100, rewrites weak bullets and matches job keywords, with validated AI output and a fallback.",
     keywords: [
       "AI resume analyzer",
       "resume feedback tool",
@@ -36,6 +37,7 @@ export const resumeAnalyzer = {
       "LLM structured output",
       "Zod schema validation",
       "NVIDIA Nemotron",
+      "Anthropic Claude API",
       "full-stack TypeScript",
       "ATS resume checker",
     ],
@@ -56,11 +58,13 @@ export const resumeAnalyzer = {
     "TypeScript",
     "Tailwind CSS",
     "shadcn/ui",
-    "NVIDIA Nemotron",
+    "NVIDIA NIM (Nemotron)",
+    "Anthropic Claude API",
     "Zod",
     "unpdf",
     "mammoth",
     "Vitest",
+    "GitHub Actions",
     "Railway",
   ],
 
@@ -71,15 +75,15 @@ export const resumeAnalyzer = {
         "Sole developer across product, frontend, backend, AI pipeline, testing and deployment",
     },
     { label: "Type", value: "Personal project" },
-    { label: "Timeline", value: "Aug 2026" },
+    { label: "Timeline", value: "Aug 2026 to Oct 2026" },
     { label: "Status", value: "Live" },
   ],
 
   stats: [
-    { label: "Automated tests", value: "538" },
+    { label: "Automated tests", value: "559" },
     { label: "Scored resume sections", value: "6" },
     { label: "API routes", value: "6" },
-    { label: "Commits", value: "115" },
+    { label: "Eval set in band", value: "12/12" },
   ],
 
   problem: {
@@ -117,7 +121,7 @@ export const resumeAnalyzer = {
       {
         name: "AI & validation",
         items: [
-          "NVIDIA Nemotron, schema-constrained JSON",
+          "NVIDIA Nemotron or Claude, schema-constrained JSON",
           "Code computes scores and match %",
           "Zod validation, one retry",
           "Rule-based fallback report",
@@ -160,6 +164,13 @@ export const resumeAnalyzer = {
           alt: "Results page showing a circular score gauge reading 72 out of 100 labelled 'Needs work', a short summary, and a 'Why this score' explanation, with the start of the section breakdown and AI feedback below.",
           caption:
             "The report opens with the overall score and the reasoning behind it.",
+        },
+        {
+          src: `${SCREENSHOTS}/05-results-score-mobile.webp`,
+          width: 780,
+          height: 1688,
+          alt: "Phone-width results page for the built-in sample report: the score gauge reading 72 out of 100, labelled 'Needs work', with the summary underneath. All data is fictional.",
+          caption: "The same report on a phone.",
         },
       ],
     },
@@ -287,6 +298,12 @@ export const resumeAnalyzer = {
       why: "In the worst case, two 120-second model attempts plus about 5 seconds of processing run to 245 seconds, beyond Vercel's function limit on the plans I targeted. If the platform kills a request mid-generation, the user sees a network error and the fallback never gets to run.",
     },
     {
+      title: "Two providers behind one interface",
+      decision:
+        "The app runs on NVIDIA Nemotron through NIM or on the Anthropic Claude API, picked by one environment variable. Only the transport differs; the schemas, rubric, prompt, validation, retry and fallback are shared by both.",
+      why: "Switching providers is a config change and a restart, not different code. Keeping both working is what proves the seam is real: the offline suite runs the same tests against each provider with mocked responses, not live calls. An abstraction with one implementation is just indirection.",
+    },
+    {
       title: "Reasoning mode off",
       decision: "Nemotron's reasoning mode is switched off.",
       why: "I measured both settings on the same resume: 7 seconds with reasoning off against 129 with it on, for the same score. With reasoning on, the model also sometimes returned an empty answer.",
@@ -340,11 +357,56 @@ export const resumeAnalyzer = {
       outcome:
         "A runaway now ends in a correctly labelled fallback in about 13 seconds instead of about 150. It still happens; the cap limits the cost.",
     },
+    {
+      title: "The upload form overflowing on phones",
+      problem:
+        "With a file selected, the upload preview and the job-description box ran past the card's edge at 390px, and at 320 and 360px the whole page scrolled sideways.",
+      did: "Traced it to the form grid. Below 880px it had no column template, so its one column was an implicit auto track that could not shrink below the file name, which is set not to wrap. Giving the grid an explicit single column lets the track shrink to the card.",
+      outcome:
+        "The form stays inside the card and a long file name truncates, as the preview always meant it to. The desktop layout is unchanged.",
+      screenshots: [
+        {
+          src: `${SCREENSHOTS}/03-text-preview-mobile.webp`,
+          width: 780,
+          height: 1688,
+          alt: "Phone-width upload card with a fictional DOCX selected, its name cut short to 'Jordan_Example_Res…' inside the card, above a grey preview of the extracted text: the name Jordan Example, an example.com email, a 555 phone number and a one-line summary.",
+          caption: "After the fix: the form fits the card at 390px.",
+        },
+      ],
+    },
   ],
+
+  evaluation: {
+    title: "How I measured it",
+    lede: "Twelve resumes with known answers, so a prompt or model change is judged on numbers rather than by reading one report.",
+    paragraphs: [
+      "The eval set is four professions (backend developer, nurse, junior designer and accountant) at three strength levels, each resume scored against a job description in its own field. A strong resume should land between 80 and 100, a middling one between 55 and 70, and a weak one between 0 and 44.",
+      "Each resume is scored three times and the mean is checked against its band. One run was not enough: on identical text, one dimension swung by about four points of overall score between runs, and a single-run suite failed on noise. Getting to green also meant fixing three of my own fixtures rather than the model: two strong resumes counted volume instead of outcomes, and one middling resume lacked the job's hard requirements.",
+      "The run below is from 15 October 2026, on Nemotron only. It has not been run against Claude. It is also not part of CI, because its 36 live calls spend API credits. The 559 offline tests are part of CI: GitHub Actions runs lint, the tests and a build on every pull request and push to main, CodeQL scans the code, and Dependabot proposes dependency updates.",
+    ],
+    caption: "Eval run, 15 October 2026, Nemotron. Mean of three runs per resume.",
+    result:
+      "All 12 resumes landed in their band, and in all four professions strong scored above middling and middling above weak.",
+    rows: [
+      { profession: "Backend developer", level: "Strong", band: "80–100", mean: "90.0" },
+      { profession: "Backend developer", level: "Middling", band: "55–70", mean: "59.3" },
+      { profession: "Backend developer", level: "Weak", band: "0–44", mean: "28.3" },
+      { profession: "Nurse", level: "Strong", band: "80–100", mean: "86.7" },
+      { profession: "Nurse", level: "Middling", band: "55–70", mean: "62.3" },
+      { profession: "Nurse", level: "Weak", band: "0–44", mean: "23.7" },
+      { profession: "Junior designer", level: "Strong", band: "80–100", mean: "86.0" },
+      { profession: "Junior designer", level: "Middling", band: "55–70", mean: "62.0" },
+      { profession: "Junior designer", level: "Weak", band: "0–44", mean: "26.7" },
+      { profession: "Accountant", level: "Strong", band: "80–100", mean: "88.0" },
+      { profession: "Accountant", level: "Middling", band: "55–70", mean: "59.0" },
+      { profession: "Accountant", level: "Weak", band: "0–44", mean: "31.3" },
+    ],
+  },
 
   reflection: [
     "What I'd do differently: compute every number in code from the first commit, instead of moving the score out of the model after watching it cluster.",
-    "What I'd add next: CI/CD, because tests, lint and build currently run only locally. Then moving the in-memory, per-instance rate limiter to a shared store such as Redis.",
+    "What I'd add next: run the eval set against Claude too, so the two providers are compared on numbers rather than assumed equal. Then give the Anthropic provider the same rate-limit and credits-exhausted messages the NVIDIA one has.",
+    "What I'd leave alone: the rate limiter is in memory, per instance. That is fine for the single Railway instance the app runs on, and a shared store such as Redis would break the goal of running on a fresh clone with no infrastructure.",
     "What surprised me: constrained decoding guarantees shape, not quality. And one “the model ignores this” turned out to be two contradictory instructions.",
   ],
 } as const;
