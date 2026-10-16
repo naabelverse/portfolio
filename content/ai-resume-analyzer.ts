@@ -4,8 +4,7 @@
  * Every claim here is traceable to the repository at
  * https://github.com/naabelverse/ai-resume-analyzer — its README, the rubric
  * weights in lib/schema/analysis.ts, the prompt rules in lib/ai/prompts.ts,
- * and the route handlers under app/api. The commit count is
- * `git rev-list --count HEAD`. Benchmarks are single measurements and are
+ * and the route handlers under app/api. Benchmarks are single measurements and are
  * described as such; none of them is an average. The eval table is copied
  * from eval-report.txt (gitignored; `pnpm test:eval` regenerates it), and
  * its means are averages of three runs, as the section says.
@@ -84,7 +83,7 @@ export const resumeAnalyzer = {
     { label: "Automated tests", value: "559" },
     { label: "Scored resume sections", value: "6" },
     { label: "API routes", value: "6" },
-    { label: "Commits", value: "137" },
+    { label: "Eval set in band", value: "12/12" },
   ],
 
   problem: {
