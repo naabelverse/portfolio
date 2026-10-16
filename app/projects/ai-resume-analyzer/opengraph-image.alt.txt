@@ -1,1 +1,1 @@
-AI Resume Analyzer logo and title with the line 'A scored, section-by-section resume review with AI bullet rewrites and keyword matching', beside a screenshot of the results page.
+AI Resume Analyzer logo and title with the line 'A scored, section-by-section resume review with AI bullet rewrites and keyword matching' and chips for Next.js 16, NVIDIA Nemotron, Claude and Zod, beside a screenshot of the results page.
