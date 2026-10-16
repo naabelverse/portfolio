@@ -1,0 +1,12 @@
+Frontend Engineer — Contoso Ltd (fictional posting)
+
+We are looking for a Frontend Engineer to join our product team.
+
+Requirements:
+- 3+ years building production web applications with React and TypeScript
+- Experience with Next.js and server-side rendering
+- Strong CSS skills, including Tailwind CSS
+- Experience writing automated tests (Jest, React Testing Library, Playwright)
+- Familiarity with REST APIs and GraphQL
+- Experience with CI/CD pipelines and Git-based workflows
+- Understanding of web accessibility (WCAG) and performance optimisation
