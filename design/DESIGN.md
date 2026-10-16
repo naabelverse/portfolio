@@ -84,6 +84,11 @@ Rules
 15px labels it is meant for. `#646B7A` is the lightest grey of the same hue that
 clears 4.5:1 on paper (5.1:1) and on every wash.
 
+On the washes it clears with almost nothing to spare: **4.51:1 on wash-blue and
+4.55:1 on wash-rose** (5.12:1 on paper, 5.35:1 on white). It labels the stat
+strips in each case study header, which sit on the project's wash. If a wash is
+ever darkened, this is the pair that fails first; recheck it before anything else.
+
 `rose-line` exists because `#FF4F6E` as a dashed stroke is 3.0:1 on paper and
 2.7:1 on wash-blue. `#E63655` is 4.0:1 on paper, 4.2:1 on white and 3.5:1 on
 wash-blue, clearing the 3:1 bar for graphics with margin.
@@ -145,6 +150,26 @@ diagram panel on the right. Below 980px the split becomes one column.
 Chapters are full width; the content inside stays within the 1180px wrap.
 
 Do not give every section a wash. The alternation is the point.
+
+A project's wash comes from `tone` on its `Project` in `content/site.ts`. The
+home preview card, the home chapter, and the case study's header and
+Architecture section all read it, so a visitor who clicks a card stays in the
+same colour. The case study header fades from the wash to paper across its
+bottom padding; the body returns to paper and the wash comes back once, on
+Architecture. A new project on an existing tone needs only the field. A new
+tone also needs a `--color-wash-<name>` token in `app/globals.css` and an entry
+in `SECTION_TONES` in `components/ui/primitives.tsx`.
+
+**Known inconsistency:** the Architecture section on each case study starts and
+ends with a hard edge against paper, unlike the faded header and the home
+chapters. Left as is for now; whether the page wants those edges faded is a
+separate call about its rhythm.
+
+**Known coupling:** the home hero fades to a hardcoded `to-wash-blue`
+(`components/sections/home-sections.tsx`), on the assumption that ForgeRoom's
+blue chapter comes first. It is correct today, but reordering the chapters, or
+giving the first project another tone, leaves the hero fading into the wrong
+colour. The fix is to read the first chapter's `tone` at render time.
 
 ---
 

@@ -17,7 +17,9 @@ import {
   Row,
   RowList,
   Section,
+  SECTION_TONES,
   SectionIntro,
+  type Tone,
 } from "@/components/ui/primitives";
 import {
   contact,
@@ -145,9 +147,9 @@ function ProjectBadges({ project }: { project: Project }) {
 /** Preview cards at the hero's foot, each jumping to its project chapter. */
 function HeroProjectCards() {
   // Each card wears its chapter's wash, so it previews the section it leads to.
-  const cards: { project: Project; href: string; tone: string }[] = [
-    { project: featuredProject, href: "/#work", tone: "bg-wash-blue" },
-    { project: resumeAnalyzerProject, href: "/#resume-analyzer", tone: "bg-wash-rose" },
+  const cards: { project: Project; href: string }[] = [
+    { project: featuredProject, href: "/#work" },
+    { project: resumeAnalyzerProject, href: "/#resume-analyzer" },
   ];
   return (
     <div className="relative mt-[clamp(32px,4vw,48px)]">
@@ -155,12 +157,12 @@ function HeroProjectCards() {
           out around the cards instead of crowding their edges and the gap. */}
       <div aria-hidden="true" className="absolute -inset-x-10 -inset-y-8 -z-10 rounded-[48px] bg-paper blur-2xl" />
     <ul className="grid gap-4 md:grid-cols-2">
-      {cards.map(({ project, href, tone }) => (
+      {cards.map(({ project, href }) => (
         <li key={project.slug} className="flex">
           <Link
             href={href}
             // Hover or keyboard focus bursts stars from the corner (.card-star).
-            className={`group relative w-full rounded-card border-2 border-ink p-6 ${tone}`}
+            className={`group relative w-full rounded-card border-2 border-ink p-6 ${SECTION_TONES[project.tone]}`}
           >
             {CARD_STARS.map(([right, top, size, color, delay]) => (
               <span
@@ -214,11 +216,8 @@ function HeroProjectCards() {
    Project chapters — full-bleed washes; the sections between stay paper.
    ------------------------------------------------------------------------- */
 
-/** Each chapter tone's wash colour, for fading one chapter into the next. */
-const WASH = {
-  blue: "var(--color-wash-blue)",
-  rose: "var(--color-wash-rose)",
-} as const;
+/** A tone's wash colour, for fading one chapter into the next. */
+const wash = (tone: Tone) => `var(--color-wash-${tone})`;
 
 /** How far each edge fade reaches into a chapter. */
 const BLEND = "220px";
@@ -282,7 +281,7 @@ const wavePath = (mid: number, amp: number) =>
  * section below, each layer fainter and deeper than the last and drifting at
  * its own pace (.wave in globals.css), so the colour seems to ebb away.
  */
-function Waves({ tone }: { tone: keyof typeof WASH }) {
+function Waves({ tone }: { tone: Tone }) {
   return (
     <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-full h-[66px] overflow-hidden">
       {WAVES.map(([height, mid, amp, opacity, loop, right]) => (
@@ -297,7 +296,7 @@ function Waves({ tone }: { tone: keyof typeof WASH }) {
             animationDirection: right ? "reverse" : "normal",
           }}
         >
-          <path d={wavePath(mid, amp)} style={{ fill: WASH[tone] }} />
+          <path d={wavePath(mid, amp)} style={{ fill: wash(tone) }} />
         </svg>
       ))}
     </div>
@@ -306,14 +305,12 @@ function Waves({ tone }: { tone: keyof typeof WASH }) {
 
 function ProjectChapter({
   project,
-  tone,
   id,
   className,
   blendFrom,
   ebb,
 }: {
   project: Project;
-  tone: keyof typeof WASH;
   id: string;
   className?: string;
   /** Colour of the section above; the top edge fades in from it. */
@@ -321,6 +318,7 @@ function ProjectChapter({
   /** Ends in waves of its wash that ebb into the paper section below. */
   ebb?: boolean;
 }) {
+  const { tone } = project;
   const headingId = `${id}-title`;
   // The gradient runs to transparent over the tone's own background colour,
   // so only the top edge changes and the rest stays the chapter's wash.
@@ -392,15 +390,15 @@ export function FeaturedProjects() {
   // hero already ends in its blue wash.
   const chapters = [
     // Short top pad: the hero's bottom pad already sits above it in the same wash.
-    { id: "work", tone: "blue", project: featuredProject, className: "pt-[clamp(24px,4vw,64px)]" },
-    { id: "resume-analyzer", tone: "rose", project: resumeAnalyzerProject },
-  ] as const;
+    { id: "work", project: featuredProject, className: "pt-[clamp(24px,4vw,64px)]" },
+    { id: "resume-analyzer", project: resumeAnalyzerProject },
+  ];
 
   return chapters.map((chapter, i) => (
     <ProjectChapter
       key={chapter.id}
       {...chapter}
-      blendFrom={i > 0 ? WASH[chapters[i - 1].tone] : undefined}
+      blendFrom={i > 0 ? wash(chapters[i - 1].project.tone) : undefined}
       ebb={i === chapters.length - 1}
     />
   ));
