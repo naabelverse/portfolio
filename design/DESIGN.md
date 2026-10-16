@@ -165,6 +165,12 @@ ends with a hard edge against paper, unlike the faded header and the home
 chapters. Left as is for now; whether the page wants those edges faded is a
 separate call about its rhythm.
 
+**Known coupling:** the home hero fades to a hardcoded `to-wash-blue`
+(`components/sections/home-sections.tsx`), on the assumption that ForgeRoom's
+blue chapter comes first. It is correct today, but reordering the chapters, or
+giving the first project another tone, leaves the hero fading into the wrong
+colour. The fix is to read the first chapter's `tone` at render time.
+
 ---
 
 ## Borders, radius and depth
