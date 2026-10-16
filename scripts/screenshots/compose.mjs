@@ -6,7 +6,9 @@ import { chromium } from 'playwright-core';
 import sharp from 'sharp';
 
 const DIR = path.join(import.meta.dirname, '../../public/projects/ai-resume-analyzer/');
-const uri = (file) => 'data:image/webp;base64,' + fs.readFileSync(DIR + file).toString('base64');
+const uri = (file) => 'data:image/webp;base64,' + fs.readFileSync(file).toString('base64');
+// Full-page /analyze/demo at 1440 wide, from `capture.mjs cover`. Only the cover uses it.
+const DESKTOP = path.join(import.meta.dirname, '13-results-full-page-desktop.webp');
 
 // App tokens from the analyzer's app/globals.css
 const css = `
@@ -24,19 +26,16 @@ body{width:var(--w);height:var(--h);overflow:hidden;font-family:Inter,'Segoe UI'
 .shot{display:block;width:100%}
 `;
 
-// The desktop shot is a 1440x900 viewport, a little short for the 780px crop at 1180 wide,
-// so it fills the crop from the top and loses a few px of page margin at each side.
 const cover = `<!doctype html><html><head><meta charset="utf-8"><style>:root{--w:1600px;--h:900px}${css}
 .desk{position:absolute;left:120px;top:90px;width:1180px}
 .desk .crop{height:780px;overflow:hidden}
-.desk .shot{height:100%;object-fit:cover;object-position:top center}
 .phone{position:absolute;right:110px;top:190px;width:300px;border-radius:36px;border:10px solid #0b1220;overflow:hidden;background:#fff;
   box-shadow:0 30px 60px -20px rgb(28 16 66/.45)}
 .phone .crop{height:600px;overflow:hidden}
 </style></head><body>
 <div class="win desk"><div class="bar"><i></i><i></i><i></i></div><div class="crop">
-  <img class="shot" src="${uri('05-results-score-desktop.webp')}"></div></div>
-<div class="phone"><div class="crop"><img class="shot" src="${uri('05-results-score-mobile.webp')}"></div></div>
+  <img class="shot" src="${uri(DESKTOP)}"></div></div>
+<div class="phone"><div class="crop"><img class="shot" src="${uri(DIR + '05-results-score-mobile.webp')}"></div></div>
 </body></html>`;
 
 (async () => {

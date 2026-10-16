@@ -36,8 +36,14 @@ node -e "require('sharp')('scripts/screenshots/out/05-results-score-desktop.png'
 
 ## 3. Regenerate the cover
 
+The browser window shows a full-page capture of `/analyze/demo`, kept here as `13-results-full-page-desktop.webp`, so the cover keeps its original scale. The phone shows `public/projects/ai-resume-analyzer/05-results-score-mobile.webp`. To refresh the desktop half, capture it and convert it as above (output `scripts/screenshots/13-results-full-page-desktop.webp`):
+
+```sh
+node scripts/screenshots/capture.mjs cover
+```
+
+Then render the cover to `public/projects/ai-resume-analyzer/cover.webp`:
+
 ```sh
 node scripts/screenshots/compose.mjs
 ```
-
-This places `05-results-score-desktop.webp` in a browser window with `05-results-score-mobile.webp` in a phone beside it, then writes `public/projects/ai-resume-analyzer/cover.webp`. Run it after replacing either screenshot.

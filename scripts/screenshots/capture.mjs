@@ -1,4 +1,4 @@
-// Usage: node scripts/screenshots/capture.mjs nokey | mobilerest | live | dashboard | reshoot
+// Usage: node scripts/screenshots/capture.mjs nokey | cover | mobilerest | live | dashboard | reshoot
 // Captures the AI Resume Analyzer running on localhost:3000 into scripts/screenshots/out/.
 import fs from 'fs';
 import path from 'path';
@@ -155,6 +155,16 @@ async function rest(page, vp) {
     }
 }
 
+// Just the full-page results shot that compose.mjs puts in the cover's browser window.
+async function cover(browser) {
+  const ctx = await newContext(browser, 'desktop');
+  const page = await ctx.newPage();
+  await page.goto(BASE + '/analyze/demo');
+  await settle(page, 1000);
+  await shot(page, '13-results-full-page-desktop', { fullPage: true });
+  await ctx.close();
+}
+
 async function mobilerest(browser) {
   const ctx = await newContext(browser, 'mobile');
   const page = await ctx.newPage();
@@ -218,7 +228,7 @@ async function reshoot(browser) {
 (async () => {
   const browser = await chromium.launch();
   try {
-    await { nokey, mobilerest, live, dashboard, reshoot }[process.argv[2]](browser);
+    await { nokey, cover, mobilerest, live, dashboard, reshoot }[process.argv[2]](browser);
   } finally {
     await browser.close();
   }
