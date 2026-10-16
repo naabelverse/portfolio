@@ -48,6 +48,7 @@ export default function ResumeAnalyzerCaseStudy() {
   return (
     <>
       <CaseHeader
+        tone={resumeAnalyzerProject.tone}
         badge={resumeAnalyzerProject.badge}
         live
         name={resumeAnalyzer.name}
@@ -82,7 +83,7 @@ export default function ResumeAnalyzerCaseStudy() {
       />
 
       <ArchitectureSection
-        tone="rose"
+        tone={resumeAnalyzerProject.tone}
         summary={resumeAnalyzer.architecture.summary}
         layers={resumeAnalyzer.architecture.layers}
         diagram={resumeAnalyzerProject.diagram}

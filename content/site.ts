@@ -7,6 +7,7 @@
  */
 
 import type { Diagram } from "@/components/diagram";
+import type { Tone } from "@/components/ui/primitives";
 
 export const profile = {
   fullName: "Muhammad Nabil Bin Mohd Nizam",
@@ -88,6 +89,8 @@ export type Project = {
   /** The home page's pair: what kind of project, then whether it is live. Kinds are Badge's. */
   badges: readonly (readonly ["live" | "offline" | "academic" | "personal", string])[];
   tagline: string;
+  /** Its wash: the home card, the home chapter, and the case study's header and architecture. */
+  tone: Tone;
   problem: string;
   approach: string;
   careful: string;
@@ -114,6 +117,7 @@ export const featuredProject = {
   ],
   tagline:
     "Photograph a room, describe what you need, and get back a plan you can act on.",
+  tone: "blue",
   problem:
     "Students in rented rooms and first-time homeowners want a space that works. Design tools assume a budget, a floor plan, and vocabulary they don't have.",
   approach:
@@ -168,6 +172,7 @@ export const resumeAnalyzerProject = {
   ],
   tagline:
     "Upload a resume, get a score that shows its working and rewrites you can use.",
+  tone: "rose",
   problem:
     "Resume feedback is hard to get. Articles are generic, advisers are slow or cost money, and chat tools return a different score every time you ask, then an error when they fail.",
   approach:

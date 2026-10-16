@@ -34,6 +34,7 @@ export default function ForgeRoomCaseStudy() {
   return (
     <>
       <CaseHeader
+        tone={featuredProject.tone}
         badge={featuredProject.badge}
         name={forgeroom.name}
         tagline={forgeroom.tagline}
@@ -57,7 +58,7 @@ export default function ForgeRoomCaseStudy() {
       />
 
       <ArchitectureSection
-        tone="blue"
+        tone={featuredProject.tone}
         summary={forgeroom.architecture.summary}
         layers={forgeroom.architecture.layers}
         diagram={featuredProject.diagram}

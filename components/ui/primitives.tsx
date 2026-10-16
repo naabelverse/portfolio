@@ -26,10 +26,13 @@ export function Container({
   );
 }
 
-const SECTION_TONES = {
+/** A project's chapter colour. Each key needs a `--color-wash-<key>` token. */
+export const SECTION_TONES = {
   blue: "bg-wash-blue",
   rose: "bg-wash-rose",
 } as const;
+
+export type Tone = keyof typeof SECTION_TONES;
 
 /**
  * A full-bleed section; with `tone` it is a project chapter on a wash.
@@ -47,7 +50,7 @@ export function Section({
   className?: string;
   id?: string;
   labelledBy?: string;
-  tone?: keyof typeof SECTION_TONES;
+  tone?: Tone;
   style?: React.CSSProperties;
 }) {
   return (

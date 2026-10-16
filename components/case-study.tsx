@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 import { DiagramFigure, type Diagram } from "@/components/diagram";
-import { Badge, Card, Chip, Container, Section, SectionIntro, StatStrip } from "@/components/ui/primitives";
+import { Badge, Card, Chip, Container, Section, SectionIntro, StatStrip, type Tone } from "@/components/ui/primitives";
 
 /*
  * Building blocks shared by both case studies. Each page composes them in
@@ -10,7 +10,13 @@ import { Badge, Card, Chip, Container, Section, SectionIntro, StatStrip } from "
 
 type Fact = { label: string; value: string };
 
+/**
+ * The case study's first screen, on the project's wash so it continues the
+ * home card the visitor clicked. The wash fades to paper across the bottom
+ * padding, the way the home hero fades into the first chapter.
+ */
 export function CaseHeader({
+  tone,
   badge,
   live,
   name,
@@ -19,6 +25,7 @@ export function CaseHeader({
   facts,
   children,
 }: {
+  tone: Tone;
   badge: string;
   live?: boolean;
   name: string;
@@ -28,14 +35,21 @@ export function CaseHeader({
   children?: React.ReactNode;
 }) {
   return (
-    <Container className="pt-[clamp(48px,7vw,86px)] pb-[clamp(56px,7vw,92px)]">
-      <Badge kind={live ? "live" : "academic"}>{badge}</Badge>
-      <h1 className="mt-[18px]">{name}</h1>
-      <p className="mt-6 max-w-lede text-lede text-ink-2">{tagline}</p>
-      <div className="mt-9 flex flex-wrap gap-3.5">{actions}</div>
-      <StatStrip items={facts} className="mt-[clamp(44px,6vw,72px)]" />
-      {children}
-    </Container>
+    <div
+      // The fade length repeats the Container's bottom padding.
+      style={{
+        backgroundImage: `linear-gradient(to bottom, var(--color-wash-${tone}) calc(100% - clamp(56px, 7vw, 92px)), var(--color-paper))`,
+      }}
+    >
+      <Container className="pt-[clamp(48px,7vw,86px)] pb-[clamp(56px,7vw,92px)]">
+        <Badge kind={live ? "live" : "academic"}>{badge}</Badge>
+        <h1 className="mt-[18px]">{name}</h1>
+        <p className="mt-6 max-w-lede text-lede text-ink-2">{tagline}</p>
+        <div className="mt-9 flex flex-wrap gap-3.5">{actions}</div>
+        <StatStrip items={facts} className="mt-[clamp(44px,6vw,72px)]" />
+        {children}
+      </Container>
+    </div>
   );
 }
 
@@ -115,7 +129,7 @@ export function ArchitectureSection({
   layers,
   diagram,
 }: {
-  tone: "blue" | "rose";
+  tone: Tone;
   summary: string;
   layers: ReadonlyArray<{ name: string; items: readonly string[] }>;
   diagram: Diagram;
