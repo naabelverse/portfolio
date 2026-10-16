@@ -46,7 +46,7 @@ const COLOURS = [
 const STATS = [
   { label: "Mainly builds with", value: "Flutter, Node, MongoDB" },
   { label: "Final-year project", value: "18,000 lines of Dart" },
-  { label: "Tests on the live app", value: "538 passing" },
+  { label: "Tests on the live app", value: "559 passing" },
   { label: "Looking for", value: "An internship in Malaysia" },
 ];
 
