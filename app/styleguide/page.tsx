@@ -85,7 +85,6 @@ function ChapterDemo({ tone, live }: { tone: "blue" | "rose"; live?: boolean }) 
           <div className="mt-7 flex flex-wrap gap-3">
             {live && <Button variant="violet" href="https://example.com">Try it yourself</Button>}
             <Button variant="tangerine" href="/styleguide">Read the case study</Button>
-            <Button variant="ghost" href="https://github.com/naabelverse">View source</Button>
           </div>
         </div>
         <DiagramFigure diagram={project.diagram} />
