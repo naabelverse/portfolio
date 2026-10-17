@@ -113,7 +113,7 @@ wash-blue, clearing the 3:1 bar for graphics with margin.
   case study", so each project button has the same colour in every chapter.
   **Lavender** is only "View the sample report" on the analyzer case study.
   **Seafoam** is only "Get in touch" on the case study pages, on the wash and
-  on the cobalt close alike.
+  on the white close alike.
   Other project actions are white. Chapters link no repo; "View source" lives
   on the case study pages only.
   Sun and cobalt there fought the washes, so neither is reused for these.
@@ -206,7 +206,7 @@ reordering sections needs no tone changes.
   position.
 - **The Close block lands where the count puts it.** It is on paper on
   ForgeRoom (seven sections) and on the wash on the Resume Analyzer (eight).
-  This is expected, not a bug: the cobalt block works on either ground, and
+  This is expected, not a bug: the white sticker block works on either ground, and
   forcing a match would mean leaving it out of the count, which is the hand
   placement this rule removed.
 
