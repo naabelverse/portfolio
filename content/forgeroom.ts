@@ -184,4 +184,6 @@ export const forgeroom = {
     "What I'd add next: automated tests around the parsing and fallback paths. Those are the parts most likely to break silently, and right now they are the parts I verify by hand.",
     "What surprised me: the mock fallback layer, added as a convenience for demos, became the thing that let me build the entire UI without spending a cent on tokens.",
   ],
+  // The first reflection as a one-line code edit, animated under the heading.
+  reflectionDiff: { from: "shape = ui()", to: "shape = schema()" },
 } as const;

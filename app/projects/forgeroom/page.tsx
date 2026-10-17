@@ -98,7 +98,7 @@ export default function ForgeRoomCaseStudy() {
         </div>
       </Section>
 
-      <Reflection items={forgeroom.reflection} />
+      <Reflection items={forgeroom.reflection} diff={forgeroom.reflectionDiff} />
 
       <CaseClose
         body="The code is public, and I'm happy to talk through any part of it, including the parts I'd build differently now."

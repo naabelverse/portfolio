@@ -220,7 +220,7 @@ export default function ResumeAnalyzerCaseStudy() {
         </div>
       </Section>
 
-      <Reflection items={resumeAnalyzer.reflection} />
+      <Reflection items={resumeAnalyzer.reflection} diff={resumeAnalyzer.reflectionDiff} />
 
       <CaseClose
         body="The app is live and the sample report costs nothing to open. I'm happy to talk through any part of it, including the parts I'd build differently now."

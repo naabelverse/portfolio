@@ -429,6 +429,63 @@
   }
 }
 
+/* Reflection diff card (Reflection): the old line is struck out, then the new
+   one types in, holds, and both reset. --chars is the new line's length, so
+   the typing takes one step per character. Reduced motion:
+   the finished edit, still. */
+.diff-old {
+  position: relative;
+}
+
+.diff-old::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 50%;
+  height: 2px;
+  background: var(--color-ink);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .diff-old::after {
+    animation: diff-strike 6s ease-in-out infinite;
+  }
+  .diff-new {
+    animation: diff-type 6s steps(var(--chars), end) infinite;
+  }
+}
+
+@keyframes diff-strike {
+  0%,
+  15% {
+    right: 100%;
+  }
+  30%,
+  85% {
+    right: 0;
+  }
+  95%,
+  100% {
+    right: 100%;
+  }
+}
+
+/* A clip, not width, so the card keeps its finished size while typing. */
+@keyframes diff-type {
+  0%,
+  35% {
+    clip-path: inset(0 100% 0 0);
+  }
+  60%,
+  85% {
+    clip-path: inset(0);
+  }
+  95%,
+  100% {
+    clip-path: inset(0 100% 0 0);
+  }
+}
+
 /* Gap stars between project chapters (GapStars): each twinkles on its own
    delay. Reduced motion leaves them still, at a resting opacity. */
 .gap-star {
