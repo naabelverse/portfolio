@@ -4,6 +4,7 @@ import {
   ArchitectureSection,
   CaseClose,
   CaseHeader,
+  CaseStudy,
   DecisionGrid,
   ModuleRow,
   ON_COBALT,
@@ -46,9 +47,8 @@ const { evaluation } = resumeAnalyzer;
 
 export default function ResumeAnalyzerCaseStudy() {
   return (
-    <>
+    <CaseStudy tone={resumeAnalyzerProject.tone}>
       <CaseHeader
-        tone={resumeAnalyzerProject.tone}
         badge={resumeAnalyzerProject.badge}
         live
         name={resumeAnalyzer.name}
@@ -83,7 +83,6 @@ export default function ResumeAnalyzerCaseStudy() {
       />
 
       <ArchitectureSection
-        tone={resumeAnalyzerProject.tone}
         summary={resumeAnalyzer.architecture.summary}
         layers={resumeAnalyzer.architecture.layers}
         diagram={resumeAnalyzerProject.diagram}
@@ -129,7 +128,7 @@ export default function ResumeAnalyzerCaseStudy() {
         </div>
       </Section>
 
-      <Section labelledBy="decisions-title" className="pt-0">
+      <Section labelledBy="decisions-title">
         <SectionIntro
           id="decisions-title"
           title="Decisions worth defending"
@@ -138,7 +137,7 @@ export default function ResumeAnalyzerCaseStudy() {
         <DecisionGrid decisions={resumeAnalyzer.decisions} />
       </Section>
 
-      <Section labelledBy="challenges-title" className="pt-0">
+      <Section labelledBy="challenges-title">
         <SectionIntro
           id="challenges-title"
           title="Problems I had to solve"
@@ -165,7 +164,7 @@ export default function ResumeAnalyzerCaseStudy() {
         </div>
       </Section>
 
-      <Section labelledBy="evaluation-title" className="pt-0">
+      <Section labelledBy="evaluation-title">
         <SectionIntro id="evaluation-title" title={evaluation.title} lede={evaluation.lede} />
         <div className="mt-11 grid gap-8">
           <div className="grid gap-4">
@@ -235,6 +234,6 @@ export default function ResumeAnalyzerCaseStudy() {
           </>
         }
       />
-    </>
+    </CaseStudy>
   );
 }

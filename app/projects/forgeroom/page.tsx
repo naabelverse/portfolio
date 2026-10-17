@@ -4,6 +4,7 @@ import {
   ArchitectureSection,
   CaseClose,
   CaseHeader,
+  CaseStudy,
   DecisionGrid,
   ModuleRow,
   ON_COBALT,
@@ -32,9 +33,8 @@ export const metadata: Metadata = {
 
 export default function ForgeRoomCaseStudy() {
   return (
-    <>
+    <CaseStudy tone={featuredProject.tone}>
       <CaseHeader
-        tone={featuredProject.tone}
         badge={featuredProject.badge}
         name={forgeroom.name}
         tagline={forgeroom.tagline}
@@ -58,7 +58,6 @@ export default function ForgeRoomCaseStudy() {
       />
 
       <ArchitectureSection
-        tone={featuredProject.tone}
         summary={forgeroom.architecture.summary}
         layers={forgeroom.architecture.layers}
         diagram={featuredProject.diagram}
@@ -77,7 +76,7 @@ export default function ForgeRoomCaseStudy() {
         </div>
       </Section>
 
-      <Section labelledBy="decisions-title" className="pt-0">
+      <Section labelledBy="decisions-title">
         <SectionIntro
           id="decisions-title"
           title="Decisions worth defending"
@@ -86,7 +85,7 @@ export default function ForgeRoomCaseStudy() {
         <DecisionGrid decisions={forgeroom.decisions} />
       </Section>
 
-      <Section labelledBy="challenges-title" className="pt-0">
+      <Section labelledBy="challenges-title">
         <SectionIntro id="challenges-title" title="Problems I had to solve twice" />
         <div className="mt-11 grid gap-x-8 gap-y-10 md:grid-cols-2">
           {forgeroom.challenges.map((challenge) => (
@@ -113,6 +112,6 @@ export default function ForgeRoomCaseStudy() {
           </>
         }
       />
-    </>
+    </CaseStudy>
   );
 }
