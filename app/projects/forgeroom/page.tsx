@@ -7,7 +7,6 @@ import {
   CaseStudy,
   DecisionGrid,
   ModuleRow,
-  ON_COBALT,
   ProblemSection,
   Reflection,
 } from "@/components/case-study";
@@ -108,7 +107,7 @@ export default function ForgeRoomCaseStudy() {
             <Button variant="seafoam" href="/#contact">
               Get in touch
             </Button>
-            <Button variant="ghost" href={links.forgeroomRepo} className={ON_COBALT}>
+            <Button variant="ghost" href={links.forgeroomRepo}>
               View source
             </Button>
           </>

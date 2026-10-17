@@ -222,23 +222,20 @@ export function Reflection({ items }: { items: readonly string[] }) {
   );
 }
 
-/** Closing block: cobalt, like the home contact block. */
+/** Closing block: a white sticker, ink border and hard shadow like the buttons in it. */
 export function CaseClose({ body, actions }: { body: string; actions: React.ReactNode }) {
   return (
     <Section>
-      <div className="rounded-block bg-cobalt p-[clamp(28px,5vw,60px)] text-white lg:grid lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:gap-16">
+      <div className="rounded-block border-3 border-ink bg-white p-[clamp(28px,5vw,60px)] shadow-[6px_6px_0_var(--color-ink)] lg:grid lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:gap-16">
         <div>
           <h2>Want the full walkthrough?</h2>
-          <p className="mt-4 max-w-lede text-lede text-white/85">{body}</p>
+          <p className="mt-4 max-w-lede text-lede text-ink-2">{body}</p>
         </div>
         <div className="mt-8 flex flex-wrap gap-3 lg:mt-0 lg:flex-col">{actions}</div>
       </div>
     </Section>
   );
 }
-
-/** Ghost button restyled for the cobalt block. */
-export const ON_COBALT = "border-white text-white hover:bg-white hover:text-ink";
 
 type Shot = { src: string; width: number; height: number; alt: string; caption: string };
 
