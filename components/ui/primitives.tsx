@@ -36,7 +36,6 @@ export type Tone = keyof typeof SECTION_TONES;
 
 /**
  * A full-bleed section; with `tone` it is a project chapter on a wash.
- * Toned sections flip chips inside them to white via `--chip-bg`.
  */
 export function Section({
   children,
@@ -59,7 +58,7 @@ export function Section({
       style={style}
       className={cn(
         "py-section",
-        tone && [SECTION_TONES[tone], "[--chip-bg:var(--color-white)]"],
+        tone && SECTION_TONES[tone],
         className,
       )}
     >
@@ -156,29 +155,19 @@ export function Badge({
 }
 
 /**
- * One technology per chip. Fill comes from the surrounding surface through
- * `--chip-bg` (paper by default, white in a chapter, translucent in a card).
- * `compact` is the slimmer chip used inside skill cards.
+ * A project's technologies as plain text: a list, not a set of objects. No
+ * border, fill or shape, so it stays supporting detail beside badges and
+ * buttons. The 20px gap is what separates multi-word items.
  */
-export function Chip({
-  children,
-  compact = false,
-  className,
-}: {
-  children: React.ReactNode;
-  compact?: boolean;
-  className?: string;
-}) {
+export function StackList({ items, className }: { items: readonly string[]; className?: string }) {
   return (
-    <span
-      className={cn(
-        "inline-flex items-center rounded-full border-ink bg-[var(--chip-bg,var(--color-paper))] text-[14.5px] font-medium",
-        compact ? "border-[1.5px] px-[11px] py-1" : "border-2 px-[13px] py-[5px]",
-        className,
-      )}
-    >
-      {children}
-    </span>
+    <ul className={cn("flex flex-wrap gap-x-5 gap-y-1 text-small font-medium text-ink-2", className)}>
+      {items.map((item) => (
+        <li key={item} className="whitespace-nowrap">
+          {item}
+        </li>
+      ))}
+    </ul>
   );
 }
 
@@ -232,7 +221,7 @@ export function Card({
   return (
     <div
       className={cn(
-        "rounded-card border-2 border-ink p-6 [--chip-bg:rgb(255_255_255/0.75)]",
+        "rounded-card border-2 border-ink p-6",
         tone ? CARD_TONES[tone] : "bg-paper",
         className,
       )}

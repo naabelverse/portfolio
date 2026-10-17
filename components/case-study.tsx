@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 import { DiagramFigure, type Diagram } from "@/components/diagram";
-import { Badge, Card, Chip, Container, Section, SectionIntro, StatStrip, type Tone } from "@/components/ui/primitives";
+import { Badge, Card, Container, Section, SectionIntro, StackList, StatStrip, type Tone } from "@/components/ui/primitives";
 
 /*
  * Building blocks shared by both case studies. Each page composes them in
@@ -24,7 +24,7 @@ export function CaseStudy({ tone, children }: { tone: Tone; children: React.Reac
       // Each section but the last fades into the next one's colour across its
       // bottom padding, as the header does, so the next heading keeps its full
       // top padding clear of the fade.
-      className="[&>section:first-of-type]:pt-0 [&>section:nth-of-type(even)]:bg-(--wash) [&>section:nth-of-type(even)]:[--chip-bg:var(--color-white)] [&>section:nth-of-type(even)]:[--fade-to:var(--color-paper)] [&>section:nth-of-type(odd)]:[--fade-to:var(--wash)] [&>section:not(:last-of-type)]:bg-[linear-gradient(to_bottom,transparent_calc(100%_-_var(--spacing-section)),var(--fade-to))]"
+      className="[&>section:first-of-type]:pt-0 [&>section:nth-of-type(even)]:bg-(--wash) [&>section:nth-of-type(even)]:[--fade-to:var(--color-paper)] [&>section:nth-of-type(odd)]:[--fade-to:var(--wash)] [&>section:not(:last-of-type)]:bg-[linear-gradient(to_bottom,transparent_calc(100%_-_var(--spacing-section)),var(--fade-to))]"
     >
       {children}
     </div>
@@ -99,13 +99,7 @@ export function ProblemSection({
         <Card>
           <h3>The goal</h3>
           <p className="mt-3">{goal}</p>
-          <ul className="mt-5 flex flex-wrap gap-[7px] border-t-2 border-line pt-5">
-            {stack.map((item) => (
-              <li key={item}>
-                <Chip compact>{item}</Chip>
-              </li>
-            ))}
-          </ul>
+          <StackList items={stack} className="mt-5 border-t-2 border-line pt-5" />
         </Card>
       </div>
       <StatStrip items={stats} className="mt-[clamp(44px,6vw,72px)]" />

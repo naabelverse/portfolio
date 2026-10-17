@@ -12,13 +12,13 @@ import { Link } from "@/components/ui/link";
 import { cn } from "@/lib/cn";
 import {
   Badge,
-  Chip,
   Container,
   Row,
   RowList,
   Section,
   SECTION_TONES,
   SectionIntro,
+  StackList,
   type Tone,
 } from "@/components/ui/primitives";
 import {
@@ -354,13 +354,7 @@ function ProjectChapter({
             </div>
           ))}
 
-          <ul className="mt-7 flex flex-wrap gap-2">
-            {project.stack.map((item) => (
-              <li key={item}>
-                <Chip>{item}</Chip>
-              </li>
-            ))}
-          </ul>
+          <StackList items={project.stack} className="mt-7" />
 
           <div className="mt-7 flex flex-wrap gap-3">
             {project.live && (
@@ -496,15 +490,7 @@ export function Timeline({ className }: { className?: string }) {
           {entry.description && (
             <p className="mt-2.5 max-w-measure text-[16.5px] text-ink-2">{entry.description}</p>
           )}
-          {entry.stack && entry.stack.length > 0 && (
-            <ul className="mt-3 flex flex-wrap gap-2">
-              {entry.stack.map((item) => (
-                <li key={item}>
-                  <Chip>{item}</Chip>
-                </li>
-              ))}
-            </ul>
-          )}
+          {entry.stack && entry.stack.length > 0 && <StackList items={entry.stack} className="mt-3" />}
           {entry.result && <p className="mt-2 text-[15.5px] font-semibold">{entry.result}</p>}
           {entry.link && (
             <a

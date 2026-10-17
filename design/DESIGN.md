@@ -207,13 +207,49 @@ The old system used 1px hairlines everywhere. This one uses weight.
 
 - Diagram panels: **3px** solid ink border, 18px radius
 - Skill cards: **2px** solid ink border, 14px radius
-- Chips and pills: **2px** border, fully rounded
+- Badges: **2px** ink border, fully rounded
+- Stack lists: no border, no fill, no shape (see below)
 - Contact block: no border, 26px radius, cobalt fill
 - The hero stat strip: **3px** ink rules top and bottom, nothing else
 - Dividers in list rows: 1px `line-2`
 
 **No box shadows anywhere.** Depth comes from border weight and fill, not blur.
 Radius varies by element type on purpose — do not normalise it to one value.
+
+### A stack is a list, not a set of objects
+
+A **badge** (`Badge`) is metadata about a project: "Personal project", "Live
+and public". There are one or two, and they should stand out: a white pill,
+2px ink border, 15px semibold ink text, with a leading mark.
+
+A **stack** (`StackList`) is the technologies a project uses. There can be
+ten or more, and they are supporting detail: someone can scan them if they
+want, or skip them without feeling they missed something. So they are set as
+plain text, 15px medium `ink-2`, with 20px between items and nothing around
+them. The gap is what separates multi-word items like "Anthropic Claude", so
+don't tighten it. The home chapters, the case study Problem cards and the
+experience timeline all use it.
+
+There used to be a `Chip`, first an ink-bordered pill, then a tinted tag. Eleven
+of either formed a block that sat above the chapter's buttons, competed with
+them, and lost. Any shape around each item brings that back. Don't add
+one, and don't reintroduce a chip for a new place: if it is a list of
+technologies, it is a `StackList`.
+
+Because the list has no shape at all, it stays distinct from a badge in
+greyscale and in print, not only by colour. Because it has no fill, it needs no
+variant for the ground it sits on. `ink-2` on each ground:
+
+| Ground | Contrast |
+| --- | --- |
+| paper | 7.83:1 |
+| white | 8.19:1 |
+| wash-blue | 6.90:1 |
+| wash-rose | 6.97:1 |
+| wash-sun | 7.42:1 |
+
+It is deliberately `ink-2`, not `ink-3`: `ink-3` is muted enough but clears
+wash-blue by 0.01, the pairing that fails first if a wash is darkened.
 
 ---
 
@@ -426,7 +462,7 @@ Pause after each step so I can review.
 
 1. Read `redesign-v2-bright.html` fully, then replace the tokens and type scale
    in `app/globals.css` and wire the new fonts in `app/layout.tsx`
-2. Rebuild the `components/ui/` primitives: button, badge, chip, panel, card
+2. Rebuild the `components/ui/` primitives: button, badge, stack list, panel, card
 3. Nav, hero and the SVG composition
 4. The two project chapters, with the diagrams as components
 5. Smaller work, skills, background, contact
