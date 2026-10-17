@@ -28,15 +28,17 @@ export type Diagram = {
   steps: readonly DiagramStep[];
   /**
    * The failure path, in rose-line. With `label` it drops below step `from`
-   * and runs back left to its label; with `to` it brackets the right edge
-   * from step `from` to step `to`.
+   * and runs back left to its label; with `beside` the last step shares its
+   * row with this outcome, which the step above reaches by a dashed arrow.
    */
-  fallback: { from: number; label: string } | { from: number; to: number };
+  fallback: { from: number; label: string } | { beside: DiagramStep };
 };
 
 const FILL = { model: "fill-sun", output: "fill-wash-blue" } as const;
 const STROKE = "stroke-ink stroke-[2.5]";
 const FAIL = "fill-none stroke-rose-line stroke-[2.5] [stroke-dasharray:7_6]";
+const FAIL_BOX = "fill-white stroke-rose-line stroke-[2.5] [stroke-dasharray:7_6]";
+const SPLIT_GAP = 12;
 const TITLE = "fill-ink text-[14px] font-semibold";
 const NOTE = "fill-ink-2 text-[12.5px]";
 
@@ -51,13 +53,13 @@ const TEXT_X = 22;
 
 function DiagramSvg({ diagram, width, wide }: { diagram: Diagram; width: number; wide: boolean }) {
   const split = (text: string) => (wide ? [text.replaceAll("|", " ")] : text.split("|"));
-  const cx = width / 2;
+  const { fallback } = diagram;
   const boxes: { top: number; bottom: number }[] = [];
   const parts: React.ReactNode[] = [];
   let y = 6;
 
-  diagram.steps.forEach((step, i) => {
-    const top = y;
+  // One step's text, set from `x` with its first baseline below `top`.
+  const block = (step: DiagramStep, key: string, x: number, top: number) => {
     // `wrap` marks the second line of a broken label: it sits tighter than
     // the next statement, so one wrapped statement doesn't read as two.
     const rows = [
@@ -68,38 +70,56 @@ function DiagramSvg({ diagram, width, wide }: { diagram: Diagram; width: number;
     const texts = rows.map((row, r) => {
       baseline += r === 0 ? TITLE_STEP : row.wrap ? WRAP_STEP : row.note ? NOTE_STEP : TITLE_STEP;
       return (
-        <text key={`t${i}-${r}`} x={TEXT_X} y={baseline} className={row.note ? NOTE : TITLE}>
+        <text key={`t${key}-${r}`} x={x} y={baseline} className={row.note ? NOTE : TITLE}>
           {row.text}
         </text>
       );
     });
-    const bottom = baseline + (rows.at(-1)?.note ? PAD_BOTTOM.note : PAD_BOTTOM.title);
+    return { texts, bottom: baseline + (rows.at(-1)?.note ? PAD_BOTTOM.note : PAD_BOTTOM.title) };
+  };
+
+  diagram.steps.forEach((step, i) => {
+    const top = y;
+    const fill = step.kind ? FILL[step.kind] : "fill-white";
+    const half = (width - 8 - SPLIT_GAP) / 2;
+    const cols =
+      "beside" in fallback && i === diagram.steps.length - 1
+        ? [
+            { step, x: 4, w: half, box: `${fill} ${STROKE}`, fail: false },
+            { step: fallback.beside, x: 4 + half + SPLIT_GAP, w: half, box: FAIL_BOX, fail: true },
+          ]
+        : [{ step, x: 4, w: width - 8, box: `${fill} ${STROKE}`, fail: false }];
+    const laid = cols.map((col, k) => ({ ...col, ...block(col.step, `${i}-${k}`, col.x + TEXT_X - 4, top) }));
+    const bottom = Math.max(...laid.map((col) => col.bottom));
     boxes.push({ top, bottom });
 
-    if (i > 0) {
+    laid.forEach((col, k) => {
+      const ax = col.x + col.w / 2;
+      if (i > 0) {
+        const head = `M${ax - 7} ${top - 7} L${ax} ${top} L${ax + 7} ${top - 7}`;
+        parts.push(
+          col.fail ? (
+            <g key={`a${i}-${k}`}>
+              <path d={`M${ax} ${top - GAP} L${ax} ${top - 2}`} className={FAIL} />
+              <path d={head} className="fill-none stroke-rose-line stroke-[2.5]" />
+            </g>
+          ) : (
+            <path key={`a${i}-${k}`} d={`M${ax} ${top - GAP} L${ax} ${top} ${head}`} className={`fill-none ${STROKE}`} />
+          ),
+        );
+      }
       parts.push(
-        <path key={`a${i}`} d={`M${cx} ${top - GAP} L${cx} ${top} M${cx - 7} ${top - 7} L${cx} ${top} L${cx + 7} ${top - 7}`} className={`fill-none ${STROKE}`} />,
+        <rect key={`b${i}-${k}`} x={col.x} y={top} width={col.w} height={bottom - top} rx="12" className={col.box} />,
+        ...col.texts,
       );
-    }
-    parts.push(
-      <rect key={`b${i}`} x="4" y={top} width={width - 8} height={bottom - top} rx="12" className={`${step.kind ? FILL[step.kind] : "fill-white"} ${STROKE}`} />,
-      ...texts,
-    );
+    });
     y = bottom + GAP;
   });
 
-  const { fallback } = diagram;
-  const from = boxes[fallback.from];
   let height = boxes.at(-1)!.bottom + 6;
 
-  if ("to" in fallback) {
-    const to = boxes[fallback.to];
-    const y1 = (from.top + from.bottom) / 2;
-    const y2 = (to.top + to.bottom) / 2;
-    parts.push(
-      <path key="fail" d={`M${width - 28} ${y1} L${width - 12} ${y1} L${width - 12} ${y2} L${width - 28} ${y2}`} className={FAIL} />,
-    );
-  } else {
+  if ("label" in fallback) {
+    const from = boxes[fallback.from];
     const drop = from.bottom + 30;
     parts.push(
       <path key="fail" d={`M${width - 40} ${from.bottom} L${width - 40} ${drop} L${TEXT_X} ${drop} M${TEXT_X + 8} ${drop - 7} L${TEXT_X} ${drop} L${TEXT_X + 8} ${drop + 7}`} className={FAIL} />,
