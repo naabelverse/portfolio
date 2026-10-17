@@ -46,6 +46,10 @@
   /* Skill cards only — never use it for a chapter wash -------------------- */
   --color-wash-mint: #e3f6ec;
 
+  /* Case study "After" box only — matches the analyzer's "Improved" card -- */
+  --color-wash-improved: #f0fdf4;
+  --color-improved: #15803d; /* 4.8:1 on wash-improved */
+
   /* Running right now — the live badge's dot, nowhere else ---------------- */
   --color-live: #16a34a; /* 3.3:1 on white, clears the 3:1 bar for graphics */
 

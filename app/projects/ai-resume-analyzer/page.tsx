@@ -105,8 +105,8 @@ export default function ResumeAnalyzerCaseStudy() {
                     <p className="text-small font-semibold text-ink-3">Before</p>
                     <p className="mt-1 text-small text-ink-2">{module.example.before}</p>
                   </div>
-                  <div className="rounded-input border-2 border-ink bg-wash-blue p-4">
-                    <p className="text-small font-semibold text-cobalt">After</p>
+                  <div className="rounded-input border-2 border-ink bg-wash-improved p-4">
+                    <p className="text-small font-semibold text-improved">After</p>
                     <p className="mt-1 text-small">{module.example.after}</p>
                   </div>
                   <p className="text-small text-ink-2">
