@@ -1,7 +1,7 @@
 import { Link } from "@/components/ui/link";
 import { cn } from "@/lib/cn";
 
-type Variant = "primary" | "ghost" | "sun" | "violet" | "tangerine" | "lavender" | "white";
+type Variant = "primary" | "ghost" | "sun" | "violet" | "tangerine" | "lavender" | "seafoam" | "white";
 
 /**
  * A sticker pill: fully rounded, 16px/600, 44px tap target, ink border and a
@@ -19,10 +19,11 @@ const VARIANTS: Record<Variant, string> = {
   sun: "bg-sun text-ink hover:bg-sun-deep",
   // Project actions, each reserved for one label so a colour always means the
   // same thing: violet is "Try it yourself", tangerine is "Read the case study",
-  // lavender is "View the sample report".
+  // lavender is "View the sample report", seafoam is "Get in touch".
   violet: "bg-violet text-white hover:bg-violet-deep",
   tangerine: "bg-tangerine text-ink hover:bg-tangerine-deep",
   lavender: "bg-lavender text-ink hover:bg-lavender-deep",
+  seafoam: "bg-seafoam text-ink hover:bg-seafoam-deep",
   white: "bg-white text-ink hover:bg-paper",
 };
 

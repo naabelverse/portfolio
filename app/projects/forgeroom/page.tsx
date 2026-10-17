@@ -44,7 +44,7 @@ export default function ForgeRoomCaseStudy() {
             <Button variant="white" href={links.forgeroomRepo}>
               View source on GitHub
             </Button>
-            <Button variant="ghost" href="/#contact">
+            <Button variant="seafoam" href="/#contact">
               Get in touch
             </Button>
           </>
@@ -105,7 +105,7 @@ export default function ForgeRoomCaseStudy() {
         body="The code is public, and I'm happy to talk through any part of it, including the parts I'd build differently now."
         actions={
           <>
-            <Button variant="sun" href="/#contact">
+            <Button variant="seafoam" href="/#contact">
               Get in touch
             </Button>
             <Button variant="ghost" href={links.forgeroomRepo} className={ON_COBALT}>
