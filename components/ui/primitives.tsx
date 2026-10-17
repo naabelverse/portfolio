@@ -154,20 +154,29 @@ export function Badge({
   );
 }
 
+/** A role and the technologies that fill it, e.g. ["AI", ["Claude"]]. */
+export type StackGroup = readonly [label: string, items: readonly string[]];
+
 /**
- * A project's technologies as plain text: a list, not a set of objects. No
- * border, fill or shape, so it stays supporting detail beside badges and
- * buttons. The 20px gap is what separates multi-word items.
+ * A project's technologies as a spec sheet: one row per role, the role on the
+ * left, its technologies as a plain phrase on the right, hairlines between
+ * rows. One ruled block rather than a shape per item, so it can't be mistaken
+ * for a badge, and the role labels say what kind of information it is. The
+ * rules are ink at 15%, so they tint with whatever ground they sit on.
  */
-export function StackList({ items, className }: { items: readonly string[]; className?: string }) {
+export function StackList({ groups, className }: { groups: readonly StackGroup[]; className?: string }) {
   return (
-    <ul className={cn("flex flex-wrap gap-x-5 gap-y-1 text-small font-medium text-ink-2", className)}>
-      {items.map((item) => (
-        <li key={item} className="whitespace-nowrap">
-          {item}
-        </li>
+    <dl className={cn("text-small", className)}>
+      {groups.map(([label, items]) => (
+        <div
+          key={label}
+          className="grid grid-cols-[5.5rem_minmax(0,1fr)] gap-x-4 border-t border-ink/15 py-2 last:border-b"
+        >
+          <dt className="font-semibold">{label}</dt>
+          <dd className="text-ink-2">{items.join(", ")}</dd>
+        </div>
       ))}
-    </ul>
+    </dl>
   );
 }
 
