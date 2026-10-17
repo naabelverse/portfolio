@@ -7,11 +7,11 @@ import { Button } from "@/components/ui/button";
 import {
   Badge,
   Card,
-  Chip,
   Field,
   Row,
   RowList,
   Section,
+  StackList,
   StatStrip,
 } from "@/components/ui/primitives";
 import { featuredProject, resumeAnalyzerProject } from "@/content/site";
@@ -69,14 +69,10 @@ function ChapterDemo({ tone, live }: { tone: "blue" | "rose"; live?: boolean }) 
         <div>
           <h4 className="mb-1.5 font-semibold">The problem</h4>
           <p className="max-w-measure text-ink-2">
-            Prose column. Chips below sit on white because the chapter sets the
-            chip fill; the same chip on paper sections stays paper.
+            Prose column. The stack below is plain ink-2 text, so it needs no
+            variant for the wash it sits on.
           </p>
-          <div className="mt-7 flex flex-wrap gap-2">
-            {STACK.map((s) => (
-              <Chip key={s}>{s}</Chip>
-            ))}
-          </div>
+          <StackList items={STACK} className="mt-7" />
           <div className="mt-7 flex flex-wrap gap-3">
             <Button href="/styleguide">Read the case study</Button>
             {live && <Button variant="sun" href="https://example.com">Try it yourself</Button>}
@@ -149,12 +145,8 @@ export default function StyleguidePage() {
           <Badge kind="live">Live and public</Badge>
         </div>
 
-        <Label>Chips on paper</Label>
-        <div className="flex flex-wrap gap-2">
-          {STACK.map((s) => (
-            <Chip key={s}>{s}</Chip>
-          ))}
-        </div>
+        <Label>Stack list on paper</Label>
+        <StackList items={STACK} />
 
         <Label>Cards: none, blue, sun, rose</Label>
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
@@ -162,13 +154,7 @@ export default function StyleguidePage() {
             <Card key={tone ?? "none"} tone={tone}>
               <h3>{tone ?? "No tone"}</h3>
               <p className="mt-1.5 mb-3.5 text-small text-ink-2">Strongest first.</p>
-              <ul className="flex flex-wrap gap-[7px]">
-                {STACK.slice(0, 3).map((s) => (
-                  <li key={s}>
-                    <Chip compact>{s}</Chip>
-                  </li>
-                ))}
-              </ul>
+              <StackList items={STACK.slice(0, 3)} />
             </Card>
           ))}
         </div>
