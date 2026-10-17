@@ -208,13 +208,13 @@ export function DecisionGrid({ decisions }: { decisions: ReadonlyArray<{ title: 
 export function Reflection({ items, diff }: { items: readonly string[]; diff: { from: string; to: string } }) {
   return (
     <Section labelledBy="reflection-title">
-      <div className="rounded-panel border-3 border-ink bg-wash-seafoam p-[clamp(24px,4vw,48px)] lg:grid lg:grid-cols-[1fr_2fr] lg:items-start lg:gap-12">
-        <div>
+      <div className="rounded-panel border-3 border-ink bg-wash-seafoam p-[clamp(24px,4vw,48px)] lg:grid lg:grid-cols-[1fr_2fr] lg:items-center lg:gap-12">
+        <div className="lg:text-center">
           <h2 id="reflection-title">What I&rsquo;d change</h2>
           {/* Decorative: the first item already says it in words. */}
           <div
             aria-hidden="true"
-            className="mt-8 hidden w-fit max-w-full rounded-card border-2 border-ink bg-white px-4 py-3 font-mono text-[14px] leading-[1.9] shadow-[4px_4px_0_var(--color-ink)] lg:block"
+            className="mx-auto mt-8 hidden w-fit max-w-full rounded-card border-2 border-ink bg-white px-4 py-3 text-left font-mono text-[14px] leading-[1.9] shadow-[4px_4px_0_var(--color-ink)] lg:block"
           >
             <p className="diff-old w-fit whitespace-nowrap text-ink-3">- {diff.from}</p>
             <p
