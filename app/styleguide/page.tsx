@@ -38,8 +38,10 @@ const COLOURS = [
   { name: "wash-sun", hex: "#FFF3D4", className: "bg-wash-sun" },
   { name: "rose", hex: "#FF4F6E", className: "bg-rose", note: "fills only" },
   { name: "rose-line", hex: "#E63655", className: "bg-rose-line", note: "failure strokes only" },
-  { name: "violet", hex: "#7B4DFF", className: "bg-violet", note: "project lead button only" },
+  { name: "violet", hex: "#7B4DFF", className: "bg-violet", note: "\"Try it yourself\" only" },
   { name: "violet-deep", hex: "#6431F5", className: "bg-violet-deep" },
+  { name: "tangerine", hex: "#FF8A3D", className: "bg-tangerine", note: "\"Read the case study\" only, ink text 7.9:1" },
+  { name: "tangerine-deep", hex: "#FF7414", className: "bg-tangerine-deep" },
   { name: "wash-rose", hex: "#FFE7EB", className: "bg-wash-rose" },
   { name: "live", hex: "#16A34A", className: "bg-live", note: "live badge dot only" },
   { name: "line", hex: "#E2E2DC", className: "bg-line" },
@@ -82,7 +84,7 @@ function ChapterDemo({ tone, live }: { tone: "blue" | "rose"; live?: boolean }) 
           <StackList groups={STACK} className="mt-7" />
           <div className="mt-7 flex flex-wrap gap-3">
             {live && <Button variant="violet" href="https://example.com">Try it yourself</Button>}
-            <Button variant={live ? "white" : "violet"} href="/styleguide">Read the case study</Button>
+            <Button variant="tangerine" href="/styleguide">Read the case study</Button>
             <Button variant="ghost" href="https://github.com/naabelverse">View source</Button>
           </div>
         </div>

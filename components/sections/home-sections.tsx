@@ -362,7 +362,7 @@ function ProjectChapter({
                 Try it yourself
               </Button>
             )}
-            <Button variant={project.live ? "white" : "violet"} href={project.href}>
+            <Button variant="tangerine" href={project.href}>
               Read the case study
             </Button>
             <Button variant="ghost" href={project.repo}>

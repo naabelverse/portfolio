@@ -1,7 +1,7 @@
 import { Link } from "@/components/ui/link";
 import { cn } from "@/lib/cn";
 
-type Variant = "primary" | "ghost" | "sun" | "violet" | "white";
+type Variant = "primary" | "ghost" | "sun" | "violet" | "tangerine" | "white";
 
 /**
  * A sticker pill: fully rounded, 16px/600, 44px tap target, ink border and a
@@ -17,9 +17,10 @@ const VARIANTS: Record<Variant, string> = {
   primary: "bg-cobalt text-white hover:bg-cobalt-deep",
   ghost: "text-ink hover:bg-white",
   sun: "bg-sun text-ink hover:bg-sun-deep",
-  // Project actions. Violet is used nowhere else, so it reads as "the project's
-  // next step" on both the blue and the rose wash.
+  // Project actions, each reserved for one label so a colour always means the
+  // same thing: violet is "Try it yourself", tangerine is "Read the case study".
   violet: "bg-violet text-white hover:bg-violet-deep",
+  tangerine: "bg-tangerine text-ink hover:bg-tangerine-deep",
   white: "bg-white text-ink hover:bg-paper",
 };
 
