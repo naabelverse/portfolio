@@ -153,17 +153,36 @@ Do not give every section a wash. The alternation is the point.
 
 A project's wash comes from `tone` on its `Project` in `content/site.ts`. The
 home preview card, the home chapter, and the case study's header and
-Architecture section all read it, so a visitor who clicks a card stays in the
-same colour. The case study header fades from the wash to paper across its
-bottom padding; the body returns to paper and the wash comes back once, on
-Architecture. A new project on an existing tone needs only the field. A new
-tone also needs a `--color-wash-<name>` token in `app/globals.css` and an entry
-in `SECTION_TONES` in `components/ui/primitives.tsx`.
+case study page all read it, so a visitor who clicks a card stays in the same
+colour. A new project on an existing tone needs only the field. A new tone also
+needs a `--color-wash-<name>` token in `app/globals.css` and an entry in
+`SECTION_TONES` in `components/ui/primitives.tsx`.
 
-**Known inconsistency:** the Architecture section on each case study starts and
-ends with a hard edge against paper, unlike the faded header and the home
-chapters. Left as is for now; whether the page wants those edges faded is a
-separate call about its rhythm.
+### Case study pages
+
+A case study alternates between its wash and paper, section by section. The
+header is on the wash; after it, every even `<section>` is washed and every odd
+one is paper. `CaseStudy` in `components/case-study.tsx` derives this from
+position with one CSS rule, so no section sets its own tone and adding or
+reordering sections needs no tone changes.
+
+- **Edges.** The header fades to paper across its bottom padding: it is the
+  entrance from the home card. Every boundary after it is a hard edge. Seven
+  fades in a row would erase the alternation, which is the point.
+- **Padding.** Every boundary is a colour change, so every section keeps its
+  full `py-section`. Don't add `pt-0` to a case study section; it only made
+  sense when neighbours shared a ground. The first section is the exception,
+  set by the same rule: the header's fade already spaces it.
+- **Architecture's wash depends on its position.** It is washed because it is
+  the second section. Add a section above it and it turns paper, and the
+  diagram loses the tinted band it was designed to sit in. If you add one
+  there, add another too, or move Architecture, so it stays on an even
+  position.
+- **The Close block lands where the count puts it.** It is on paper on
+  ForgeRoom (seven sections) and on the wash on the Resume Analyzer (eight).
+  This is expected, not a bug: the cobalt block works on either ground, and
+  forcing a match would mean leaving it out of the count, which is the hand
+  placement this rule removed.
 
 **Known coupling:** the home hero fades to a hardcoded `to-wash-blue`
 (`components/sections/home-sections.tsx`), on the assumption that ForgeRoom's

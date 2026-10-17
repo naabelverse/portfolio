@@ -11,12 +11,29 @@ import { Badge, Card, Chip, Container, Section, SectionIntro, StatStrip, type To
 type Fact = { label: string; value: string };
 
 /**
+ * A case study page. The header sits on the project's wash, then the sections
+ * alternate by position: every even <section> is washed, every odd one paper.
+ * Adding or reordering a section needs no tone changes, and each section keeps
+ * its full padding because every boundary is a colour change. The first
+ * section starts flush: the header's fade already spaces it.
+ */
+export function CaseStudy({ tone, children }: { tone: Tone; children: React.ReactNode }) {
+  return (
+    <div
+      style={{ "--wash": `var(--color-wash-${tone})` } as React.CSSProperties}
+      className="[&>section:first-of-type]:pt-0 [&>section:nth-of-type(even)]:bg-(--wash) [&>section:nth-of-type(even)]:[--chip-bg:var(--color-white)]"
+    >
+      {children}
+    </div>
+  );
+}
+
+/**
  * The case study's first screen, on the project's wash so it continues the
  * home card the visitor clicked. The wash fades to paper across the bottom
  * padding, the way the home hero fades into the first chapter.
  */
 export function CaseHeader({
-  tone,
   badge,
   live,
   name,
@@ -25,7 +42,6 @@ export function CaseHeader({
   facts,
   children,
 }: {
-  tone: Tone;
   badge: string;
   live?: boolean;
   name: string;
@@ -38,7 +54,7 @@ export function CaseHeader({
     <div
       // The fade length repeats the Container's bottom padding.
       style={{
-        backgroundImage: `linear-gradient(to bottom, var(--color-wash-${tone}) calc(100% - clamp(56px, 7vw, 92px)), var(--color-paper))`,
+        backgroundImage: `linear-gradient(to bottom, var(--wash) calc(100% - clamp(56px, 7vw, 92px)), var(--color-paper))`,
       }}
     >
       <Container className="pt-[clamp(48px,7vw,86px)] pb-[clamp(56px,7vw,92px)]">
@@ -67,7 +83,7 @@ export function ProblemSection({
   stats: readonly Fact[];
 }) {
   return (
-    <Section labelledBy="problem-title" className="pt-0">
+    <Section labelledBy="problem-title">
       <div className="grid items-start gap-[clamp(32px,5vw,64px)] lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
         <div>
           <h2 id="problem-title">{title}</h2>
@@ -124,18 +140,16 @@ export function LayerDiagram({ layers }: { layers: ReadonlyArray<{ name: string;
 }
 
 export function ArchitectureSection({
-  tone,
   summary,
   layers,
   diagram,
 }: {
-  tone: Tone;
   summary: string;
   layers: ReadonlyArray<{ name: string; items: readonly string[] }>;
   diagram: Diagram;
 }) {
   return (
-    <Section tone={tone} labelledBy="architecture-title">
+    <Section labelledBy="architecture-title">
       <SectionIntro id="architecture-title" title="Architecture" lede={summary} />
       <div className="mt-11">
         <LayerDiagram layers={layers} />
@@ -200,7 +214,7 @@ export function DecisionGrid({ decisions }: { decisions: ReadonlyArray<{ title: 
 
 export function Reflection({ items }: { items: readonly string[] }) {
   return (
-    <Section labelledBy="reflection-title" className="pt-0">
+    <Section labelledBy="reflection-title">
       <div className="rounded-panel border-3 border-ink p-[clamp(24px,4vw,48px)]">
         <h2 id="reflection-title">What I&rsquo;d change</h2>
         <ul className="mt-6 grid list-disc gap-4 pl-5 marker:text-cobalt">
@@ -218,7 +232,7 @@ export function Reflection({ items }: { items: readonly string[] }) {
 /** Closing block: cobalt, like the home contact block. */
 export function CaseClose({ body, actions }: { body: string; actions: React.ReactNode }) {
   return (
-    <Section className="pt-0">
+    <Section>
       <div className="rounded-block bg-cobalt p-[clamp(28px,5vw,60px)] text-white">
         <h2>Want the full walkthrough?</h2>
         <p className="mt-4 max-w-lede text-lede text-white/85">{body}</p>
