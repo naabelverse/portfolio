@@ -208,9 +208,9 @@ export function DecisionGrid({ decisions }: { decisions: ReadonlyArray<{ title: 
 export function Reflection({ items }: { items: readonly string[] }) {
   return (
     <Section labelledBy="reflection-title">
-      <div className="rounded-panel border-3 border-ink bg-wash-sun p-[clamp(24px,4vw,48px)]">
+      <div className="rounded-panel border-3 border-ink bg-wash-sun p-[clamp(24px,4vw,48px)] lg:grid lg:grid-cols-[1fr_2fr] lg:items-start lg:gap-12">
         <h2 id="reflection-title">What I&rsquo;d change</h2>
-        <ul className="mt-6 grid list-disc gap-4 pl-5 marker:text-cobalt">
+        <ul className="mt-6 grid list-disc gap-4 pl-5 marker:text-cobalt lg:mt-0">
           {items.map((item) => (
             <li key={item} className="max-w-measure text-ink-2">
               {item}
