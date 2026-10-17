@@ -159,7 +159,7 @@ export default function ResumeAnalyzerCaseStudy() {
               </dl>
               {"screenshots" in challenge &&
                 challenge.screenshots.map((shot) => (
-                  <Screenshot key={shot.src} shot={shot} sizes="300px" className="mt-6 max-w-[300px]" />
+                  <Screenshot key={shot.src} shot={shot} sizes="300px" className="mx-auto mt-6 max-w-[300px] text-center" />
                 ))}
             </div>
           ))}
