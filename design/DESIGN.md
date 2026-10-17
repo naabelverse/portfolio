@@ -99,7 +99,11 @@ wash-blue, clearing the 3:1 bar for graphics with margin.
   the dot in the wordmark. The hero has no button: two project preview cards
   at its foot lead into the work, each with an arrow that nudges right on hover.
 - **Sun** marks the step in each diagram where a model does the work and fills
-  the "Try it yourself" button.
+  the "Get in touch" button on cobalt.
+- **Project actions are monochrome.** In a chapter and a case study hero, the
+  lead action ("Try it yourself", else "Read the case study") is an ink
+  button, the second is white, and "View source" is ghost. The wash carries
+  the colour; sun and cobalt there fought it.
 - **Rose** means *the failure path*. It is the dashed line in both diagrams.
   It used to fill the live badge, but red reads as an error, so "live" moved
   to green.

@@ -79,8 +79,8 @@ function ChapterDemo({ tone, live }: { tone: "blue" | "rose"; live?: boolean }) 
           </p>
           <StackList groups={STACK} className="mt-7" />
           <div className="mt-7 flex flex-wrap gap-3">
-            <Button href="/styleguide">Read the case study</Button>
-            {live && <Button variant="sun" href="https://example.com">Try it yourself</Button>}
+            {live && <Button variant="ink" href="https://example.com">Try it yourself</Button>}
+            <Button variant={live ? "white" : "ink"} href="/styleguide">Read the case study</Button>
             <Button variant="ghost" href="https://github.com/naabelverse">View source</Button>
           </div>
         </div>
