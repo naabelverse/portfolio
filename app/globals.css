@@ -42,6 +42,8 @@
   --color-tangerine-deep: #ff7414;
   --color-lavender: #d9c8ff; /* "View the sample report" only: ink text 12.1:1 */
   --color-lavender-deep: #c8b1ff;
+  --color-seafoam: #9fe7d4; /* "Get in touch" only: ink text 13.1:1 */
+  --color-seafoam-deep: #7fdcc4;
 
   /* Skill cards only — never use it for a chapter wash -------------------- */
   --color-wash-mint: #e3f6ec;

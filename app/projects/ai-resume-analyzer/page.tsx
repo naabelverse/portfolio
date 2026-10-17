@@ -7,7 +7,6 @@ import {
   CaseStudy,
   DecisionGrid,
   ModuleRow,
-  ON_COBALT,
   ProblemSection,
   Reflection,
   Screenshot,
@@ -230,7 +229,7 @@ export default function ResumeAnalyzerCaseStudy() {
             <Button variant="violet" href={links.resumeAnalyzerLive}>
               Try it yourself
             </Button>
-            <Button variant="ghost" href="/#contact" className={ON_COBALT}>
+            <Button variant="seafoam" href="/#contact">
               Get in touch
             </Button>
           </>
