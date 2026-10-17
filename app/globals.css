@@ -518,17 +518,17 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .close-train-cars {
-    animation: close-ride 9s linear infinite;
+    animation: close-ride 12s linear infinite;
   }
 }
 
-/* A 6s pass across the block (~220px/s at 1440px) then a 3s pause out of
+/* A 9s pass across the block (~160px/s at 1440px) then a 3s pause out of
    sight. */
 @keyframes close-ride {
   0% {
     left: -270px;
   }
-  66.667%,
+  75%,
   100% {
     left: 100%;
   }
