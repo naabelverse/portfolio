@@ -1,7 +1,7 @@
 import { Link } from "@/components/ui/link";
 import { cn } from "@/lib/cn";
 
-type Variant = "primary" | "ghost" | "sun";
+type Variant = "primary" | "ghost" | "sun" | "ink" | "white";
 
 /**
  * A sticker pill: fully rounded, 16px/600, 44px tap target, ink border and a
@@ -17,6 +17,10 @@ const VARIANTS: Record<Variant, string> = {
   primary: "bg-cobalt text-white hover:bg-cobalt-deep",
   ghost: "text-ink hover:bg-white",
   sun: "bg-sun text-ink hover:bg-sun-deep",
+  // Project actions: monochrome, so the chapter wash carries the colour.
+  // White edge, like a die-cut sticker; an ink edge would merge into the shadow.
+  ink: "border-white bg-ink text-white",
+  white: "bg-white text-ink hover:bg-paper",
 };
 
 type ButtonProps = { variant?: Variant; className?: string } & (
