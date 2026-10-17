@@ -134,7 +134,7 @@ export default function ResumeAnalyzerCaseStudy() {
         <SectionIntro
           id="decisions-title"
           title="Decisions worth defending"
-          lede="The choices I would be asked about in an interview, and the reasoning behind each one."
+          lede="The trade-offs behind the design, and why I made each one."
         />
         <DecisionGrid decisions={resumeAnalyzer.decisions} />
       </Section>
