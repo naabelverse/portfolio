@@ -358,11 +358,11 @@ function ProjectChapter({
 
           <div className="mt-7 flex flex-wrap gap-3">
             {project.live && (
-              <Button variant="ink" href={project.live}>
+              <Button variant="violet" href={project.live}>
                 Try it yourself
               </Button>
             )}
-            <Button variant={project.live ? "white" : "ink"} href={project.href}>
+            <Button variant={project.live ? "white" : "violet"} href={project.href}>
               Read the case study
             </Button>
             <Button variant="ghost" href={project.repo}>

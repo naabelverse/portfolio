@@ -41,7 +41,7 @@ export default function ForgeRoomCaseStudy() {
         facts={forgeroom.meta}
         actions={
           <>
-            <Button variant="ink" href={links.forgeroomRepo}>
+            <Button variant="violet" href={links.forgeroomRepo}>
               View source on GitHub
             </Button>
             <Button variant="ghost" href="/#contact">
