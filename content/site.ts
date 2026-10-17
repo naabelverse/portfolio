@@ -201,6 +201,7 @@ export const resumeAnalyzerProject = {
       },
       { kind: "output", lines: ["Scored|report"], note: "score out|of 100" },
     ],
+    palette: "ink",
     fallback: { beside: { lines: ["Rule-based|report"], note: "on any AI|failure" } },
   },
 } as const satisfies Project;

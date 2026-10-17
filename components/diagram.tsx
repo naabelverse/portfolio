@@ -26,6 +26,8 @@ export type Diagram = {
   /** An engineering point, not a restatement of the picture. */
   caption: string;
   steps: readonly DiagramStep[];
+  /** `ink` darkens the model box and puts the output on rose, for the rose chapter. */
+  palette?: "ink";
   /**
    * The failure path, in rose-line. With `label` it drops below step `from`
    * and runs back left to its label; with `beside` the last step shares its
@@ -34,13 +36,18 @@ export type Diagram = {
   fallback: { from: number; label: string } | { beside: DiagramStep };
 };
 
-const FILL = { model: "fill-sun", output: "fill-wash-blue" } as const;
+const FILL = {
+  sun: { model: "fill-sun", output: "fill-wash-blue" },
+  ink: { model: "fill-ink", output: "fill-wash-rose" },
+} as const;
 const STROKE = "stroke-ink stroke-[2.5]";
 const FAIL = "fill-none stroke-rose-line stroke-[2.5] [stroke-dasharray:7_6]";
 const FAIL_BOX = "fill-white stroke-rose-line stroke-[2.5] [stroke-dasharray:7_6]";
 const SPLIT_GAP = 12;
 const TITLE = "fill-ink text-[14px] font-semibold";
 const NOTE = "fill-ink-2 text-[12.5px]";
+const TITLE_ON_INK = "fill-white text-[14px] font-semibold";
+const NOTE_ON_INK = "fill-line-2 text-[12.5px]";
 
 // Vertical rhythm, in viewBox units.
 const PAD_TOP = 28;
@@ -58,8 +65,9 @@ function DiagramSvg({ diagram, width, wide }: { diagram: Diagram; width: number;
   const parts: React.ReactNode[] = [];
   let y = 6;
 
-  // One step's text, set from `x` with its first baseline below `top`.
+  // One step's text, centred on `x` with its first baseline below `top`.
   const block = (step: DiagramStep, key: string, x: number, top: number) => {
+    const dark = diagram.palette === "ink" && step.kind === "model";
     // `wrap` marks the second line of a broken label: it sits tighter than
     // the next statement, so one wrapped statement doesn't read as two.
     const rows = [
@@ -70,7 +78,9 @@ function DiagramSvg({ diagram, width, wide }: { diagram: Diagram; width: number;
     const texts = rows.map((row, r) => {
       baseline += r === 0 ? TITLE_STEP : row.wrap ? WRAP_STEP : row.note ? NOTE_STEP : TITLE_STEP;
       return (
-        <text key={`t${key}-${r}`} x={x} y={baseline} className={row.note ? NOTE : TITLE}>
+        <text key={`t${key}-${r}`} x={x} y={baseline} textAnchor="middle"
+          className={row.note ? (dark ? NOTE_ON_INK : NOTE) : dark ? TITLE_ON_INK : TITLE}
+        >
           {row.text}
         </text>
       );
@@ -80,7 +90,7 @@ function DiagramSvg({ diagram, width, wide }: { diagram: Diagram; width: number;
 
   diagram.steps.forEach((step, i) => {
     const top = y;
-    const fill = step.kind ? FILL[step.kind] : "fill-white";
+    const fill = step.kind ? FILL[diagram.palette ?? "sun"][step.kind] : "fill-white";
     const half = (width - 8 - SPLIT_GAP) / 2;
     const cols =
       "beside" in fallback && i === diagram.steps.length - 1
@@ -89,7 +99,7 @@ function DiagramSvg({ diagram, width, wide }: { diagram: Diagram; width: number;
             { step: fallback.beside, x: 4 + half + SPLIT_GAP, w: half, box: FAIL_BOX, fail: true },
           ]
         : [{ step, x: 4, w: width - 8, box: `${fill} ${STROKE}`, fail: false }];
-    const laid = cols.map((col, k) => ({ ...col, ...block(col.step, `${i}-${k}`, col.x + TEXT_X - 4, top) }));
+    const laid = cols.map((col, k) => ({ ...col, ...block(col.step, `${i}-${k}`, col.x + col.w / 2, top) }));
     const bottom = Math.max(...laid.map((col) => col.bottom));
     boxes.push({ top, bottom });
 
