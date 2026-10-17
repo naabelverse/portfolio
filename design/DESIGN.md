@@ -166,9 +166,18 @@ one is paper. `CaseStudy` in `components/case-study.tsx` derives this from
 position with one CSS rule, so no section sets its own tone and adding or
 reordering sections needs no tone changes.
 
-- **Edges.** The header fades to paper across its bottom padding: it is the
-  entrance from the home card. Every boundary after it is a hard edge. Seven
-  fades in a row would erase the alternation, which is the point.
+- **Edges.** Every boundary fades, as the header does and as the home chapters
+  blend. Each section but the last fades into the next one's colour across its
+  own bottom padding: a washed section fades to paper, a paper section fades
+  into the wash. The fade ends where the next section begins, so the next
+  heading keeps its full top padding clear of it (115px at 1280, 72px at 390).
+  The last section doesn't fade, because the footer follows.
+- **Don't fade both edges inside the wash.** An earlier variant faded each
+  washed section's top and bottom over 160px inside the section itself. It
+  shrank every band and blurred where it began and ended, so seven boundaries
+  read as mush and the alternation was lost. One fade per boundary, in the
+  padding of the section above, leaves each band solid from its heading to its
+  last block.
 - **Padding.** Every boundary is a colour change, so every section keeps its
   full `py-section`. Don't add `pt-0` to a case study section; it only made
   sense when neighbours shared a ground. The first section is the exception,

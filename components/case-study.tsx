@@ -21,7 +21,10 @@ export function CaseStudy({ tone, children }: { tone: Tone; children: React.Reac
   return (
     <div
       style={{ "--wash": `var(--color-wash-${tone})` } as React.CSSProperties}
-      className="[&>section:first-of-type]:pt-0 [&>section:nth-of-type(even)]:bg-(--wash) [&>section:nth-of-type(even)]:[--chip-bg:var(--color-white)]"
+      // Each section but the last fades into the next one's colour across its
+      // bottom padding, as the header does, so the next heading keeps its full
+      // top padding clear of the fade.
+      className="[&>section:first-of-type]:pt-0 [&>section:nth-of-type(even)]:bg-(--wash) [&>section:nth-of-type(even)]:[--chip-bg:var(--color-white)] [&>section:nth-of-type(even)]:[--fade-to:var(--color-paper)] [&>section:nth-of-type(odd)]:[--fade-to:var(--wash)] [&>section:not(:last-of-type)]:bg-[linear-gradient(to_bottom,transparent_calc(100%_-_var(--spacing-section)),var(--fade-to))]"
     >
       {children}
     </div>
