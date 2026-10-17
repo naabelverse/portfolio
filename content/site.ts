@@ -185,11 +185,11 @@ export const resumeAnalyzerProject = {
   live: links.resumeAnalyzerLive,
   diagram: {
     label:
-      "Diagram: a resume is extracted in memory, rated by a model against a schema, validated and scored in code. Invalid output retries once, then rules take over.",
+      "Diagram: a resume is extracted in memory, rated by a model against a schema, then validated and scored in code. Invalid output gets one retry, and any AI failure returns a rule-based report instead.",
     caption:
       "The model proposes. It does not decide the number, and it does not decide whether you get a page.",
     steps: [
-      { lines: ["PDF or DOCX,|extracted in memory"] },
+      { lines: ["PDF or DOCX,|extracted in memory"], note: "never written to disk" },
       {
         kind: "model",
         lines: ["Model rates six|weighted dimensions"],
@@ -197,11 +197,11 @@ export const resumeAnalyzerProject = {
       },
       {
         lines: ["Zod validates,|code computes the score"],
-        note: "the model never decides|the number",
+        note: "invalid output gets one retry",
       },
-      { kind: "output", lines: ["A report, every single time"] },
+      { kind: "output", lines: ["Scored|report"], note: "score out|of 100" },
     ],
-    fallback: { from: 2, to: 3 },
+    fallback: { beside: { lines: ["Rule-based|report"], note: "on any AI|failure" } },
   },
 } as const satisfies Project;
 
