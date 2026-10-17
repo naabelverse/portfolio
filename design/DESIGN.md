@@ -77,8 +77,8 @@ Project action
   --color-violet-deep     #6431F5    its hover
   --color-tangerine       #FF8A3D    "Read the case study" only (ink text 7.9:1)
   --color-tangerine-deep  #FF7414    its hover
-  --color-lime            #B4E34A    "View the sample report" only (ink text 12.4:1)
-  --color-lime-deep       #9FD12F    its hover
+  --color-lavender        #D9C8FF    "View the sample report" only (ink text 12.1:1)
+  --color-lavender-deep   #C8B1FF    its hover
 
 Live
   --color-live         #16A34A    the live badge's status dot only (3.3:1 on white)
@@ -110,7 +110,7 @@ wash-blue, clearing the 3:1 bar for graphics with margin.
   the "Get in touch" button on cobalt.
 - **Violet** is only "Try it yourself" and **tangerine** is only "Read the
   case study", so each project button has the same colour in every chapter.
-  **Lime** is only "View the sample report" on the analyzer case study.
+  **Lavender** is only "View the sample report" on the analyzer case study.
   Other project actions are white. Chapters link no repo; "View source" lives
   on the case study pages only.
   Sun and cobalt there fought the washes, so neither is reused for these.
