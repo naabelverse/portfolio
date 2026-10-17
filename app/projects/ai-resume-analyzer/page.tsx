@@ -229,7 +229,7 @@ export default function ResumeAnalyzerCaseStudy() {
             <Button variant="violet" href={links.resumeAnalyzerLive}>
               Try it yourself
             </Button>
-            <Button variant="seafoam" href="/#contact">
+            <Button href="/#contact">
               Get in touch
             </Button>
           </>
