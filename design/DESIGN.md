@@ -205,7 +205,7 @@ reordering sections needs no tone changes.
   position.
 - **The Close block lands where the count puts it.** It is on paper on
   ForgeRoom (seven sections) and on the wash on the Resume Analyzer (eight).
-  This is expected, not a bug: the white sticker block works on either ground, and
+  This is expected, not a bug: the white block works on either ground, and
   forcing a match would mean leaving it out of the count, which is the hand
   placement this rule removed.
 

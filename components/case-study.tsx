@@ -237,11 +237,15 @@ export function Reflection({ items, diff }: { items: readonly string[]; diff: { 
   );
 }
 
-/** Closing block: a white sticker, ink border and hard shadow like the buttons in it. */
+/** Closing block: white with an ink border that a small train runs along. */
 export function CaseClose({ body, actions }: { body: string; actions: React.ReactNode }) {
   return (
     <Section>
-      <div className="rounded-block border-3 border-ink bg-white p-[clamp(28px,5vw,60px)] shadow-[6px_6px_0_var(--color-ink)] lg:grid lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:gap-16">
+      <div className="relative rounded-block border-3 border-ink bg-white p-[clamp(28px,5vw,60px)] lg:grid lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:gap-16">
+        {/* Decorative, wide screens only: the train crosses the top border. */}
+        <div aria-hidden="true" className="close-train hidden lg:block">
+          <ShinkansenTrain />
+        </div>
         <div>
           <h2>Want the full walkthrough?</h2>
           <p className="mt-4 max-w-lede text-lede text-ink-2">{body}</p>
@@ -249,6 +253,42 @@ export function CaseClose({ body, actions }: { body: string; actions: React.Reac
         <div className="mt-8 flex flex-wrap gap-3 lg:mt-0 lg:flex-col">{actions}</div>
       </div>
     </Section>
+  );
+}
+
+/**
+ * Four-car Shinkansen in the site's sticker style: white body, ink outline,
+ * a cobalt stripe and a window line. Pointed noses at both ends, the lead
+ * car on the right since it runs left to right.
+ */
+function ShinkansenTrain() {
+  const ink = "var(--color-ink)";
+  const cars = [
+    // Tail: nose points left.
+    "M2 21 Q3 9 28 6 H64 V21 Z",
+    "M68 6 H130 V21 H68 Z",
+    "M134 6 H196 V21 H134 Z",
+    // Lead: nose points right.
+    "M200 6 H236 Q261 9 262 21 H200 Z",
+  ];
+  return (
+    <svg className="close-train-cars" viewBox="0 0 264 26" fill="none" strokeLinejoin="round">
+      {/* Couplers */}
+      <path d="M64 15 H68 M130 15 H134 M196 15 H200" stroke={ink} strokeWidth="2" />
+      {/* Bogies, two per car, sitting on the border */}
+      {[14, 44, 78, 112, 144, 178, 210, 240].map((x) => (
+        <rect key={x} x={x} y="20" width="12" height="5" rx="2" fill={ink} />
+      ))}
+      {cars.map((d) => (
+        <path key={d} d={d} fill="var(--color-white)" stroke={ink} strokeWidth="2" />
+      ))}
+      {/* Cobalt stripe along the lower body, stopping short of each nose */}
+      <path d="M12 16.5 H64 M68 16.5 H130 M134 16.5 H196 M200 16.5 H252" stroke="var(--color-cobalt)" strokeWidth="3" />
+      {/* Window line on the cars, a cockpit window on each nose */}
+      <path d="M32 11 H60 M72 11 H126 M138 11 H192 M204 11 H232" stroke={ink} strokeWidth="2.5" strokeDasharray="4 3" />
+      <path d="M12 13 Q16 9 24 8.5" stroke={ink} strokeWidth="2.5" strokeLinecap="round" />
+      <path d="M252 13 Q248 9 240 8.5" stroke={ink} strokeWidth="2.5" strokeLinecap="round" />
+    </svg>
   );
 }
 
