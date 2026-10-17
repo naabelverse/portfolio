@@ -40,8 +40,8 @@
   --color-violet-deep: #6431f5;
   --color-tangerine: #ff8a3d; /* "Read the case study" only: ink text 7.9:1 */
   --color-tangerine-deep: #ff7414;
-  --color-aqua: #2ec4b6; /* "View the sample report" only: ink text 8.6:1 */
-  --color-aqua-deep: #1fae9f;
+  --color-lime: #b4e34a; /* "View the sample report" only: ink text 12.4:1 */
+  --color-lime-deep: #9fd12f;
 
   /* Skill cards only — never use it for a chapter wash -------------------- */
   --color-wash-mint: #e3f6ec;
