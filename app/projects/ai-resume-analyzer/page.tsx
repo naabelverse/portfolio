@@ -56,7 +56,7 @@ export default function ResumeAnalyzerCaseStudy() {
         facts={resumeAnalyzer.meta}
         actions={
           <>
-            <Button variant="ink" href={links.resumeAnalyzerLive}>
+            <Button variant="violet" href={links.resumeAnalyzerLive}>
               Try it yourself
             </Button>
             <Button variant="white" href={links.resumeAnalyzerDemo}>
