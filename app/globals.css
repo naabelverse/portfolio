@@ -45,6 +45,9 @@
   --color-seafoam: #9fe7d4; /* "Get in touch" only: ink text 13.1:1 */
   --color-seafoam-deep: #7fdcc4;
 
+  /* "What I'd change" panel only: ink-2 text 6.9:1 ------------------------ */
+  --color-wash-lilac: #efe9ff;
+
   /* Skill cards only — never use it for a chapter wash -------------------- */
   --color-wash-mint: #e3f6ec;
 

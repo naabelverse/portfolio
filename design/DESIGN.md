@@ -66,6 +66,7 @@ Primary
 Energy
   --color-sun          #FFC93D
   --color-wash-sun     #FFF3D4    chapter background
+  --color-wash-lilac   #EFE9FF    "What I'd change" panel only (ink-2 text 6.9:1)
 
 Alert / failure paths
   --color-rose         #FF4F6E    fills only
