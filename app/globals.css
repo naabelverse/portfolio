@@ -487,24 +487,30 @@
   }
 }
 
-/* Case study close train (CaseClose): a four-car Shinkansen crosses the
-   block's top border left to right, bogies on the line, so the border reads
-   as rails. The mask fades it in and out at the rounded corners. Reduced
-   motion: parked at the left. */
+/* Case study close train (CaseClose): a four-car Shinkansen runs left to
+   right on a thin track along the bottom inside the block. The strip is
+   clipped to the block's inner edge (bottom corners rounded to match), so the
+   train slides in from behind the left border and out behind the right one,
+   like a train seen through a window. It sits in the block's bottom padding,
+   clear of the text. Reduced motion: parked mid-block. */
 .close-train {
   position: absolute;
-  inset-inline: 20px;
-  top: -36px;
-  height: 40px;
+  inset-inline: 0;
+  bottom: 0;
+  height: 44px;
   overflow: hidden;
+  border-radius: 0 0 calc(var(--radius-block) - 3px) calc(var(--radius-block) - 3px);
   pointer-events: none;
-  mask-image: linear-gradient(90deg, transparent, #000 40px, #000 calc(100% - 40px), transparent);
+  /* Railway, side on: the rail, with a row of sleepers under it. */
+  background:
+    linear-gradient(var(--color-ink), var(--color-ink)) left bottom 10px / 100% 2px no-repeat,
+    repeating-linear-gradient(90deg, var(--color-ink) 0 8px, transparent 8px 20px) left bottom 5px / 100% 5px no-repeat;
 }
 
 .close-train-cars {
   position: absolute;
-  bottom: 2px;
-  left: 48px;
+  bottom: 11px;
+  left: calc(50% - 132px);
   display: block;
   width: 264px;
   height: 26px;
@@ -516,8 +522,8 @@
   }
 }
 
-/* A 6s pass (~220px/s across a 1440px layout) then a 3s pause off-screen,
-   so it reads as a train going by rather than circling. */
+/* A 6s pass across the block (~220px/s at 1440px) then a 3s pause out of
+   sight. */
 @keyframes close-ride {
   0% {
     left: -270px;
