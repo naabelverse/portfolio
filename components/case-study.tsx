@@ -226,10 +226,12 @@ export function Reflection({ items }: { items: readonly string[] }) {
 export function CaseClose({ body, actions }: { body: string; actions: React.ReactNode }) {
   return (
     <Section>
-      <div className="rounded-block bg-cobalt p-[clamp(28px,5vw,60px)] text-white">
-        <h2>Want the full walkthrough?</h2>
-        <p className="mt-4 max-w-lede text-lede text-white/85">{body}</p>
-        <div className="mt-8 flex flex-wrap gap-3">{actions}</div>
+      <div className="rounded-block bg-cobalt p-[clamp(28px,5vw,60px)] text-white lg:grid lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:gap-16">
+        <div>
+          <h2>Want the full walkthrough?</h2>
+          <p className="mt-4 max-w-lede text-lede text-white/85">{body}</p>
+        </div>
+        <div className="mt-8 flex flex-wrap gap-3 lg:mt-0 lg:flex-col">{actions}</div>
       </div>
     </Section>
   );
