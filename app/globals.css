@@ -66,7 +66,7 @@
   --container-lede: 58ch;
   --container-tagline: 52ch;
   --spacing-gutter: clamp(20px, 5vw, 52px);
-  --spacing-section: clamp(72px, 9vw, 118px);
+  --spacing-section: clamp(48px, 6vw, 80px);
 
   /* The prototype's two breakpoints, as min-width: md is past 720px (nav and
      rows go two-column), lg is past 980px (splits and hero go two-column). */
@@ -85,6 +85,22 @@
 
   --text-small: 15px;
   --text-small--line-height: 1.55;
+}
+
+/* Fades the bottom --fade-len of a block into --fade-to. The stops follow an
+   ease-in-out curve, so neither end of the fade shows as a band the way a
+   straight two-stop gradient does. */
+@utility fade-bottom {
+  --l: var(--fade-len, var(--spacing-section));
+  background-image: linear-gradient(
+    to bottom,
+    transparent calc(100% - var(--l)),
+    color-mix(in oklab, var(--fade-to) 10%, transparent) calc(100% - var(--l) * 0.8),
+    color-mix(in oklab, var(--fade-to) 35%, transparent) calc(100% - var(--l) * 0.6),
+    color-mix(in oklab, var(--fade-to) 65%, transparent) calc(100% - var(--l) * 0.4),
+    color-mix(in oklab, var(--fade-to) 90%, transparent) calc(100% - var(--l) * 0.2),
+    var(--fade-to)
+  );
 }
 
 /* ---------------------------------------------------------------------------
