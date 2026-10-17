@@ -237,12 +237,12 @@ export function Reflection({ items, diff }: { items: readonly string[]; diff: { 
   );
 }
 
-/** Closing block: white with an ink border that a small train runs along. */
+/** Closing block: white with an ink border, a small train running along its bottom. */
 export function CaseClose({ body, actions }: { body: string; actions: React.ReactNode }) {
   return (
     <Section>
       <div className="relative rounded-block border-3 border-ink bg-white p-[clamp(28px,5vw,60px)] lg:grid lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:gap-16">
-        {/* Decorative, wide screens only: the train crosses the top border. */}
+        {/* Decorative, wide screens only: the train runs along the bottom inside. */}
         <div aria-hidden="true" className="close-train hidden lg:block">
           <ShinkansenTrain />
         </div>
