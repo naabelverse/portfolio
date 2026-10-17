@@ -216,7 +216,7 @@ export default function ResumeAnalyzerCaseStudy() {
                 </tbody>
               </table>
             </div>
-            <p className="mt-4 max-w-measure font-medium">{evaluation.result}</p>
+            <p className="mx-auto mt-4 max-w-measure text-center font-medium">{evaluation.result}</p>
           </div>
         </div>
       </Section>
