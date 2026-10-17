@@ -403,4 +403,6 @@ export const resumeAnalyzer = {
     "What I'd leave alone: the rate limiter is in memory, per instance. That is fine for the single Railway instance the app runs on, and a shared store such as Redis would break the goal of running on a fresh clone with no infrastructure.",
     "What surprised me: constrained decoding guarantees shape, not quality. And one “the model ignores this” turned out to be two contradictory instructions.",
   ],
+  // The first reflection as a one-line code edit, animated under the heading.
+  reflectionDiff: { from: "score = model()", to: "score = compute()" },
 } as const;

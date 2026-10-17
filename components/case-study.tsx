@@ -205,11 +205,26 @@ export function DecisionGrid({ decisions }: { decisions: ReadonlyArray<{ title: 
   );
 }
 
-export function Reflection({ items }: { items: readonly string[] }) {
+export function Reflection({ items, diff }: { items: readonly string[]; diff: { from: string; to: string } }) {
   return (
     <Section labelledBy="reflection-title">
       <div className="rounded-panel border-3 border-ink bg-wash-sun p-[clamp(24px,4vw,48px)] lg:grid lg:grid-cols-[1fr_2fr] lg:items-start lg:gap-12">
-        <h2 id="reflection-title">What I&rsquo;d change</h2>
+        <div>
+          <h2 id="reflection-title">What I&rsquo;d change</h2>
+          {/* Decorative: the first item already says it in words. */}
+          <div
+            aria-hidden="true"
+            className="mt-8 hidden w-fit max-w-full rounded-card border-2 border-ink bg-white px-4 py-3 font-mono text-[14px] leading-[1.9] shadow-[4px_4px_0_var(--color-ink)] lg:block"
+          >
+            <p className="diff-old w-fit whitespace-nowrap text-ink-3">- {diff.from}</p>
+            <p
+              className="diff-new whitespace-nowrap text-cobalt"
+              style={{ "--chars": diff.to.length + 2 } as React.CSSProperties}
+            >
+              + {diff.to}
+            </p>
+          </div>
+        </div>
         <ul className="mt-6 grid list-disc gap-4 pl-5 marker:text-cobalt lg:mt-0">
           {items.map((item) => (
             <li key={item} className="max-w-measure text-ink-2">
