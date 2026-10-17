@@ -168,7 +168,7 @@ export default function ResumeAnalyzerCaseStudy() {
 
       <Section labelledBy="evaluation-title">
         <SectionIntro id="evaluation-title" title={evaluation.title} lede={evaluation.lede} />
-        <div className="mt-11 grid gap-8">
+        <div className="mt-11 grid gap-8 lg:grid-cols-2 lg:items-start lg:gap-12">
           <div className="grid gap-4">
             {evaluation.paragraphs.map((paragraph) => (
               <p key={paragraph} className="max-w-measure text-ink-2">
@@ -204,7 +204,7 @@ export default function ResumeAnalyzerCaseStudy() {
                 <tbody>
                   {evaluation.rows.map((row) => (
                     <tr key={`${row.profession}-${row.level}`} className="border-t border-line">
-                      <th scope="row" className="px-2 py-2.5 pl-3 font-medium md:px-4">
+                      <th scope="row" className="px-2 py-2.5 pl-3 font-medium md:px-4 lg:whitespace-nowrap">
                         {row.profession}
                       </th>
                       <td className="px-2 py-2.5 text-ink-2 md:px-4">{row.level}</td>

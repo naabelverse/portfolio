@@ -376,7 +376,7 @@ export const resumeAnalyzer = {
     paragraphs: [
       "The eval set is four professions (backend developer, nurse, junior designer and accountant) at three strength levels, each resume scored against a job description in its own field. A strong resume should land between 80 and 100, a middling one between 55 and 70, and a weak one between 0 and 44.",
       "Each resume is scored three times and the mean is checked against its band. One run was not enough: on identical text, one dimension swung by about four points of overall score between runs, and a single-run suite failed on noise. Getting to green also meant fixing three of my own fixtures rather than the model: two strong resumes counted volume instead of outcomes, and one middling resume lacked the job's hard requirements.",
-      "The run below is from 15 October 2026, on Nemotron only. It has not been run against Claude. It is also not part of CI, because its 36 live calls spend API credits. The 559 offline tests are part of CI: GitHub Actions runs lint, the tests and a build on every pull request and push to main, CodeQL scans the code, and Dependabot proposes dependency updates.",
+      "The run in the table is from 15 October 2026, on Nemotron only. It has not been run against Claude. It is also not part of CI, because its 36 live calls spend API credits. The 559 offline tests are part of CI: GitHub Actions runs lint, the tests and a build on every pull request and push to main, CodeQL scans the code, and Dependabot proposes dependency updates.",
     ],
     caption: "Eval run, 15 October 2026, Nemotron. Mean of three runs per resume.",
     result:
