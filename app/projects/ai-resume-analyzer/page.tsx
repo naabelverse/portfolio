@@ -227,7 +227,7 @@ export default function ResumeAnalyzerCaseStudy() {
         body="The app is live and the sample report costs nothing to open. I'm happy to talk through any part of it, including the parts I'd build differently now."
         actions={
           <>
-            <Button variant="sun" href={links.resumeAnalyzerLive}>
+            <Button variant="violet" href={links.resumeAnalyzerLive}>
               Try it yourself
             </Button>
             <Button variant="ghost" href="/#contact" className={ON_COBALT}>
