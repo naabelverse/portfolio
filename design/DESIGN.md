@@ -108,7 +108,8 @@ wash-blue, clearing the 3:1 bar for graphics with margin.
   the "Get in touch" button on cobalt.
 - **Violet** is only "Try it yourself" and **tangerine** is only "Read the
   case study", so each project button has the same colour in every chapter.
-  Other project actions are white, and "View source" in a chapter is ghost.
+  Other project actions are white. Chapters link no repo; "View source" lives
+  on the case study pages only.
   Sun and cobalt there fought the washes, so neither is reused for these.
 - **Rose** means *the failure path*. It is the dashed line in both diagrams.
   It used to fill the live badge, but red reads as an error, so "live" moved

@@ -97,7 +97,6 @@ export type Project = {
   outcome: string;
   stack: readonly StackGroup[];
   href: string;
-  repo: string;
   /** A deployed URL. Its presence makes the badge `live` and adds "Try it yourself". */
   live?: string;
   diagram: Diagram;
@@ -132,7 +131,6 @@ export const featuredProject = {
     ["AI", ["GPT-4o vision", "Claude"]],
   ],
   href: "/projects/forgeroom",
-  repo: links.forgeroomRepo,
   diagram: {
     label:
       "Diagram: photo, description and dimensions go into a vision model and an LLM, producing a layout, palette and furniture list. If the catalogue is unreachable, cached samples are used.",
@@ -181,7 +179,6 @@ export const resumeAnalyzerProject = {
     ["Tests & CI", ["Vitest", "GitHub Actions"]],
   ],
   href: "/projects/ai-resume-analyzer",
-  repo: links.resumeAnalyzerRepo,
   live: links.resumeAnalyzerLive,
   diagram: {
     label:

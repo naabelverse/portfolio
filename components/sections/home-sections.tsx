@@ -365,9 +365,6 @@ function ProjectChapter({
             <Button variant="tangerine" href={project.href}>
               Read the case study
             </Button>
-            <Button variant="ghost" href={project.repo}>
-              View source
-            </Button>
           </div>
         </div>
 
