@@ -354,7 +354,7 @@ function ProjectChapter({
             </div>
           ))}
 
-          <StackList items={project.stack} className="mt-7" />
+          <StackList groups={project.stack} className="mt-7" />
 
           <div className="mt-7 flex flex-wrap gap-3">
             {project.live && (
@@ -490,7 +490,7 @@ export function Timeline({ className }: { className?: string }) {
           {entry.description && (
             <p className="mt-2.5 max-w-measure text-[16.5px] text-ink-2">{entry.description}</p>
           )}
-          {entry.stack && entry.stack.length > 0 && <StackList items={entry.stack} className="mt-3" />}
+          {entry.stack && entry.stack.length > 0 && <StackList groups={entry.stack} className="mt-3" />}
           {entry.result && <p className="mt-2 text-[15.5px] font-semibold">{entry.result}</p>}
           {entry.link && (
             <a

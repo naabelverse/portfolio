@@ -9,6 +9,8 @@
  * be read out of the code, it is marked TODO(nabil).
  */
 
+import type { StackGroup } from "@/components/ui/primitives";
+
 export const forgeroom = {
   name: "ForgeRoom",
   tagline:
@@ -16,16 +18,10 @@ export const forgeroom = {
 
   /** The full stack. The home chapter keeps its own shorter list in site.ts. */
   stack: [
-    "Flutter",
-    "Dart",
-    "Provider",
-    "Node.js",
-    "Express",
-    "MongoDB Atlas",
-    "JWT",
-    "GPT-4o vision",
-    "Claude",
-  ],
+    ["Mobile", ["Flutter", "Dart", "Provider"]],
+    ["Backend", ["Node.js", "Express", "MongoDB Atlas", "JWT"]],
+    ["AI", ["GPT-4o vision", "Claude"]],
+  ] satisfies readonly StackGroup[],
 
   meta: [
     {

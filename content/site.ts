@@ -7,7 +7,7 @@
  */
 
 import type { Diagram } from "@/components/diagram";
-import type { Tone } from "@/components/ui/primitives";
+import type { StackGroup, Tone } from "@/components/ui/primitives";
 
 export const profile = {
   fullName: "Muhammad Nabil Bin Mohd Nizam",
@@ -95,7 +95,7 @@ export type Project = {
   approach: string;
   careful: string;
   outcome: string;
-  stack: readonly string[];
+  stack: readonly StackGroup[];
   href: string;
   repo: string;
   /** A deployed URL. Its presence makes the badge `live` and adds "Try it yourself". */
@@ -127,15 +127,9 @@ export const featuredProject = {
   outcome:
     "A working Android app on a live API, built as five modules against the objectives I set in Chapter 1 of my PSM.",
   stack: [
-    "Flutter",
-    "Dart",
-    "Provider",
-    "Node.js",
-    "Express",
-    "MongoDB Atlas",
-    "JWT",
-    "GPT-4o vision",
-    "Claude",
+    ["Mobile", ["Flutter", "Dart", "Provider"]],
+    ["Backend", ["Node.js", "Express", "MongoDB Atlas", "JWT"]],
+    ["AI", ["GPT-4o vision", "Claude"]],
   ],
   href: "/projects/forgeroom",
   repo: links.forgeroomRepo,
@@ -182,16 +176,9 @@ export const resumeAnalyzerProject = {
   outcome:
     "Deployed and running. 559 tests pass in CI on every push to main, and all 12 resumes in the eval set land in their expected score band.",
   stack: [
-    "Next.js",
-    "React",
-    "TypeScript",
-    "Tailwind",
-    "shadcn/ui",
-    "NVIDIA Nemotron",
-    "Anthropic Claude",
-    "Zod",
-    "Vitest",
-    "GitHub Actions",
+    ["Full stack", ["Next.js", "React", "TypeScript", "Tailwind", "shadcn/ui"]],
+    ["AI", ["NVIDIA Nemotron", "Anthropic Claude", "Zod"]],
+    ["Tests & CI", ["Vitest", "GitHub Actions"]],
   ],
   href: "/projects/ai-resume-analyzer",
   repo: links.resumeAnalyzerRepo,
@@ -270,7 +257,7 @@ type TimelineEntry = {
   org: string;
   description: string;
   /** For a project with no chapter of its own. Optional; empty renders nothing. */
-  stack?: readonly string[];
+  stack?: readonly StackGroup[];
   /** e.g. "Finalist". Optional; empty renders nothing. */
   result?: string;
   /** Repo or demo URL. Optional; empty renders nothing. */

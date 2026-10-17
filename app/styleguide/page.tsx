@@ -13,6 +13,7 @@ import {
   Section,
   StackList,
   StatStrip,
+  type StackGroup,
 } from "@/components/ui/primitives";
 import { featuredProject, resumeAnalyzerProject } from "@/content/site";
 
@@ -50,7 +51,11 @@ const STATS = [
   { label: "Looking for", value: "An internship in Malaysia" },
 ];
 
-const STACK = ["Flutter", "Dart", "Node.js", "MongoDB Atlas", "Claude"];
+const STACK: readonly StackGroup[] = [
+  ["Mobile", ["Flutter", "Dart"]],
+  ["Backend", ["Node.js", "MongoDB Atlas"]],
+  ["AI", ["Claude"]],
+];
 
 function Label({ children }: { children: React.ReactNode }) {
   return <p className="mt-12 mb-4 text-small text-ink-3">{children}</p>;
@@ -69,10 +74,10 @@ function ChapterDemo({ tone, live }: { tone: "blue" | "rose"; live?: boolean }) 
         <div>
           <h4 className="mb-1.5 font-semibold">The problem</h4>
           <p className="max-w-measure text-ink-2">
-            Prose column. The stack below is plain ink-2 text, so it needs no
+            Prose column. The stack below is a ruled spec sheet, so it needs no
             variant for the wash it sits on.
           </p>
-          <StackList items={STACK} className="mt-7" />
+          <StackList groups={STACK} className="mt-7" />
           <div className="mt-7 flex flex-wrap gap-3">
             <Button href="/styleguide">Read the case study</Button>
             {live && <Button variant="sun" href="https://example.com">Try it yourself</Button>}
@@ -146,7 +151,7 @@ export default function StyleguidePage() {
         </div>
 
         <Label>Stack list on paper</Label>
-        <StackList items={STACK} />
+        <StackList groups={STACK} />
 
         <Label>Cards: none, blue, sun, rose</Label>
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
@@ -154,7 +159,7 @@ export default function StyleguidePage() {
             <Card key={tone ?? "none"} tone={tone}>
               <h3>{tone ?? "No tone"}</h3>
               <p className="mt-1.5 mb-3.5 text-small text-ink-2">Strongest first.</p>
-              <StackList items={STACK.slice(0, 3)} />
+              <StackList groups={STACK.slice(0, 2)} />
             </Card>
           ))}
         </div>

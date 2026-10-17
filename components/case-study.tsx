@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 import { DiagramFigure, type Diagram } from "@/components/diagram";
-import { Badge, Card, Container, Section, SectionIntro, StackList, StatStrip, type Tone } from "@/components/ui/primitives";
+import { Badge, Card, Container, Section, SectionIntro, StackList, StatStrip, type StackGroup, type Tone } from "@/components/ui/primitives";
 
 /*
  * Building blocks shared by both case studies. Each page composes them in
@@ -82,7 +82,7 @@ export function ProblemSection({
   title: string;
   paragraphs: readonly string[];
   goal: string;
-  stack: readonly string[];
+  stack: readonly StackGroup[];
   stats: readonly Fact[];
 }) {
   return (
@@ -99,7 +99,7 @@ export function ProblemSection({
         <Card>
           <h3>The goal</h3>
           <p className="mt-3">{goal}</p>
-          <StackList items={stack} className="mt-5 border-t-2 border-line pt-5" />
+          <StackList groups={stack} className="mt-6" />
         </Card>
       </div>
       <StatStrip items={stats} className="mt-[clamp(44px,6vw,72px)]" />

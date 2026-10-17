@@ -10,6 +10,8 @@
  * its means are averages of three runs, as the section says.
  */
 
+import type { StackGroup } from "@/components/ui/primitives";
+
 const SCREENSHOTS = "/projects/ai-resume-analyzer";
 
 export type Screenshot = {
@@ -53,20 +55,12 @@ export const resumeAnalyzer = {
 
   /** The full stack. The home chapter keeps its own shorter list in site.ts. */
   stack: [
-    "Next.js",
-    "React",
-    "TypeScript",
-    "Tailwind CSS",
-    "shadcn/ui",
-    "NVIDIA NIM (Nemotron)",
-    "Anthropic Claude API",
-    "Zod",
-    "unpdf",
-    "mammoth",
-    "Vitest",
-    "GitHub Actions",
-    "Railway",
-  ],
+    ["Full stack", ["Next.js", "React", "TypeScript", "Tailwind CSS", "shadcn/ui"]],
+    ["AI", ["NVIDIA NIM (Nemotron)", "Anthropic Claude API", "Zod"]],
+    ["Parsing", ["unpdf", "mammoth"]],
+    ["Tests & CI", ["Vitest", "GitHub Actions"]],
+    ["Hosting", ["Railway"]],
+  ] satisfies readonly StackGroup[],
 
   meta: [
     {

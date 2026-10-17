@@ -225,10 +225,21 @@ and public". There are one or two, and they should stand out: a white pill,
 A **stack** (`StackList`) is the technologies a project uses. There can be
 ten or more, and they are supporting detail: someone can scan them if they
 want, or skip them without feeling they missed something. So they are set as
-plain text, 15px medium `ink-2`, with 20px between items and nothing around
-them. The gap is what separates multi-word items like "Anthropic Claude", so
-don't tighten it. The home chapters, the case study Problem cards and the
-experience timeline all use it.
+a spec sheet: one row per role ("Full stack", "AI", "Tests & CI"), the role in 15px
+semibold `ink` on the left, its technologies as a comma-separated phrase in
+`ink-2` on the right, and 1px hairlines in ink at 15% above, between and below
+the rows. The home chapters, the case study Problem cards and the experience
+timeline all use it.
+
+The data is grouped to match: `stack` is a list of `StackGroup`s,
+`[role, technologies]`, in `content/`. The roles are a content decision, not
+a style one. Keep them short (the label column is 5.5rem) and few; three to
+five rows is the range that reads as a sheet rather than a table.
+
+Plain text read as another paragraph, a "Built with" label looked like nothing
+had changed, and a mono terminal line was rejected. The spec sheet is one
+ruled block rather than a shape per item, so it can't be mistaken for a badge,
+and the role labels say what kind of information it is.
 
 There used to be a `Chip`, first an ink-bordered pill, then a tinted tag. Eleven
 of either formed a block that sat above the chapter's buttons, competed with
@@ -236,17 +247,18 @@ them, and lost. Any shape around each item brings that back. Don't add
 one, and don't reintroduce a chip for a new place: if it is a list of
 technologies, it is a `StackList`.
 
-Because the list has no shape at all, it stays distinct from a badge in
-greyscale and in print, not only by colour. Because it has no fill, it needs no
-variant for the ground it sits on. `ink-2` on each ground:
+Because the sheet is ruled rows, not pills, it stays distinct from a badge in
+greyscale and in print, not only by colour. Because it has no fill and its
+rules are translucent ink, it needs no variant for the ground it sits on.
+Contrast on each ground:
 
-| Ground | Contrast |
-| --- | --- |
-| paper | 7.83:1 |
-| white | 8.19:1 |
-| wash-blue | 6.90:1 |
-| wash-rose | 6.97:1 |
-| wash-sun | 7.42:1 |
+| Ground | Technologies, `ink-2` | Role, `ink` |
+| --- | --- | --- |
+| paper | 7.83:1 | 17.77:1 |
+| white | 8.19:1 | 18.58:1 |
+| wash-blue | 6.90:1 | 15.65:1 |
+| wash-rose | 6.97:1 | 15.82:1 |
+| wash-sun | 7.42:1 | 16.83:1 |
 
 It is deliberately `ink-2`, not `ink-3`: `ink-3` is muted enough but clears
 wash-blue by 0.01, the pairing that fails first if a wash is darkened.
