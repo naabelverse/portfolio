@@ -59,7 +59,7 @@ export default function ResumeAnalyzerCaseStudy() {
             <Button variant="violet" href={links.resumeAnalyzerLive}>
               Try it yourself
             </Button>
-            <Button variant="white" href={links.resumeAnalyzerDemo}>
+            <Button variant="aqua" href={links.resumeAnalyzerDemo}>
               View the sample report
             </Button>
             <Button variant="ghost" href={links.resumeAnalyzerRepo}>

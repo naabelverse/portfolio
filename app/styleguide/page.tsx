@@ -42,6 +42,8 @@ const COLOURS = [
   { name: "violet-deep", hex: "#6431F5", className: "bg-violet-deep" },
   { name: "tangerine", hex: "#FF8A3D", className: "bg-tangerine", note: "\"Read the case study\" only, ink text 7.9:1" },
   { name: "tangerine-deep", hex: "#FF7414", className: "bg-tangerine-deep" },
+  { name: "aqua", hex: "#2EC4B6", className: "bg-aqua", note: "\"View the sample report\" only, ink text 8.6:1" },
+  { name: "aqua-deep", hex: "#1FAE9F", className: "bg-aqua-deep" },
   { name: "wash-rose", hex: "#FFE7EB", className: "bg-wash-rose" },
   { name: "live", hex: "#16A34A", className: "bg-live", note: "live badge dot only" },
   { name: "line", hex: "#E2E2DC", className: "bg-line" },
