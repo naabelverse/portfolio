@@ -73,8 +73,10 @@ Alert / failure paths
   --color-wash-rose    #FFE7EB    chapter background
 
 Project action
-  --color-violet       #7B4DFF    project lead button only (white text 4.8:1)
-  --color-violet-deep  #6431F5    its hover
+  --color-violet          #7B4DFF    "Try it yourself" only (white text 4.8:1)
+  --color-violet-deep     #6431F5    its hover
+  --color-tangerine       #FF8A3D    "Read the case study" only (ink text 7.9:1)
+  --color-tangerine-deep  #FF7414    its hover
 
 Live
   --color-live         #16A34A    the live badge's status dot only (3.3:1 on white)
@@ -104,11 +106,10 @@ wash-blue, clearing the 3:1 bar for graphics with margin.
   at its foot lead into the work, each with an arrow that nudges right on hover.
 - **Sun** marks the step in each diagram where a model does the work and fills
   the "Get in touch" button on cobalt.
-- **Violet** is only the lead project action. In a chapter and a case study
-  hero, the lead action ("Try it yourself", else "Read the case study") is
-  violet, the second is white, and "View source" is ghost. Sun and cobalt
-  there fought the washes; violet sits between the blue and rose washes and
-  appears nowhere else, so it reads as the project's next step.
+- **Violet** is only "Try it yourself" and **tangerine** is only "Read the
+  case study", so each project button has the same colour in every chapter.
+  Other project actions are white, and "View source" in a chapter is ghost.
+  Sun and cobalt there fought the washes, so neither is reused for these.
 - **Rose** means *the failure path*. It is the dashed line in both diagrams.
   It used to fill the live badge, but red reads as an error, so "live" moved
   to green.

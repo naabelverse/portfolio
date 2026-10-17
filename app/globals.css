@@ -36,8 +36,10 @@
   --color-rose: #ff4f6e;
   --color-rose-line: #e63655; /* strokes only: 4.0:1 on paper, 3.5:1 on wash-blue */
   --color-wash-rose: #ffe7eb;
-  --color-violet: #7b4dff; /* project lead button only: white text 4.8:1 */
+  --color-violet: #7b4dff; /* "Try it yourself" only: white text 4.8:1 */
   --color-violet-deep: #6431f5;
+  --color-tangerine: #ff8a3d; /* "Read the case study" only: ink text 7.9:1 */
+  --color-tangerine-deep: #ff7414;
 
   /* Skill cards only — never use it for a chapter wash -------------------- */
   --color-wash-mint: #e3f6ec;
