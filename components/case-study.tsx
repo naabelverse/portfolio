@@ -208,7 +208,7 @@ export function DecisionGrid({ decisions }: { decisions: ReadonlyArray<{ title: 
 export function Reflection({ items, diff }: { items: readonly string[]; diff: { from: string; to: string } }) {
   return (
     <Section labelledBy="reflection-title">
-      <div className="rounded-panel border-3 border-ink bg-wash-sun p-[clamp(24px,4vw,48px)] lg:grid lg:grid-cols-[1fr_2fr] lg:items-start lg:gap-12">
+      <div className="rounded-panel border-3 border-ink bg-wash-lilac p-[clamp(24px,4vw,48px)] lg:grid lg:grid-cols-[1fr_2fr] lg:items-start lg:gap-12">
         <div>
           <h2 id="reflection-title">What I&rsquo;d change</h2>
           {/* Decorative: the first item already says it in words. */}

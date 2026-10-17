@@ -36,6 +36,7 @@ const COLOURS = [
   { name: "sun", hex: "#FFC93D", className: "bg-sun", note: "background only" },
   { name: "sun-deep", hex: "#FFBB0A", className: "bg-sun-deep" },
   { name: "wash-sun", hex: "#FFF3D4", className: "bg-wash-sun" },
+  { name: "wash-lilac", hex: "#EFE9FF", className: "bg-wash-lilac", note: "\"What I'd change\" panel only" },
   { name: "rose", hex: "#FF4F6E", className: "bg-rose", note: "fills only" },
   { name: "rose-line", hex: "#E63655", className: "bg-rose-line", note: "failure strokes only" },
   { name: "violet", hex: "#7B4DFF", className: "bg-violet", note: "\"Try it yourself\" only" },
