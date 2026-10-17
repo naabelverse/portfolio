@@ -152,7 +152,7 @@ export default function ResumeAnalyzerCaseStudy() {
               <dl className="mt-4 grid gap-3">
                 {CHALLENGE_PARTS.map((part) => (
                   <div key={part.key}>
-                    <dt className="text-small font-semibold text-ink-3">{part.label}</dt>
+                    <dt className="text-small font-semibold text-ink">{part.label}</dt>
                     <dd className="mt-1 max-w-measure text-ink-2">{challenge[part.key]}</dd>
                   </div>
                 ))}
