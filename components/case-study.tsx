@@ -24,7 +24,7 @@ export function CaseStudy({ tone, children }: { tone: Tone; children: React.Reac
       // Each section but the last fades into the next one's colour across its
       // bottom padding, as the header does, so the next heading keeps its full
       // top padding clear of the fade.
-      className="[&>section:first-of-type]:pt-0 [&>section:nth-of-type(even)]:bg-(--wash) [&>section:nth-of-type(even)]:[--fade-to:var(--color-paper)] [&>section:nth-of-type(odd)]:[--fade-to:var(--wash)] [&>section:not(:last-of-type)]:bg-[linear-gradient(to_bottom,transparent_calc(100%_-_var(--spacing-section)),var(--fade-to))]"
+      className="[&>section:first-of-type]:pt-0 [&>section:nth-of-type(even)]:bg-(--wash) [&>section:nth-of-type(even)]:[--fade-to:var(--color-paper)] [&>section:nth-of-type(odd)]:[--fade-to:var(--wash)] [&>section:not(:last-of-type)]:fade-bottom"
     >
       {children}
     </div>
@@ -54,12 +54,8 @@ export function CaseHeader({
   children?: React.ReactNode;
 }) {
   return (
-    <div
-      // The fade length repeats the Container's bottom padding.
-      style={{
-        backgroundImage: `linear-gradient(to bottom, var(--wash) calc(100% - clamp(56px, 7vw, 92px)), var(--color-paper))`,
-      }}
-    >
+    // The fade length repeats the Container's bottom padding.
+    <div className="fade-bottom bg-(--wash) [--fade-len:clamp(56px,7vw,92px)] [--fade-to:var(--color-paper)]">
       <Container className="pt-[clamp(48px,7vw,86px)] pb-[clamp(56px,7vw,92px)]">
         <Badge kind={live ? "live" : "academic"}>{badge}</Badge>
         <h1 className="mt-[18px]">{name}</h1>

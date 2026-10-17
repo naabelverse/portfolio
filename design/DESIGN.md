@@ -184,7 +184,7 @@ reordering sections needs no tone changes.
   blend. Each section but the last fades into the next one's colour across its
   own bottom padding: a washed section fades to paper, a paper section fades
   into the wash. The fade ends where the next section begins, so the next
-  heading keeps its full top padding clear of it (115px at 1280, 72px at 390).
+  heading keeps its full top padding clear of it (77px at 1280, 48px at 390).
   The last section doesn't fade, because the footer follows.
 - **Don't fade both edges inside the wash.** An earlier variant faded each
   washed section's top and bottom over 160px inside the section itself. It
