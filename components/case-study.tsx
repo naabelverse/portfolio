@@ -119,7 +119,7 @@ export function LayerDiagram({ layers }: { layers: ReadonlyArray<{ name: string;
         <li key={layer.name} className="flex flex-col gap-3 lg:flex-1 lg:flex-row">
           <div className="flex-1 rounded-diagram border-[2.5px] border-ink bg-white p-5">
             <p className="font-semibold">{layer.name}</p>
-            <ul className="mt-3 grid gap-1.5 text-small text-ink-2">
+            <ul className="mt-3 grid list-disc gap-1.5 pl-5 text-small text-ink-2 marker:text-cobalt">
               {layer.items.map((item) => (
                 <li key={item}>{item}</li>
               ))}
