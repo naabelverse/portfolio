@@ -214,7 +214,7 @@ export function Reflection({ items, diff }: { items: readonly string[]; diff: { 
           {/* Decorative: the first item already says it in words. */}
           <div
             aria-hidden="true"
-            className="mx-auto mt-8 hidden w-fit max-w-full rounded-card border-2 border-ink bg-white px-4 py-3 text-left font-mono text-[14px] leading-[1.9] shadow-[4px_4px_0_var(--color-ink)] lg:block"
+            className="mx-auto mt-8 hidden w-fit max-w-full rounded-card border-2 border-ink bg-white px-4 py-3 text-left font-mono text-[14px] leading-[1.9] lg:block"
           >
             <p className="diff-old w-fit whitespace-nowrap text-ink-3">- {diff.from}</p>
             <p
