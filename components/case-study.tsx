@@ -104,7 +104,7 @@ export function ProblemSection({
             </p>
           ))}
         </div>
-        <Card>
+        <Card className="bg-white">
           <h3>The goal</h3>
           <p className="mt-3">{goal}</p>
           <StackList groups={stack} className="mt-6" />
