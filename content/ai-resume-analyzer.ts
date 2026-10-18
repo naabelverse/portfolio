@@ -199,13 +199,6 @@ export const resumeAnalyzer = {
       summary: "Duties turned into achievements, without inventing the numbers.",
       detail:
         "Each weak bullet sits beside an improved version and the reason for the change, with one-click copy. Numbers only the candidate knows are left as [X] placeholders to fill in, and if the model writes a new figure anyway, code replaces it with [X] before the report is shown.",
-      example: {
-        before: "Responsible for maintaining the booking service.",
-        after:
-          "Maintained a booking service handling [X] requests/day, cutting p95 latency from [X]ms to [X]ms.",
-        why: "Turns a duty into an outcome, and names the service it happened to.",
-        source: "From the built-in sample report. All values are fictional.",
-      },
       screenshots: [
         {
           src: `${SCREENSHOTS}/08-results-bullet-rewrites-desktop.webp`,
@@ -213,7 +206,7 @@ export const resumeAnalyzer = {
           height: 632,
           alt: "Suggested bullet rewrites card showing three pairs of 'Original' and 'Improved' bullet points with a Copy button and a 'Why' line under each; numbers to be filled in are marked [X].",
           caption:
-            "Weak bullet points side by side with an improved version and the reason for it.",
+            "Weak bullet points side by side with an improved version and the reason for it. From the built-in sample report; all values are fictional.",
         },
       ],
     },
