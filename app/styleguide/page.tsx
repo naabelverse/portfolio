@@ -12,6 +12,7 @@ import {
   RowList,
   Section,
   StackList,
+  StatNumbers,
   StatStrip,
   type StackGroup,
 } from "@/components/ui/primitives";
@@ -173,6 +174,16 @@ export default function StyleguidePage() {
 
         <Label>Stat strip, with one empty value that renders as nothing</Label>
         <StatStrip items={[...STATS, { label: "Unconfirmed", value: "" }]} />
+
+        <Label>Stat numbers (case study problem section)</Label>
+        <StatNumbers
+          items={[
+            { label: "Automated tests", value: "559" },
+            { label: "Scored resume sections", value: "6" },
+            { label: "API routes", value: "6" },
+            { label: "Eval set in band", value: "12/12" },
+          ]}
+        />
 
         <Label>Layer diagram (case studies)</Label>
         <LayerDiagram

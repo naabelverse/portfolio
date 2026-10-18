@@ -268,6 +268,36 @@ export function StatStrip({
   );
 }
 
+/** Numeric stats in the diagram grammar: one white box, a cell per figure. */
+export function StatNumbers({
+  items,
+  className,
+}: {
+  items: readonly { label: string; value: string }[];
+  className?: string;
+}) {
+  return (
+    <dl
+      className={cn(
+        "grid grid-cols-2 overflow-hidden rounded-diagram border-[2.5px] border-ink bg-white lg:grid-cols-4",
+        // Inner rules: 2x2 below lg, one row of four from lg.
+        "max-lg:[&>*:nth-child(even)]:border-l-2 max-lg:[&>*:nth-child(n+3)]:border-t-2 lg:[&>*+*]:border-l-2",
+        className,
+      )}
+    >
+      {items.filter((item) => item.value).map((item) => (
+        // Reversed so the label is read first but the figure sits on top.
+        <div key={item.label} className="flex flex-col-reverse justify-end border-ink px-5 py-[22px] text-center">
+          <dt className="mt-2 text-[15px] text-ink-3">{item.label}</dt>
+          <dd className="font-display text-[clamp(30px,4vw,40px)] leading-none font-bold tracking-[-0.03em]">
+            {item.value}
+          </dd>
+        </div>
+      ))}
+    </dl>
+  );
+}
+
 /* -------------------------------------------------------------------------
    Lists
    ------------------------------------------------------------------------- */
