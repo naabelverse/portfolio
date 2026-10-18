@@ -325,7 +325,7 @@ export function Screenshot({ shot, sizes, preload, className }: { shot: Shot; si
       <div className="overflow-hidden rounded-card border-2 border-ink bg-white">
         <Image src={shot.src} width={shot.width} height={shot.height} alt={shot.alt} sizes={sizes} preload={preload} className="block h-auto w-full" />
       </div>
-      <figcaption className="mt-2.5 text-small text-ink-2">{shot.caption}</figcaption>
+      <figcaption className="mt-2.5 text-center text-small text-ink-2">{shot.caption}</figcaption>
     </figure>
   );
 }

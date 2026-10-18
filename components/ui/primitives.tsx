@@ -203,7 +203,7 @@ export function Panel({
     >
       {children}
       {caption && (
-        <figcaption className="mt-[18px] border-t-2 border-line pt-4 text-[15px]/[1.5] text-ink-2">
+        <figcaption className="mt-[18px] border-t-2 border-line pt-4 text-center text-[15px]/[1.5] text-ink-2">
           {caption}
         </figcaption>
       )}
