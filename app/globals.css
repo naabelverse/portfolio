@@ -129,6 +129,10 @@
     -webkit-font-smoothing: antialiased;
   }
 
+  /* No one-word last lines. */
+  p {
+    text-wrap: pretty;
+  }
   h1,
   h2,
   h3 {
