@@ -11,6 +11,7 @@ import {
   Reflection,
   Screenshot,
 } from "@/components/case-study";
+import { ResumeScan } from "@/components/resume-scan";
 import { Button } from "@/components/ui/button";
 import { Section, SectionIntro } from "@/components/ui/primitives";
 import { resumeAnalyzer } from "@/content/ai-resume-analyzer";
@@ -53,6 +54,7 @@ export default function ResumeAnalyzerCaseStudy() {
         name={resumeAnalyzer.name}
         tagline={resumeAnalyzer.tagline}
         facts={resumeAnalyzer.meta}
+        art={<ResumeScan />}
         actions={
           <>
             <Button variant="violet" href={links.resumeAnalyzerLive}>

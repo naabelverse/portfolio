@@ -240,7 +240,10 @@ export function Card({
   );
 }
 
-/** Label/value facts: heavy rules top and bottom, nothing else. */
+/**
+ * Label/value facts, centred between heavy rules. The first fact (the long
+ * one, e.g. Role) takes its own row; the rest share the row below.
+ */
 export function StatStrip({
   items,
   className,
@@ -251,13 +254,13 @@ export function StatStrip({
   return (
     <dl
       className={cn(
-        "grid grid-cols-[repeat(auto-fit,minmax(190px,1fr))] gap-x-8 gap-y-6 border-y-3 border-ink py-[22px]",
+        "flex flex-wrap gap-x-8 gap-y-6 border-y-3 border-ink py-[22px] text-center",
         className,
       )}
     >
       {/* Empty values are unconfirmed facts: render nothing, not a label. */}
       {items.filter((item) => item.value).map((item) => (
-        <div key={item.label}>
+        <div key={item.label} className="flex-1 basis-[190px] first:basis-full">
           <dt className="mb-1 text-[15px] text-ink-3">{item.label}</dt>
           <dd className="font-display text-[22px] font-bold tracking-[-0.02em]">
             {item.value}
