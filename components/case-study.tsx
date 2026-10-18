@@ -257,37 +257,61 @@ export function CaseClose({ body, actions }: { body: string; actions: React.Reac
 }
 
 /**
- * Four-car Shinkansen in the site's sticker style: white body, ink outline,
- * a cobalt stripe and a window line. Pointed noses at both ends, the lead
- * car on the right since it runs left to right.
+ * Four-car Shinkansen (after the N700S) in the site's sticker style: white
+ * body, ink outline, long aero noses at both ends, a cobalt stripe with a sun
+ * pinstripe, single windows, doors, a pantograph and a headlight. The lead
+ * car is on the right since it runs left to right.
  */
+const TRAIN_CARS = [
+  // Tail: nose points left.
+  "M74 6 H52 C32 6 15 12 4 19.5 Q1.5 23 6 23 H74 Z",
+  "M80 6 H148 Q150 6 150 8 V23 H78 V8 Q78 6 80 6 Z",
+  "M156 6 H224 Q226 6 226 8 V23 H154 V8 Q154 6 156 6 Z",
+  // Lead: nose points right.
+  "M230 6 H252 C272 6 289 12 300 19.5 Q302.5 23 298 23 H230 Z",
+];
+const TRAIN_WINDOWS = [
+  [56, 72],
+  [87, 146],
+  [163, 222],
+  [233, 249],
+].flatMap(([from, to]) => Array.from({ length: Math.floor((to - from - 4) / 6.5) + 1 }, (_, i) => from + i * 6.5));
+
 function ShinkansenTrain() {
   const ink = "var(--color-ink)";
-  const cars = [
-    // Tail: nose points left.
-    "M2 21 Q3 9 28 6 H64 V21 Z",
-    "M68 6 H130 V21 H68 Z",
-    "M134 6 H196 V21 H134 Z",
-    // Lead: nose points right.
-    "M200 6 H236 Q261 9 262 21 H200 Z",
-  ];
   return (
-    <svg className="close-train-cars" viewBox="0 0 264 26" fill="none" strokeLinejoin="round">
-      {/* Couplers */}
-      <path d="M64 15 H68 M130 15 H134 M196 15 H200" stroke={ink} strokeWidth="2" />
-      {/* Bogies, two per car, sitting on the border */}
-      {[14, 44, 78, 112, 144, 178, 210, 240].map((x) => (
-        <rect key={x} x={x} y="20" width="12" height="5" rx="2" fill={ink} />
+    <svg className="close-train-cars" viewBox="0 0 304 30" fill="none" strokeLinejoin="round">
+      <defs>
+        <clipPath id="close-train-body">
+          {TRAIN_CARS.map((d) => (
+            <path key={d} d={d} />
+          ))}
+        </clipPath>
+      </defs>
+      {/* Couplers and a pantograph on the second car */}
+      <path d="M74 16 H78 M150 16 H154 M226 16 H230" stroke={ink} strokeWidth="2" />
+      <path d="M112 6 L117 1.5 H124 M117 1.5 L121 6 M114 1.5 H127" stroke={ink} strokeWidth="1.3" strokeLinecap="round" />
+      {/* Bogies, two per car, sitting on the rail */}
+      {[16, 48, 86, 132, 162, 208, 240, 276].map((x) => (
+        <rect key={x} x={x} y="22" width="12" height="5" rx="2" fill={ink} />
       ))}
-      {cars.map((d) => (
-        <path key={d} d={d} fill="var(--color-white)" stroke={ink} strokeWidth="2" />
+      {TRAIN_CARS.map((d) => (
+        <path key={d} d={d} fill="var(--color-white)" />
       ))}
-      {/* Cobalt stripe along the lower body, stopping short of each nose */}
-      <path d="M12 16.5 H64 M68 16.5 H130 M134 16.5 H196 M200 16.5 H252" stroke="var(--color-cobalt)" strokeWidth="3" />
-      {/* Window line on the cars, a cockpit window on each nose */}
-      <path d="M32 11 H60 M72 11 H126 M138 11 H192 M204 11 H232" stroke={ink} strokeWidth="2.5" strokeDasharray="4 3" />
-      <path d="M12 13 Q16 9 24 8.5" stroke={ink} strokeWidth="2.5" strokeLinecap="round" />
-      <path d="M252 13 Q248 9 240 8.5" stroke={ink} strokeWidth="2.5" strokeLinecap="round" />
+      {/* Livery, clipped to the body so the stripes follow each nose */}
+      <g clipPath="url(#close-train-body)">
+        <rect y="15.5" width="304" height="3" fill="var(--color-cobalt)" />
+        <rect y="19.6" width="304" height="1" fill="var(--color-sun)" />
+        <path d="M84 8 V21 M146 8 V21 M160 8 V21 M222 8 V21" stroke="var(--color-ink-3)" strokeWidth="0.8" />
+        {TRAIN_WINDOWS.map((x) => (
+          <rect key={x} x={x} y="9.5" width="4" height="3.4" rx="1" fill={ink} />
+        ))}
+        <path d="M30 13 C34 9.5 42 8 52 8 V13 Z M274 13 C270 9.5 262 8 252 8 V13 Z" fill={ink} />
+        <circle cx="294" cy="19.5" r="1.4" fill="var(--color-sun)" />
+      </g>
+      {TRAIN_CARS.map((d) => (
+        <path key={d} d={d} stroke={ink} strokeWidth="2" />
+      ))}
     </svg>
   );
 }
