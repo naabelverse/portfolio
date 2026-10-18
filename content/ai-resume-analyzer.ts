@@ -70,7 +70,7 @@ export const resumeAnalyzer = {
     },
     { label: "Type", value: "Personal project" },
     { label: "Timeline", value: "Aug 2026 to Oct 2026" },
-    { label: "Status", value: "Live" },
+    { label: "Status", value: "Live and public" },
   ],
 
   stats: [
