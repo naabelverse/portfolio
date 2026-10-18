@@ -11,6 +11,7 @@ import {
   Reflection,
   Screenshot,
 } from "@/components/case-study";
+import { ChatDrift } from "@/components/chat-drift";
 import { ResumeScan } from "@/components/resume-scan";
 import { Button } from "@/components/ui/button";
 import { Section, SectionIntro } from "@/components/ui/primitives";
@@ -83,6 +84,7 @@ export default function ResumeAnalyzerCaseStudy() {
         goal={resumeAnalyzer.goal}
         stack={resumeAnalyzer.stack}
         stats={resumeAnalyzer.stats}
+        art={<ChatDrift />}
       />
 
       <ArchitectureSection

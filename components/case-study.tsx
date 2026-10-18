@@ -86,10 +86,13 @@ export function ProblemSection({
   goal,
   stack,
   stats,
+  art,
 }: {
   title: string;
   paragraphs: readonly string[];
   goal: string;
+  /** Decorative, under the paragraphs on wide screens only. */
+  art?: React.ReactNode;
   stack: readonly StackGroup[];
   stats: readonly Fact[];
 }) {
@@ -103,6 +106,11 @@ export function ProblemSection({
               {paragraph}
             </p>
           ))}
+          {art && (
+            <div aria-hidden="true" className="mt-10 hidden lg:block">
+              {art}
+            </div>
+          )}
         </div>
         <Card className="bg-white">
           <h3>The goal</h3>
