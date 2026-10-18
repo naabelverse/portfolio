@@ -509,11 +509,11 @@
 
 .close-train-cars {
   position: absolute;
-  bottom: 11px;
-  left: calc(50% - 132px);
+  bottom: 9px;
+  left: calc(50% - 152px);
   display: block;
-  width: 264px;
-  height: 26px;
+  width: 304px;
+  height: 30px;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -526,7 +526,7 @@
    sight. */
 @keyframes close-ride {
   0% {
-    left: -270px;
+    left: -310px;
   }
   75%,
   100% {
