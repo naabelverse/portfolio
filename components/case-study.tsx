@@ -43,6 +43,7 @@ export function CaseHeader({
   tagline,
   actions,
   facts,
+  art,
   children,
 }: {
   badge: string;
@@ -51,16 +52,27 @@ export function CaseHeader({
   tagline: string;
   actions: React.ReactNode;
   facts: readonly Fact[];
+  /** Decorative, beside the tagline and actions on wide screens only. */
+  art?: React.ReactNode;
   children?: React.ReactNode;
 }) {
   return (
     // The fade length repeats the Container's bottom padding.
     <div className="fade-bottom bg-(--wash) [--fade-len:clamp(56px,7vw,92px)] [--fade-to:var(--color-paper)]">
       <Container className="pt-[clamp(48px,7vw,86px)] pb-[clamp(56px,7vw,92px)]">
-        <Badge kind={live ? "live" : "academic"}>{badge}</Badge>
-        <h1 className="mt-[18px]">{name}</h1>
-        <p className="mt-6 max-w-lede text-lede text-ink-2">{tagline}</p>
-        <div className="mt-9 flex flex-wrap gap-3.5">{actions}</div>
+        <div className="xl:flex xl:items-center xl:justify-between xl:gap-12">
+          <div>
+            <Badge kind={live ? "live" : "academic"}>{badge}</Badge>
+            <h1 className="mt-[18px]">{name}</h1>
+            <p className="mt-6 max-w-lede text-lede text-ink-2">{tagline}</p>
+            <div className="mt-9 flex flex-wrap gap-3.5">{actions}</div>
+          </div>
+          {art && (
+            <div aria-hidden="true" className="hidden shrink-0 xl:block">
+              {art}
+            </div>
+          )}
+        </div>
         <StatStrip items={facts} className="mt-[clamp(44px,6vw,72px)]" />
         {children}
       </Container>

@@ -536,6 +536,84 @@
   }
 }
 
+/* Resume scan in the analyzer hero (ResumeScan), on an 8s loop: the line
+   sweeps down for 4.4s revealing the marks behind it, the score pops in,
+   then everything fades and restarts. The resting state (reduced motion)
+   is the finished scan without the line. */
+.scan-line {
+  opacity: 0;
+}
+
+.scan-score {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .scan-line {
+    animation: scan-line 8s linear infinite;
+  }
+  .scan-marks {
+    animation: scan-marks 8s linear infinite;
+  }
+  .scan-score {
+    animation: scan-score 8s ease-out infinite;
+  }
+}
+
+/* The marks' clip and the line move together: 0 to 168px over 0-55%. */
+@keyframes scan-line {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  4%,
+  50% {
+    opacity: 1;
+  }
+  55%,
+  100% {
+    transform: translateY(168px);
+    opacity: 0;
+  }
+}
+
+@keyframes scan-marks {
+  0% {
+    clip-path: inset(0 0 100% 0);
+  }
+  55%,
+  92% {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+    opacity: 0;
+  }
+}
+
+@keyframes scan-score {
+  0%,
+  58% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  64% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+  68%,
+  92% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
 /* Gap stars between project chapters (GapStars): each twinkles on its own
    delay. Reduced motion leaves them still, at a resting opacity. */
 .gap-star {
