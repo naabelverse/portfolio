@@ -98,22 +98,6 @@ export default function ResumeAnalyzerCaseStudy() {
         <div className="mt-11 border-t-3 border-ink">
           {resumeAnalyzer.modules.map((module) => (
             <ModuleRow key={module.index} index={module.index} name={module.name} summary={module.summary} detail={module.detail}>
-              {"example" in module && (
-                <div className="mt-6 grid max-w-measure gap-2.5">
-                  <div className="rounded-input border-2 border-line-2 bg-white p-4">
-                    <p className="text-small font-semibold text-ink-3">Before</p>
-                    <p className="mt-1 text-small text-ink-2">{module.example.before}</p>
-                  </div>
-                  <div className="rounded-input border-2 border-ink bg-wash-improved p-4">
-                    <p className="text-small font-semibold text-improved">After</p>
-                    <p className="mt-1 text-small">{module.example.after}</p>
-                  </div>
-                  <p className="text-small text-ink-2">
-                    <span className="font-semibold text-ink">Why: </span>
-                    {module.example.why} <span className="text-ink-3">{module.example.source}</span>
-                  </p>
-                </div>
-              )}
               <div className="mt-6 grid gap-6">
                 {module.screenshots.map((shot) =>
                   // A portrait phone capture at full column width would be a screen tall.
