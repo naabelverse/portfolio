@@ -92,7 +92,7 @@ export const resumeAnalyzer = {
 
   architecture: {
     summary:
-      "One request, three stages. The browser owns the upload, the preview and the report; the API routes check and extract the file in memory; the model only judges, while code computes the numbers, validates the answer and falls back when it has to.",
+      "One request, three stages. The browser owns the upload, the preview and the report; the API routes check and extract the file in memory; the model only judges, while code computes the numbers, validates the answer and falls back when it has to.",
     layers: [
       {
         name: "Next.js client",
