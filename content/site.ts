@@ -77,7 +77,7 @@ export const headerNav = nav.filter((item) => item.href !== navCta.href);
 export const hero = {
   headline: "Final-year software engineering student.",
   intro:
-    "I build mobile and web apps, some with AI models inside them. I'm most interested in using AI to automate work people currently do by hand, and I want an internship where I can go deeper and build more.",
+    "Hi! I'm Nabil. I build mobile and web apps, a few with AI models working inside them. What excites me most is using AI to take over the tedious work people still do by hand, and I'm looking for an internship where I can dig deeper and ship more.",
 } as const;
 
 /** A featured project: one chapter on the home page, with its diagram. */
