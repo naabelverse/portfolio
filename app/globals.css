@@ -42,8 +42,7 @@
   --color-tangerine-deep: #ff7414;
   --color-lavender: #d9c8ff; /* "View the sample report" only: ink text 12.1:1 */
   --color-lavender-deep: #c8b1ff;
-  --color-github: #24292f; /* "View source on GitHub" only, GitHub's own dark: white text 14.7:1 */
-  --color-github-deep: #1b1f23;
+  --color-github: #24292f; /* the GitHub mark on "View source on GitHub" only: GitHub's own dark */
 
   /* "What I'd change" panel only: ink-2 text 6.3:1 ------------------ */
   --color-wash-seafoam: #bdebe8;
