@@ -614,6 +614,92 @@
   }
 }
 
+/* AI chat in the analyzer problem section (ChatDrift). Its states share one
+   slot and take turns on a 12s loop, each starting at its inline delay:
+   typing 1s, replies 2.6s, the error 3.4s to the end of the loop. Fill mode
+   backwards keeps a state hidden while it waits. Reduced motion shows only
+   the error. */
+.chat-state {
+  opacity: 0;
+}
+
+.chat-state-error {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .chat-state-typing {
+    animation: chat-typing 12s backwards infinite;
+  }
+  .chat-state-reply {
+    animation: chat-reply 12s backwards infinite;
+  }
+  .chat-state-error {
+    animation: chat-error 12s backwards infinite;
+  }
+  .chat-dot {
+    animation: chat-dot 0.9s ease-in-out infinite;
+  }
+}
+
+@keyframes chat-typing {
+  0% {
+    opacity: 0;
+  }
+  1%,
+  7.5% {
+    opacity: 1;
+  }
+  8.33%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes chat-reply {
+  0% {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  2%,
+  20.5% {
+    opacity: 1;
+    transform: none;
+  }
+  21.67%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes chat-error {
+  0% {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  2%,
+  26.5% {
+    opacity: 1;
+    transform: none;
+  }
+  28.33%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes chat-dot {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translateY(-3px);
+    opacity: 1;
+  }
+}
+
 /* Gap stars between project chapters (GapStars): each twinkles on its own
    delay. Reduced motion leaves them still, at a resting opacity. */
 .gap-star {
