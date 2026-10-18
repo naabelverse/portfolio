@@ -49,9 +49,9 @@ export const emailAddress = `${links.emailUser}@${links.emailDomain}`;
 
 /**
  * Canonical origin — the single source for metadataBase, the sitemap, robots
- * and every OG URL. Change it here if a custom domain is assigned.
+ * and every OG URL.
  */
-export const siteUrl = "https://portfolio-naabel.up.railway.app";
+export const siteUrl = "https://naabel.com";
 
 /** Footer line. No full stop: the footer adds its own, which pops in last. */
 export const footerMotto = "Still curious. Still building";
