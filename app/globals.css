@@ -130,7 +130,8 @@
   }
 
   /* No one-word last lines. */
-  p {
+  p,
+  figcaption {
     text-wrap: pretty;
   }
   h1,
