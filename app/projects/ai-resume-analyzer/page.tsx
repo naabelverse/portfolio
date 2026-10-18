@@ -61,7 +61,7 @@ export default function ResumeAnalyzerCaseStudy() {
             <Button variant="lavender" href={links.resumeAnalyzerDemo}>
               View the sample report
             </Button>
-            <Button variant="ghost" href={links.resumeAnalyzerRepo}>
+            <Button variant="github" href={links.resumeAnalyzerRepo}>
               View source on GitHub
             </Button>
           </>
