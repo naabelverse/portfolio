@@ -206,7 +206,7 @@ export const resumeAnalyzer = {
           height: 632,
           alt: "Suggested bullet rewrites card showing three pairs of 'Original' and 'Improved' bullet points with a Copy button and a 'Why' line under each; numbers to be filled in are marked [X].",
           caption:
-            "Weak bullet points side by side with an improved version and the reason for it. From the built-in sample report; all values are fictional.",
+            "Each weak bullet beside its rewrite and the reason for it. All values are fictional.",
         },
       ],
     },
